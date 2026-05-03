@@ -17,7 +17,7 @@
       "prompt": "{file:agents/ARCHITECT_AGENT.md}",
       "tools": {
         "read": true, "grep": true, "glob": true,
-        "write": true, "bash": true, "delete": true,
+        "write": "ask", "bash": "ask", "delete": "ask",
         "burst": true, "adr": true, "schema": true
       },
       "capabilities": {
@@ -30,7 +30,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/QA_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "bash": true,
+        "read": true, "write": "ask", "bash": "ask",
         "quality": true, "coverage": true
       }
     },
@@ -39,7 +39,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/SECURITY_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "bash": true,
+        "read": true, "write": "ask", "bash": "ask",
         "red-team": true, "sentinel": true
       }
     },
@@ -48,7 +48,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/STYLE_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "visual": true
+        "read": true, "write": "ask", "visual": true
       }
     },
     "devops-engineer": {
@@ -56,15 +56,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/DEVOPS_AGENT.md}",
       "tools": {
-        "read": true, "bash": true, "write": true
-      }
-    },
-    "context-specialist": {
-      "description": "Deep repository context and business logic mapper.",
-      "mode": "subagent",
-      "prompt": "{file:agents/CONTEXT_AGENT.md}",
-      "tools": {
-        "read": true, "grep": true, "glob": true, "knowledge": true, "search": true
+        "read": true, "bash": "ask", "write": "ask"
       }
     }
   },
@@ -80,42 +72,13 @@
       "template": "{file:commands/tdd.md}\n\n$ARGUMENTS",
       "agent": "qa-specialist",
       "subtask": true
-    },
-    "burst": {
-      "description": "Fullstack systemic burst for new models",
-      "template": "Run npm run tool:burst $ARGUMENTS",
-      "agent": "architect"
-    },
-    "security": {
-      "description": "Comprehensive security audit & red-team scan",
-      "template": "{file:commands/security.md}\nRun npm run tool:red-team",
-      "agent": "security-officer"
-    },
-    "visual": {
-      "description": "Perform visual audit of the frontend",
-      "template": "Run npm run tool:visual --url=$ARGUMENTS",
-      "agent": "style-architect"
-    },
-    "extract": {
-      "description": "Extract and modernize legacy business logic",
-      "template": "Run npm run tool:extract-logic $ARGUMENTS",
-      "agent": "architect"
-    },
-    "quality": {
-      "description": "Execute the mandatory quality gate",
-      "template": "Run npm run tool:quality",
-      "agent": "qa-specialist"
-    },
-    "sentinel": {
-      "description": "Audit a new package before installation",
-      "template": "Run npm run tool:sentinel $ARGUMENTS",
-      "agent": "security-officer"
     }
   },
   "permission": {
     "write_to_file": "ask",
     "replace_file_content": "ask",
     "run_command": "ask",
+    "delete_file": "ask",
     "mcp_*": "ask"
   }
 }
