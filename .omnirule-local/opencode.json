@@ -8,7 +8,7 @@
     "rules/advanced-architecture.md"
   ],
   "plugin": [
-    "{{CONFIG_DIR}}/plugins/index.ts"
+    "/home/f0x017/Desktop/OmniRule/.omnirule-local/plugins/index.ts"
   ],
   "agent": {
     "architect": {
@@ -17,7 +17,7 @@
       "prompt": "{file:agents/ARCHITECT_AGENT.md}",
       "tools": {
         "read": true, "grep": true, "glob": true,
-        "write": true, "bash": true, "delete": false,
+        "write": "ask", "bash": "ask", "delete": "ask",
         "burst": true, "adr": true, "schema": true
       },
       "capabilities": {
@@ -30,7 +30,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/QA_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "bash": true,
+        "read": true, "write": "ask", "bash": "ask",
         "quality": true, "coverage": true
       }
     },
@@ -39,7 +39,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/SECURITY_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "bash": true,
+        "read": true, "write": "ask", "bash": "ask",
         "red-team": true, "sentinel": true
       }
     },
@@ -48,7 +48,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/STYLE_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "visual": true
+        "read": true, "write": "ask", "visual": true
       }
     },
     "devops-engineer": {
@@ -56,7 +56,7 @@
       "mode": "subagent",
       "prompt": "{file:agents/DEVOPS_AGENT.md}",
       "tools": {
-        "read": true, "bash": true, "write": true
+        "read": true, "bash": "ask", "write": "ask"
       }
     }
   },

@@ -1,0 +1,44 @@
+{
+  "scripts": {
+    "omnirule:init": "tsx init.ts",
+    "omnirule:plan": "tsx plan.ts",
+    "omnirule:verify": "tsx verify.ts",
+    "tool:changed": "tsx tools/changed-files.ts",
+    "tool:summary": "tsx tools/git-summary.ts",
+    "tool:security": "tsx tools/security-audit.ts",
+    "tool:lint": "tsx tools/lint-check.ts",
+    "tool:coverage": "tsx tools/check-coverage.ts",
+    "tool:instinct": "tsx tools/instinct-status.ts",
+    "omnirule:install": "tsx install.ts",
+    "tool:quality": "tsx tools/quality-gate.ts",
+    "tool:sentinel": "tsx tools/dependency-sentinel.ts",
+    "tool:red-team": "tsx tools/red-team.ts",
+    "tool:adr": "tsx tools/auto-adr.ts",
+    "tool:search": "tsx tools/semantic-search.ts",
+    "tool:visual": "tsx tools/visual-audit.ts",
+    "tool:schema": "tsx tools/schema-visualizer.ts",
+    "tool:knowledge": "tsx tools/knowledge-bridge.ts"
+  },
+  "version": "1.10.0",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "latest",
+    "fs-extra": "^11.2.0",
+    "next": "latest",
+    "picocolors": "^1.0.0",
+    "playwright": "^1.59.1",
+    "react": "latest",
+    "tailwindcss": "latest",
+    "ts-node": "latest",
+    "typescript": "latest",
+    "zod": "^4.4.2"
+  },
+  "devDependencies": {
+    "@clack/prompts": "^1.3.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "commander": "^14.0.3",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0"
+  }
+}
