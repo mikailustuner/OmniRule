@@ -190,36 +190,30 @@
       "template": "{file:commands/build-fix.md}\n\n$ARGUMENTS",
       "agent": "devops-engineer",
       "subtask": true
-    }
-  },
-  "tools": {
-    "skill-detect": {
+    },
+    "skills": {
       "description": "Detect required skills for the current project. AUTO-INVOKE at session start and when file context changes.",
-      "command": "npm run tool:skills 2>&1"
+      "template": "npm run tool:skills 2>&1"
     },
-    "extract-design": {
-      "description": "Extract full design system (screenshots + tokens) from a URL. AUTO-INVOKE when user provides any http URL. Args: <URL> [--pages /path1,/path2]",
-      "command": "npm run tool:extract -- {args} 2>&1"
-    },
-    "security-audit": {
-      "description": "Scan changed files for security vulnerabilities. AUTO-INVOKE before any commit or when auth/API files are edited.",
-      "command": "npm run tool:security 2>&1"
-    },
-    "dependency-check": {
+    "deps": {
       "description": "Scan package.json for vulnerable or deprecated packages. AUTO-INVOKE at session start and when package.json changes.",
-      "command": "npm run tool:deps 2>&1"
+      "template": "npm run tool:deps 2>&1"
     },
-    "compact-context": {
+    "compact": {
       "description": "Build a critical context snapshot to survive context window compaction. AUTO-INVOKE when context is getting large.",
-      "command": "npm run tool:compact 2>&1"
+      "template": "npm run tool:compact 2>&1"
     },
-    "quality-gate": {
+    "verify": {
       "description": "Run TypeScript + ESLint checks. AUTO-INVOKE after implementation tasks before reporting done.",
-      "command": "npm run omnirule:verify 2>&1"
+      "template": "npm run omnirule:verify 2>&1"
     },
-    "full-check": {
+    "security-scan": {
+      "description": "Scan changed files for security vulnerabilities. AUTO-INVOKE before any commit or when auth/API files are edited.",
+      "template": "npm run tool:security 2>&1"
+    },
+    "check": {
       "description": "Run all checks: deps + security + quality. Use before PR or major task completion.",
-      "command": "npm run omnirule:check 2>&1"
+      "template": "npm run omnirule:check 2>&1"
     }
   },
 

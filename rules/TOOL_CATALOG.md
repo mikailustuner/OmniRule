@@ -84,6 +84,38 @@ npm run tool:extract:install   # installs Playwright Chromium
 
 ---
 
+## 4. Security Audit
+
+- **Command:** `npm run tool:security`
+- **Purpose:** Scan changed files for security vulnerabilities.
+- **When to Use:** Before any commit or when auth/API files are edited.
+
+---
+
+## 5. Dependency Check
+
+- **Command:** `npm run tool:deps`
+- **Purpose:** Scan package.json for vulnerable or deprecated packages.
+- **When to Use:** At session start or when package.json changes.
+
+---
+
+## 6. Compact Context
+
+- **Command:** `npm run tool:compact`
+- **Purpose:** Build a critical context snapshot to survive context window compaction.
+- **When to Use:** When context is getting large.
+
+---
+
+## 7. Full Check
+
+- **Command:** `npm run omnirule:check`
+- **Purpose:** Run all checks: deps + security + quality.
+- **When to Use:** Before PR or major task completion.
+
+---
+
 ## Adding a New Tool
 
 1. Create `tools/{name}.ts`
