@@ -1,0 +1,54 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/hooks/session-start.js"
+          }
+        ],
+        "description": "Initialize OmniRule context and project memory",
+        "id": "session:start"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/hooks/gateguard.js"
+          }
+        ],
+        "description": "Fact-forcing: Ensure research is done before writing",
+        "id": "pre:write:gateguard"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/hooks/security-check.js"
+          }
+        ],
+        "description": "Block dangerous bash commands",
+        "id": "pre:bash:security"
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/hooks/quality-gate.js"
+          }
+        ],
+        "description": "Batch quality checks (lint, typecheck) at the end of response",
+        "id": "stop:quality-gate"
+      }
+    ]
+  }
+}

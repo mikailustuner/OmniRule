@@ -1,170 +1,51 @@
 ---
 name: nextjs-expert
-description: "Next.js 16 App Router: When to use Server vs Client, Data fetching patterns, Caching strategy, Server Actions workflow."
+description: Expert guidance for Next.js 15+ development including App Router, Server Components, and performance optimization.
+origin: OmniRule
 ---
 
-# Next.js 16 Architecture Patterns
+# Next.js 15+ Expert Workflow
 
-**Version:** Next.js 16.2 | **Focus:** Decision trees, patterns, when-to-use
+This skill ensures Next.js applications are built with maximum performance and modern patterns.
 
-## 1. Server vs Client Decision
+## When to Activate
+- Developing Next.js pages or layouts.
+- Implementing Server Actions.
+- Optimizing for Core Web Vitals.
+- Configuring `next.config.js`.
 
-```
-Is this component interactive? (onClick, onChange, useState, useEffect)
-├── YES → Client Component
-│   └── Add 'use client' at TOP of file
-│   └── Use only when necessary - minimize client bundle
-│   └── Import Server Components directly
-│
-└── NO → Server Component (default in App Router)
-    └── Use for: data fetching, layout, SEO-critical HTML
-    └── Can import Client Components
-```
+## Core Principles
+1. **Server-First**: Prefer Server Components for data fetching and heavy logic.
+2. **Minimal Client Code**: Use `'use client'` only when interactivity is required.
+3. **Optimized Fetching**: Use `fetch` with appropriate revalidation tags.
+4. **Layout-Driven Design**: Leverage `layout.tsx` for shared UI and state.
 
-**Rule of thumb:** 80-90% should be Server Components. Only add 'use client' when you need:
-- Event handlers (onClick, onChange)
-- Browser APIs (localStorage, window)
-- React hooks (useState, useEffect, useRef)
+## Implementation Steps
 
----
-
-## 2. Data Fetching Strategy
-
-```
-Need data in Server Component?
-├── fetch() → Use for external APIs
-│   └── next: { revalidate: 3600 } → cache for 1 hour
-│   └── next: { cache: 'no-store' } → always fresh
-│   └── next: { tags: ['products'] } → revalidate by tag
-│
-├── Direct DB query → Use for internal data
-│   └── Use cache() for memoization within request
-│   └── Prisma/DB queries are NOT cached by default
-│
-└── Third-party → Use client with SWR/TanStack Query
+### 1. Data Fetching Pattern
+Always fetch data in Server Components where possible:
+```tsx
+// app/page.tsx
+async function Page() {
+  const data = await fetchData();
+  return <Component data={data} />;
+}
 ```
 
-**Caching Rules:**
-- Static data (blog posts): cache forever with revalidate
-- User-specific data: no-store or short revalidate
-- Real-time: no-store, use SWR/TanStack Query
-
----
-
-## 3. Server Actions Workflow
-
-```
-Form submission flow:
-1. Client: <form action={serverAction}>
-2. Server Action: receives FormData
-3. Validate: Zod schema.safeParse(Object.fromEntries(formData))
-4. If invalid: return { errors: ... }
-5. If valid: mutate DB
-6. Revalidate: revalidateTag() or revalidatePath()
-7. Return: { success: true } or { message: 'error' }
-8. Client: useActionState() handles state + pending
+### 2. Server Actions Pattern
+Use Server Actions for mutations:
+```tsx
+// app/actions.ts
+'use server'
+export async function createItem(formData: FormData) {
+  // Logic here
+}
 ```
 
-**When to use Server Actions:**
-- ✓ Form submissions
-- ✓ Data mutations (CRUD)
-- ✓ Any POST/PUT/DELETE operations
-- ✗ External API calls (use Route Handlers)
-- ✗ Streaming responses (use Route Handlers)
+### 3. Loading & Error States
+Always implement `loading.tsx` and `error.tsx` for better UX.
 
----
-
-## 4. Cache Components (Next.js 16)
-
-```
-When to cache:
-├── Static data that rarely changes → "use cache"
-│   └── Blog posts, product catalog, static pages
-│
-├── Semi-static with TTL → { stale: 3600 }
-│   └── User profiles, settings
-│
-└── Never cache → cache: 'no-store'
-    └── Real-time data, user-specific content
-```
-
-**Cache invalidation:**
-- Time-based: revalidate: 3600
-- Tag-based: revalidateTag('products')
-- Path-based: revalidatePath('/products')
-- On-demand: updateTag() (Server Actions only)
-
----
-
-## 5. Routing Patterns
-
-```
-URL Structure:
-/dashboard         → dashboard/page.tsx
-/dashboard/settings → dashboard/settings/page.tsx
-/products/123      → products/[id]/page.tsx
-
-Parallel Routes (multiple slots):
-/dashboard → dashboard/layout.tsx gets children + @analytics + @revenue
-
-Intercepting Routes (modal with context):
-/feed/photo/123 (modal) ← click from /feed
-/photo/123 (full page)  ← direct access
-```
-
----
-
-## 6. PPR (Partial Prerendering) Decision
-
-```
-Use PPR when:
-├── Page has static shell (header, nav, footer)
-├── Page has dynamic sections (user-specific content)
-└── Want instant TTFB + progressive streaming
-
-How to enable:
-├── Add experimental_ppr = true to page
-├── Wrap dynamic parts with Suspense
-└── Static parts load immediately, dynamic streams in
-```
-
----
-
-## 7. Error Handling Flow
-
-```
-Error types:
-├── 404 → notFound() in Server Component
-├── 403 → throw Response('Forbidden', { status: 403 })
-├── 401 → redirect('/login') or throw Response
-└── 500 → error.tsx (React error boundary)
-
-error.tsx pattern:
-├── Must be Client Component ('use client')
-├── Has access to error.digest for logging
-└── Can call reset() to retry
-```
-
----
-
-## 8. Build & Deploy Decisions
-
-```
-Dev vs Prod:
-├── npm run dev → Turbopack (5-10x faster)
-└── npm run build → Webpack (Turbopack experimental)
-
-Runtime selection:
-├── edge → auth checks, A/B testing, geo
-└── node → DB access, heavy compute, streams
-```
-
----
-
-## Key Patterns
-
-1. **Server-first** - Default to Server Components
-2. **Minimal client** - Only 'use client' when needed
-3. **Explicit caching** - Use tags, don't rely on defaults
-4. **Server Actions** - Replace most API routes
-5. **Streaming** - Use Suspense for partial loading
+## Success Metrics
+- 100/100 Lighthouse performance score.
+- Zero layout shift (CLS < 0.1).
+- Server-side rendered content accessible without JS.

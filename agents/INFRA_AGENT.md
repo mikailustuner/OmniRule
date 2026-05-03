@@ -1,6 +1,7 @@
+---
 name: infra-specialist
 description: Backend infrastructure and performance expert. Specialized in SQL, Redis, and high-performance data systems. Use for database schema design and backend optimization.
-tools: {"read":true,"grep":true,"glob":true,"bash":true,"write":true}
+tools: {"bash":true,"read":true,"grep":true,"glob":true,"write":true}
 ---
 
 # INFRA_AGENT: Infrastructure and Backend Performance Specialist

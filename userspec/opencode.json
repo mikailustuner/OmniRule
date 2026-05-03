@@ -4,63 +4,151 @@
     "AGENTS.md",
     "instructions/INSTRUCTIONS.md",
     "rules/KARPATHY.md",
-    "rules/ORCHESTRATION.md",
-    "rules/advanced-architecture.md"
+    "rules/TOOL_CATALOG.md",
+    "rules/ORCHESTRATION.md"
   ],
   "plugin": [
     "{{CONFIG_DIR}}/plugins/index.ts"
   ],
   "agent": {
-    "architect": {
-      "description": "Principal System Architect. System design, scalability, and technical strategy. Orchestrates the entire fleet.",
+    "orchestrator": {
+      "description": "Main entry point. Routes every task to the right specialist agent. Always start here.",
       "mode": "primary",
+      "prompt": "{file:agents/ORCHESTRATOR_AGENT.md}",
+      "tools": {
+        "read": true, "grep": true, "glob": true,
+        "write": true, "bash": true, "delete": false, "mcp": true
+      },
+      "capabilities": {
+        "subAgents": [
+          "architect", "style-architect", "frontend-ops",
+          "qa-specialist", "security-officer", "devops-engineer",
+          "infra-specialist", "seo-agent", "researcher",
+          "docs-agent", "context-agent"
+        ],
+        "maxParallel": 4
+      }
+    },
+    "architect": {
+      "description": "Principal System Architect. System design, scalability, and technical strategy.",
+      "mode": "subagent",
       "prompt": "{file:agents/ARCHITECT_AGENT.md}",
       "tools": {
         "read": true, "grep": true, "glob": true,
-        "write": true, "bash": true, "delete": false,
-        "burst": true, "adr": true, "schema": true
+        "write": true, "bash": true, "delete": false
       },
-      "capabilities": {
-        "subAgents": ["qa-specialist", "security-officer", "infra-specialist", "devops-engineer", "context-specialist"],
-        "maxParallel": 3
-      }
+      "skills": ["clean-architecture", "hexagonal-architecture", "ddd-patterns", "microservices-patterns"]
+    },
+    "style-architect": {
+      "description": "Visual reverse-engineering and Design Tokens specialist. Runs frontend-extractor tool.",
+      "mode": "subagent",
+      "prompt": "{file:agents/STYLE_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "bash": true
+      },
+      "skills": ["tailwind-expert", "css-architecture", "css-variables", "responsive-design", "animations-patterns"]
+    },
+    "frontend-ops": {
+      "description": "React, state management, and bundle optimization specialist.",
+      "mode": "subagent",
+      "prompt": "{file:agents/FRONTEND_OPS_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "bash": true
+      },
+      "skills": ["react-expert", "state-management", "bundle-optimization", "web-performance", "nextjs-expert"]
     },
     "qa-specialist": {
-      "description": "TDD and Quality Gate expert. Enforces 80%+ test coverage.",
+      "description": "TDD and Quality Gate expert. E2E testing with Playwright.",
       "mode": "subagent",
       "prompt": "{file:agents/QA_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "bash": true,
-        "quality": true, "coverage": true
-      }
+        "read": true, "write": true, "bash": true
+      },
+      "skills": ["testing-patterns", "debugging-strategies"]
     },
     "security-officer": {
       "description": "Threat modeling and Red-Team specialist. Zero-trust enforcer.",
       "mode": "subagent",
       "prompt": "{file:agents/SECURITY_AGENT.md}",
       "tools": {
-        "read": true, "write": true, "bash": true,
-        "red-team": true, "sentinel": true
-      }
-    },
-    "style-architect": {
-      "description": "Visual reverse-engineering and Design Tokens specialist.",
-      "mode": "subagent",
-      "prompt": "{file:agents/STYLE_AGENT.md}",
-      "tools": {
-        "read": true, "write": true, "visual": true
-      }
+        "read": true, "write": true, "bash": true
+      },
+      "skills": ["security-review", "authentication-patterns"]
     },
     "devops-engineer": {
-      "description": "CI/CD, Docker, and Infrastructure automation expert.",
+      "description": "CI/CD, Docker, Kubernetes, and Infrastructure automation.",
       "mode": "subagent",
       "prompt": "{file:agents/DEVOPS_AGENT.md}",
       "tools": {
         "read": true, "bash": true, "write": true
-      }
+      },
+      "skills": ["docker-patterns", "ci-cd-patterns", "kubernetes-basics", "terraform-basics"]
+    },
+    "infra-specialist": {
+      "description": "Database, Redis, caching, and message queue expert.",
+      "mode": "subagent",
+      "prompt": "{file:agents/INFRA_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "bash": true
+      },
+      "skills": ["postgres-patterns", "redis-patterns", "mongodb-patterns", "caching-patterns", "message-queues"]
+    },
+    "seo-agent": {
+      "description": "Search visibility, Core Web Vitals, and semantic HTML specialist.",
+      "mode": "subagent",
+      "prompt": "{file:agents/SEO_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "bash": true
+      },
+      "skills": ["html-semantic", "web-performance", "accessibility-basics"]
+    },
+    "researcher": {
+      "description": "Deep research, documentation lookup, and codebase investigation.",
+      "mode": "subagent",
+      "prompt": "{file:agents/RESEARCHER.md}",
+      "tools": {
+        "read": true, "grep": true, "glob": true, "bash": true
+      },
+      "skills": ["documentation-patterns"]
+    },
+    "docs-agent": {
+      "description": "Technical documentation, OpenAPI specs, and README precision.",
+      "mode": "subagent",
+      "prompt": "{file:agents/DOCS_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "bash": true
+      },
+      "skills": ["documentation-patterns", "api-design"]
+    },
+    "context-agent": {
+      "description": "DB schema mapping and business logic inference. Prisma expert.",
+      "mode": "subagent",
+      "prompt": "{file:agents/CONTEXT_AGENT.md}",
+      "tools": {
+        "read": true, "bash": true
+      },
+      "skills": ["prisma-expert", "postgres-patterns", "ddd-patterns"]
     }
   },
   "command": {
+    "orchestrate": {
+      "description": "Route any task through the full agent fleet",
+      "template": "{file:commands/orchestrate.md}\n\n$ARGUMENTS",
+      "agent": "orchestrator",
+      "subtask": true
+    },
+    "extract": {
+      "description": "Extract design tokens and screenshots from a live URL",
+      "template": "Run: npm run tool:extract -- $ARGUMENTS\nThen read .design/ output and summarize the design system.",
+      "agent": "style-architect",
+      "subtask": true
+    },
+    "design": {
+      "description": "Analyze or apply a design system from .design/ tokens",
+      "template": "{file:commands/design.md}\n\n$ARGUMENTS",
+      "agent": "style-architect",
+      "subtask": true
+    },
     "plan": {
       "description": "Strategic implementation planning",
       "template": "{file:commands/plan.md}\n\n$ARGUMENTS",
@@ -72,8 +160,69 @@
       "template": "{file:commands/tdd.md}\n\n$ARGUMENTS",
       "agent": "qa-specialist",
       "subtask": true
+    },
+    "security": {
+      "description": "Security audit and threat modeling",
+      "template": "{file:commands/security.md}\n\n$ARGUMENTS",
+      "agent": "security-officer",
+      "subtask": true
+    },
+    "refactor": {
+      "description": "Structured code refactoring",
+      "template": "{file:commands/refactor.md}\n\n$ARGUMENTS",
+      "agent": "architect",
+      "subtask": true
+    },
+    "research": {
+      "description": "Deep investigation and documentation lookup",
+      "template": "{file:commands/research.md}\n\n$ARGUMENTS",
+      "agent": "researcher",
+      "subtask": true
+    },
+    "docs": {
+      "description": "Generate or update documentation",
+      "template": "{file:commands/documentation.md}\n\n$ARGUMENTS",
+      "agent": "docs-agent",
+      "subtask": true
+    },
+    "build-fix": {
+      "description": "Diagnose and fix build failures",
+      "template": "{file:commands/build-fix.md}\n\n$ARGUMENTS",
+      "agent": "devops-engineer",
+      "subtask": true
     }
   },
+  "tools": {
+    "skill-detect": {
+      "description": "Detect required skills for the current project. AUTO-INVOKE at session start and when file context changes.",
+      "command": "npm run tool:skills 2>&1"
+    },
+    "extract-design": {
+      "description": "Extract full design system (screenshots + tokens) from a URL. AUTO-INVOKE when user provides any http URL. Args: <URL> [--pages /path1,/path2]",
+      "command": "npm run tool:extract -- {args} 2>&1"
+    },
+    "security-audit": {
+      "description": "Scan changed files for security vulnerabilities. AUTO-INVOKE before any commit or when auth/API files are edited.",
+      "command": "npm run tool:security 2>&1"
+    },
+    "dependency-check": {
+      "description": "Scan package.json for vulnerable or deprecated packages. AUTO-INVOKE at session start and when package.json changes.",
+      "command": "npm run tool:deps 2>&1"
+    },
+    "compact-context": {
+      "description": "Build a critical context snapshot to survive context window compaction. AUTO-INVOKE when context is getting large.",
+      "command": "npm run tool:compact 2>&1"
+    },
+    "quality-gate": {
+      "description": "Run TypeScript + ESLint checks. AUTO-INVOKE after implementation tasks before reporting done.",
+      "command": "npm run omnirule:verify 2>&1"
+    },
+    "full-check": {
+      "description": "Run all checks: deps + security + quality. Use before PR or major task completion.",
+      "command": "npm run omnirule:check 2>&1"
+    }
+  },
+
   "permission": {
     "write_to_file": "ask",
     "replace_file_content": "ask",

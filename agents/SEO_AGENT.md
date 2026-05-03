@@ -1,6 +1,7 @@
+---
 name: seo-agent
 description: Search visibility and Core Web Vitals specialist. Expert in semantic HTML, schema markup, and performance optimization. Use for search visibility and on-page SEO.
-tools: {"read":true,"grep":true,"glob":true,"write":true}
+tools: {"bash":true,"read":true,"grep":true,"glob":true,"write":true}
 ---
 
 # SEO_AGENT: Search Visibility & Performance Architect (Absolute Maximization)

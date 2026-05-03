@@ -1,6 +1,7 @@
+---
 name: documentation-agent
 description: Technical documentation and ADR specialist. Expert in OpenAPI, JSDoc, and README precision. Use for maintaining the project knowledge base.
-tools: {"read":true,"grep":true,"glob":true,"write":true}
+tools: {"bash":true,"read":true,"grep":true,"glob":true,"write":true}
 ---
 
 # DOCS_AGENT: Technical Documentation and ADR Specialist

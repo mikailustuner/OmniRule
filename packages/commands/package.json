@@ -1,8 +1,0 @@
-{
-  "name": "@omnirule/commands",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "Global SOPs and workflows for OmniRule Agents",
-  "main": "index.js",
-  "license": "MIT"
-}

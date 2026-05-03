@@ -1,6 +1,7 @@
+---
 name: context-specialist
 description: Deep repository context specialist. Expert at mapping database schemas, business logic flows, and technical dependencies. Use when you need to understand "how things connect".
-tools: {"read":true,"grep":true,"glob":true,"write":true}
+tools: {"bash":true,"read":true,"grep":true,"glob":true,"write":true}
 ---
 
 # CONTEXT_AGENT: Repository Context Specialist

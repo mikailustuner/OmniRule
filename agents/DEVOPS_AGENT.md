@@ -1,6 +1,7 @@
+---
 name: devops-engineer
 description: Infrastructure and automation expert. Specialized in Docker, K8s, CI/CD pipelines, and Terraform. Use for deployment configurations and environment setup.
-tools: {"read":true,"grep":true,"glob":true,"bash":true,"write":true}
+tools: {"bash":true,"read":true,"grep":true,"glob":true,"write":true}
 ---
 
 # DEVOPS_AGENT: Infrastructure and Automation Specialist
