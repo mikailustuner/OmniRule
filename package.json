@@ -1,0 +1,44 @@
+{
+  "scripts": {
+    "omnirule:init": "tsx packages/core/src/init.ts",
+    "omnirule:plan": "tsx packages/core/src/plan.ts",
+    "omnirule:verify": "tsx packages/core/src/verify.ts",
+    "tool:changed": "tsx packages/core/src/tools/changed-files.ts",
+    "tool:summary": "tsx packages/core/src/tools/git-summary.ts",
+    "tool:security": "tsx packages/core/src/tools/security-audit.ts",
+    "tool:lint": "tsx packages/core/src/tools/lint-check.ts",
+    "tool:coverage": "tsx packages/core/src/tools/check-coverage.ts",
+    "tool:instinct": "tsx packages/core/src/tools/instinct-status.ts",
+    "omnirule:install": "tsx packages/core/src/install.ts",
+    "tool:quality": "tsx packages/core/src/tools/quality-gate.ts",
+    "tool:sentinel": "tsx packages/core/src/tools/dependency-sentinel.ts",
+    "tool:red-team": "tsx packages/core/src/tools/red-team.ts",
+    "tool:adr": "tsx packages/core/src/tools/auto-adr.ts",
+    "tool:search": "tsx packages/core/src/tools/semantic-search.ts",
+    "tool:visual": "tsx packages/core/src/tools/visual-audit.ts",
+    "tool:schema": "tsx packages/core/src/tools/schema-visualizer.ts",
+    "tool:knowledge": "tsx packages/core/src/tools/knowledge-bridge.ts"
+  },
+  "version": "1.10.0",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "latest",
+    "fs-extra": "^11.2.0",
+    "next": "latest",
+    "picocolors": "^1.0.0",
+    "playwright": "^1.59.1",
+    "react": "latest",
+    "tailwindcss": "latest",
+    "ts-node": "latest",
+    "typescript": "latest",
+    "zod": "^4.4.2"
+  },
+  "devDependencies": {
+    "@clack/prompts": "^1.3.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "commander": "^14.0.3",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0"
+  }
+}

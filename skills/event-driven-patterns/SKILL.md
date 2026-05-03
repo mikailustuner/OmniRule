@@ -1,0 +1,213 @@
+---
+name: event-driven-patterns
+description: "Event-driven: Event sourcing, CQRS, event patterns, choreography vs orchestration."
+---
+
+# Event-Driven Architecture Patterns
+
+**Focus:** Events, commands, event sourcing
+
+---
+
+## 1. When to Use Event-Driven
+
+```
+When event-driven makes sense:
+
+├── Multiple subsystems need same data
+│   └── Orders affect inventory, notifications, analytics
+│   └── Each service owns its data
+│
+├── Loose coupling required
+│   └── Services shouldn't call each other directly
+│   └── Teams work independently
+│
+├── Real-time reactions needed
+│   └── Notifications, dashboards, sync
+│   └── Users see updates immediately
+│
+├── Audit trail important
+│   └── Every change recorded
+│   └── Replay for debugging
+│
+└── Scalability needed
+    └── Handle burst traffic
+    └── Decouple producers from consumers
+```
+
+```
+When NOT to use:
+
+├── Simple CRUD app
+│   └── Direct database access is simpler
+│
+├── Strong consistency required
+│   └── Eventual consistency issues
+│   └── Use synchronous when can't lose data
+│
+├── Small team
+│   └── Complexity overhead not worth it
+│
+└── Debugging difficult
+    └── Hard to trace event chains
+```
+
+---
+
+## 2. Event Patterns
+
+```
+Event types:
+
+├── Domain events
+    └── Something happened in domain
+    └── Orders: OrderPlaced, OrderShipped
+    └── Meaningful to business
+│
+├── Integration events
+    └── Cross-service communication
+    └── OrderPlaced → NotifyCustomer
+    └── Technical, not business
+│
+└── Commands
+    └── Intent to do something
+    └── Expects response/action
+    └── Not an event, a request
+```
+
+```
+Event structure:
+├── Event type: what happened
+├── Payload: data about event
+├── Metadata: timestamp, source, correlation ID
+└── Event ID: unique identifier
+```
+
+---
+
+## 3. Event Sourcing
+
+```
+When to use event sourcing:
+
+├── Need complete audit trail
+│   └── Every change stored as event
+│   └── Can replay to any point
+│
+├── Complex state changes
+│   └── State derived from event history
+│   └── Shopping cart, workflow engines
+│
+├── Temporal queries
+│   └── What was state at time T?
+│   └── Reports, analytics, debugging
+│
+└── Long-running processes
+    └── Saga, workflows
+    └── Can resume from checkpoint
+```
+
+```
+Challenges:
+├── Learning curve for team
+├── Event schema evolution (versioning)
+├── Snapshotting for performance
+└── Storage size over time
+```
+
+---
+
+## 4. CQRS Pattern
+
+```
+When to use CQRS:
+
+├── Read and write patterns differ
+│   └── Writes: complex validation
+│   └── Reads: multiple views, aggregations
+│
+├── Different scaling needs
+│   └── Many more reads than writes
+│   └── Scale read replicas independently
+│
+├── Multiple read models
+│   └── Same data, different formats
+│   └── Product: list view, detail view, admin view
+│
+└── Performance critical
+    └── Optimized read paths
+    └── Denormalized for queries
+```
+
+```
+Implementation:
+├── Write side: normalized model
+├── Read side: optimized projections
+├── Sync: events update read models
+└── Eventually consistent
+```
+
+---
+
+## 5. Choreography vs Orchestration
+
+```
+Choreography (decentralized):
+
+├── Each service knows its job
+│   └── Orders: emit OrderPlaced
+│   └── Inventory: listens, updates stock
+│   └── Notifications: listens, sends email
+│
+├── Pros: loose coupling, independent
+├── Cons: hard to track flow, debugging
+└── Use when: simple flows, few services
+```
+
+```
+Orchestration (centralized):
+
+├── Orchestrator directs the flow
+│   └── OrderService coordinates
+│   └── Calls Inventory, then Notifications
+│
+├── Pros: clear flow, easier debugging
+├── Cons: orchestrator is bottleneck
+└── Use when: complex flows, need control
+```
+
+---
+
+## 6. Idempotency
+
+```
+Why idempotency matters:
+
+├── Events can be delivered multiple times
+├── Network failures cause retries
+└── Must handle duplicate events
+
+How to achieve:
+
+├── Event ID tracking
+    └── Store processed event IDs
+    └── Skip if already processed
+│
+├── Natural idempotency
+    └── Same input = same output
+    └── "Set status to shipped" is idempotent
+│
+└── Deduplication table
+    └── Store event ID + result
+    └── Fast lookup for duplicates
+```
+
+---
+
+## Key Patterns
+
+1. **Events over direct calls** — Loose coupling
+2. **Idempotent consumers** — Handle duplicates
+3. **Version events** — Plan for schema changes
+4. **Choreography for simple, orchestration for complex**
+5. **CQRS when read/write patterns differ**

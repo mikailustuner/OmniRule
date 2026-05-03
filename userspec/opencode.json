@@ -1,0 +1,121 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    "instructions/INSTRUCTIONS.md",
+    "rules/KARPATHY.md",
+    "rules/ORCHESTRATION.md",
+    "rules/advanced-architecture.md"
+  ],
+  "plugin": [
+    "{{CONFIG_DIR}}/plugins/index.ts"
+  ],
+  "agent": {
+    "architect": {
+      "description": "Principal System Architect. System design, scalability, and technical strategy. Orchestrates the entire fleet.",
+      "mode": "primary",
+      "prompt": "{file:agents/ARCHITECT_AGENT.md}",
+      "tools": {
+        "read": true, "grep": true, "glob": true,
+        "write": true, "bash": true, "delete": true,
+        "burst": true, "adr": true, "schema": true
+      },
+      "capabilities": {
+        "subAgents": ["qa-specialist", "security-officer", "infra-specialist", "devops-engineer", "context-specialist"],
+        "maxParallel": 3
+      }
+    },
+    "qa-specialist": {
+      "description": "TDD and Quality Gate expert. Enforces 80%+ test coverage.",
+      "mode": "subagent",
+      "prompt": "{file:agents/QA_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "bash": true,
+        "quality": true, "coverage": true
+      }
+    },
+    "security-officer": {
+      "description": "Threat modeling and Red-Team specialist. Zero-trust enforcer.",
+      "mode": "subagent",
+      "prompt": "{file:agents/SECURITY_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "bash": true,
+        "red-team": true, "sentinel": true
+      }
+    },
+    "style-architect": {
+      "description": "Visual reverse-engineering and Design Tokens specialist.",
+      "mode": "subagent",
+      "prompt": "{file:agents/STYLE_AGENT.md}",
+      "tools": {
+        "read": true, "write": true, "visual": true
+      }
+    },
+    "devops-engineer": {
+      "description": "CI/CD, Docker, and Infrastructure automation expert.",
+      "mode": "subagent",
+      "prompt": "{file:agents/DEVOPS_AGENT.md}",
+      "tools": {
+        "read": true, "bash": true, "write": true
+      }
+    },
+    "context-specialist": {
+      "description": "Deep repository context and business logic mapper.",
+      "mode": "subagent",
+      "prompt": "{file:agents/CONTEXT_AGENT.md}",
+      "tools": {
+        "read": true, "grep": true, "glob": true, "knowledge": true, "search": true
+      }
+    }
+  },
+  "command": {
+    "plan": {
+      "description": "Strategic implementation planning",
+      "template": "{file:commands/plan.md}\n\n$ARGUMENTS",
+      "agent": "architect",
+      "subtask": true
+    },
+    "tdd": {
+      "description": "Red-Green-Refactor TDD Workflow",
+      "template": "{file:commands/tdd.md}\n\n$ARGUMENTS",
+      "agent": "qa-specialist",
+      "subtask": true
+    },
+    "burst": {
+      "description": "Fullstack systemic burst for new models",
+      "template": "Run npm run tool:burst $ARGUMENTS",
+      "agent": "architect"
+    },
+    "security": {
+      "description": "Comprehensive security audit & red-team scan",
+      "template": "{file:commands/security.md}\nRun npm run tool:red-team",
+      "agent": "security-officer"
+    },
+    "visual": {
+      "description": "Perform visual audit of the frontend",
+      "template": "Run npm run tool:visual --url=$ARGUMENTS",
+      "agent": "style-architect"
+    },
+    "extract": {
+      "description": "Extract and modernize legacy business logic",
+      "template": "Run npm run tool:extract-logic $ARGUMENTS",
+      "agent": "architect"
+    },
+    "quality": {
+      "description": "Execute the mandatory quality gate",
+      "template": "Run npm run tool:quality",
+      "agent": "qa-specialist"
+    },
+    "sentinel": {
+      "description": "Audit a new package before installation",
+      "template": "Run npm run tool:sentinel $ARGUMENTS",
+      "agent": "security-officer"
+    }
+  },
+  "permission": {
+    "write_to_file": "ask",
+    "replace_file_content": "ask",
+    "run_command": "ask",
+    "mcp_*": "ask"
+  }
+}

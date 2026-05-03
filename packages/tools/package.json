@@ -1,0 +1,26 @@
+{
+  "name": "@omnirule/tools",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Global executable utilities for OmniRule Skills and Agents",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "omnirule-skill-detect": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "skill-detect": "node dist/index.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.0.0",
+    "picocolors": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,157 @@
+---
+name: api-design
+description: "API Design: Resource structure, HTTP method selection, Response patterns, Error handling."
+---
+
+# API Design Patterns
+
+**Focus:** REST, HTTP semantics, conventions
+
+## 1. Resource Design
+
+```
+How to structure URLs:
+├── Nouns (resources), not verbs
+├── Plural (users, not user)
+├── Kebab-case (order-items, not orderItems)
+└── Hierarchical for relationships (users/123/orders)
+
+What to expose:
+├── Resources user interacts with
+├── Fields needed by client
+└── Links to related resources
+
+What NOT to expose:
+├── Internal IDs (use UUID)
+├── Implementation details
+└── Database fields
+```
+
+---
+
+## 2. HTTP Method Selection
+
+```
+Methods and their use:
+├── GET: retrieve data, idempotent
+├── POST: create new resource
+├── PUT: replace entire resource (idempotent)
+├── PATCH: partial update (idempotent)
+├── DELETE: remove resource (idempotent)
+
+Idempotency:
+├── GET, PUT, DELETE: safe to retry
+├── POST: NOT idempotent, careful with retry
+└── PATCH: usually idempotent if designed right
+```
+
+---
+
+## 3. Response Format
+
+```
+Success patterns:
+├── Single: { data: {...} }
+├── List: { data: [...], meta: {...} }
+├── Created: { data: {...}, message: ... }
+
+Error patterns:
+├── 400: { error: { code, message, details: [...] } }
+├── 401: { error: { code, message } }
+├── 404: { error: { code, message } }
+└── 500: { error: { code, message } }
+
+Meta for collections:
+├── Pagination: page, perPage, total
+├── Filtering: filters applied
+└── Sorting: sort parameters used
+```
+
+---
+
+## 4. Pagination Strategy
+
+```
+When to paginate:
+├── Always for lists (default 20-50)
+└── Prevent large responses
+
+Offset-based:
+├── Simple: page, per_page
+├── Good for: user-facing, sequential
+└── Problem: skip performance on large offsets
+
+Cursor-based:
+├── Complex: cursor (last seen ID)
+├── Good for: large datasets, real-time
+└── Problem: can't jump to specific page
+```
+
+---
+
+## 5. Filtering & Sorting
+
+```
+Filter patterns:
+├── Query params: ?status=active
+├── Multiple: ?status=active&type=premium
+├── Range: ?price_gte=10&price_lte=100
+└── Complex: ?filter=field_eq_value
+
+Sort patterns:
+├── Single: ?sort=created_at
+├── Multiple: ?sort=-created_at,name (desc first, then asc)
+└── Default: always sort (predictable)
+```
+
+---
+
+## 6. Versioning Strategy
+
+```
+When to version:
+├── Breaking changes
+├── Removing fields
+└── Changing response structure
+
+Version in:
+├── URL: /api/v1/users (preferred)
+├── Header: Accept: application/vnd.api.v1+json
+└── Query: ?version=1 (avoid)
+
+Deprecation:
+├── Sunset header
+├── Link to new version
+└── Warn in response
+```
+
+---
+
+## 7. Error Handling
+
+```
+Error response structure:
+├── Code: machine-readable (VALIDATION_ERROR)
+├── Message: human-readable
+└── Details: field-specific errors
+
+When to use codes:
+├── 400: validation error
+├── 401: authentication failed
+├── 403: authorization failed
+├── 404: resource not found
+├── 409: conflict (duplicate)
+├── 422: unprocessable (business logic)
+└── 429: rate limited
+```
+
+---
+
+## Key Patterns
+
+1. **Nouns for resources** - /users not /getUsers
+2. **GET for read** - safe, idempotent
+3. **POST for create** - non-idempotent
+4. **Consistent format** - data/meta/error
+5. **Pagination always** - for lists
+6. **Version in URL** - /api/v1/
