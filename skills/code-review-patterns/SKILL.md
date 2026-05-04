@@ -1,6 +1,11 @@
 ---
 name: code-review-patterns
-description: "Code Review Patterns: Review checklist, feedback patterns, approval flow, constructive feedback."
+description: "Code Review Patterns: Review checklist, feedback patterns, approval flow, constructive feedback." 
+triggers:
+  keywords: ["review", "PR", "pull request", "feedback", "code quality", "checklist"]
+auto_load_when: "Reviewing code or PRs"
+agent: qa-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Code Review Patterns
@@ -148,3 +153,37 @@ After review:
 5. **Timely** - within 24 hours
 
 (End of file - 78 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Review style/formatting in PR comments
+✅ Automate style with Prettier/ESLint — never manual style reviews
+
+❌ "Looks good to me" on 800-line PRs
+✅ PRs should be ≤400 lines; split if larger
+
+❌ Review comments with no actionable suggestion
+✅ Every comment either asks a question or suggests a specific fix
+
+❌ Blocking PRs over personal preference, not bugs/correctness
+✅ Distinguish nit (optional) vs blocker (must fix) in comments
+
+❌ Author defending every line under review
+✅ Code review is collaborative — be curious, not defensive
+```
+
+---
+
+## Quick Reference
+
+| What to review | Priority | Example |
+|---|---|---|
+| Correctness | Must | Logic errors, off-by-one |
+| Security | Must | Auth checks, input validation |
+| Performance | Should | N+1 queries, missing indexes |
+| Tests | Should | Coverage, edge cases |
+| Readability | Nice | Variable names, comments |
+| Style | Automated | Prettier/ESLint, not humans |

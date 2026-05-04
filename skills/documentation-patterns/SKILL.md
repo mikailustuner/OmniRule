@@ -1,6 +1,12 @@
 ---
 name: documentation-patterns
-description: "Documentation Patterns: What to document, README structure, API docs, keeping docs fresh."
+description: "Documentation Patterns: What to document, README structure, API docs, keeping docs fresh." 
+triggers:
+  extensions: [".md"]
+  keywords: ["docs", "README", "documentation", "JSDoc", "comment", "changelog", "ADR"]
+auto_load_when: "Writing or reviewing documentation"
+agent: docs-agent
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Documentation Patterns
@@ -144,3 +150,37 @@ What not to document:
 5. **Treat code** - version together
 
 (End of file - 73 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Docs that describe WHAT the code does (code already shows that)
+✅ Docs explain WHY decisions were made and non-obvious constraints
+
+❌ Markdown docs that drift from the actual code
+✅ Generate API docs from code (JSDoc, OpenAPI) — single source of truth
+
+❌ README with installation but no usage examples
+✅ README: install → quick start → common tasks → link to full docs
+
+❌ Architecture diagrams stored as binary in git
+✅ Diagrams as code (Mermaid, PlantUML) — diffable, versionable
+
+❌ "Update docs later" — never happens
+✅ Docs update in the same PR as the code change
+```
+
+---
+
+## Quick Reference
+
+| Doc type | Format | Tool |
+|---|---|---|
+| API reference | OpenAPI 3.1 | swagger-ui / redoc |
+| Architecture | Mermaid diagram in MD | In-repo |
+| Runbook | Numbered steps + checks | Confluence / Notion |
+| ADR | Markdown with status | docs/decisions/ |
+| README | Install → usage → contribute | Repo root |
+| Inline | JSDoc with @param @returns | TypeDoc |

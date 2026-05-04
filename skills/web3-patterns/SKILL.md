@@ -1,6 +1,11 @@
 ---
 name: web3-patterns
-description: "Wallet connections, smart contract integration, IPFS storage, and blockchain patterns for Web3 applications."
+description: "Wallet connections, smart contract integration, IPFS storage, and blockchain patterns for Web3 applications." 
+triggers:
+  keywords: ["web3", "blockchain", "ethereum", "smart contract", "wallet", "NFT", "ethers", "wagmi", "viem"]
+auto_load_when: "Building Web3 or blockchain integrations"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Web3 Patterns
@@ -154,3 +159,37 @@ Transaction patterns:
 4. **Optimize reads** - Cache, batch, use events
 5. **Error gracefully** - Clear messages, recovery paths
 6. **Test on testnet** - Always test on Sepolia/Goerli first
+
+---
+
+## Anti-Patterns
+
+```
+❌ Trusting client-side wallet data without on-chain verification
+✅ Always verify signatures and ownership on-chain / server-side
+
+❌ Sending transactions without estimating gas
+✅ estimateGas() before every transaction; add 20% buffer
+
+❌ Storing private keys in code or .env
+✅ Hardware wallet / KMS for production; never commit keys
+
+❌ No re-entrancy guard on contract functions
+✅ nonReentrant modifier (OpenZeppelin) on all state-changing functions
+
+❌ Contract with no upgrade path
+✅ Proxy pattern or design for immutability intentionally
+```
+
+---
+
+## Quick Reference
+
+| Task | Library | Note |
+|---|---|---|
+| Wallet connect | wagmi + ConnectKit | React hooks |
+| Read contract | ethers.js / viem | Static call |
+| Write contract | wagmi writeContract | Gas estimate first |
+| Sign message | signMessage (SIWE) | Auth pattern |
+| IPFS storage | Pinata / web3.storage | Off-chain metadata |
+| Contract testing | Hardhat / Foundry | Fork mainnet for integration |

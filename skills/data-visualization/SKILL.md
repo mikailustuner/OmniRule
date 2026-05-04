@@ -1,6 +1,12 @@
 ---
 name: data-visualization
-description: "Chart types, library selection, responsive design, and accessibility patterns for data visualization."
+description: "Chart types, library selection, responsive design, and accessibility patterns for data visualization." 
+triggers:
+  extensions: [".tsx", ".ts"]
+  keywords: ["chart", "graph", "d3", "recharts", "nivo", "echarts", "visualization", "plot", "dashboard"]
+auto_load_when: "Building charts or data visualizations"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Data Visualization Patterns
@@ -154,3 +160,37 @@ Consistency checklist:
 3. **Accessibility first** - A11y is harder to retrofit
 4. **Progressive enhancement** - Static first, then interactive
 5. **Test with data** - Use real data volumes in testing
+
+---
+
+## Anti-Patterns
+
+```
+❌ Rendering 100,000 SVG elements directly in DOM
+✅ Canvas or WebGL for large datasets; virtualize SVG lists
+
+❌ Pie charts for comparing more than 4 values
+✅ Bar chart for comparison; pie only for part-of-whole with <4 segments
+
+❌ Dual Y-axis charts (misleading scale)
+✅ Two separate charts or normalized data
+
+❌ No loading state during data fetch
+✅ Skeleton/placeholder chart while data loads
+
+❌ Color as the only differentiator (accessibility)
+✅ Color + pattern/shape; check contrast with colorblind simulation
+```
+
+---
+
+## Quick Reference
+
+| Chart type | When to use | Library |
+|---|---|---|
+| Bar | Comparison | Recharts / Chart.js |
+| Line | Trend over time | Recharts / D3 |
+| Scatter | Correlation | D3 / Observable Plot |
+| Heatmap | 2D density | D3 |
+| Treemap | Hierarchical part-of-whole | D3 |
+| Large data | WebGL rendering | deck.gl / regl |

@@ -1,6 +1,13 @@
 ---
 name: accessibility-basics
-description: "WCAG basics, keyboard navigation, screen reader"
+description: "WCAG basics, keyboard navigation, screen reader" 
+triggers:
+  extensions: [".tsx", ".html"]
+  directories: ["components/"]
+  keywords: ["aria", "a11y", "accessibility", "wcag", "screen reader"]
+auto_load_when: "Editing HTML/JSX with accessibility concerns"
+agent: seo-agent
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Accessibility Basics Patterns
@@ -155,3 +162,37 @@ Tools decision:
 3. Focus management: modal traps, restores on close
 4. Live regions: announce dynamic changes
 5. Test with keyboard + screen reader + zoom
+
+---
+
+## Anti-Patterns
+
+```
+❌ Interactive elements without keyboard navigation
+✅ All actions reachable via Tab/Enter/Space/Arrow keys
+
+❌ Color contrast below 4.5:1 (AA standard)
+✅ Use contrast checker; text on bg ≥ 4.5:1 normal, 3:1 large
+
+❌ Images with no alt text
+✅ Meaningful images: alt="description"; decorative: alt=""
+
+❌ Custom components without ARIA roles
+✅ Use semantic HTML first; ARIA only when native element unavailable
+
+❌ Focus trapping outside modals
+✅ Trap focus inside open modal; restore on close
+```
+
+---
+
+## Quick Reference
+
+| WCAG Level | Requirement | Check |
+|---|---|---|
+| A | Alt text on images | axe DevTools |
+| A | Keyboard navigation | Tab through page |
+| AA | Color contrast 4.5:1 | Colour Contrast Analyser |
+| AA | Focus visible | Outline never display:none |
+| AA | Error identification | Describe error in text |
+| AAA | Enhanced contrast 7:1 | For critical text |

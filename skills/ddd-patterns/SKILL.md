@@ -1,6 +1,11 @@
 ---
 name: ddd-patterns
-description: "DDD Patterns: Domain logic, aggregates, value objects, bounded contexts, domain events."
+description: "DDD Patterns: Domain logic, aggregates, value objects, bounded contexts, domain events." 
+triggers:
+  keywords: ["domain", "aggregate", "entity", "value object", "repository", "bounded context", "domain event", "ubiquitous language"]
+auto_load_when: "Designing domain models or business logic"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Domain-Driven Design Patterns
@@ -156,3 +161,38 @@ Domain Service:
 5. **Domain Events** - decoupled communication
 
 (End of file - 90 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Anemic domain model (entities are just data structs)
+✅ Rich entities with behavior — User.changeEmail(), Order.place()
+
+❌ Aggregate that spans too many entities
+✅ Keep aggregates small; one transaction = one aggregate
+
+❌ Domain events published synchronously blocking the caller
+✅ Collect events in aggregate; dispatch after transaction commits
+
+❌ Business logic in application services or controllers
+✅ Logic belongs to entities and domain services
+
+❌ Exposing aggregate internals to the outside
+✅ Only aggregate root is accessible from outside; internal objects are private
+```
+
+---
+
+## Quick Reference
+
+| Concept | Role | Rule |
+|---|---|---|
+| Entity | Identity + lifecycle | Mutable; identified by ID |
+| Value Object | Describe by value | Immutable; no identity |
+| Aggregate | Consistency boundary | One transaction per aggregate |
+| Domain Event | Side effect trigger | Immutable; past tense name |
+| Repository | Persistence facade | Returns full aggregates |
+| Domain Service | Stateless logic | When logic doesn't fit entity |
+| Bounded Context | Linguistic boundary | Each team owns its context |

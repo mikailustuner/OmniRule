@@ -1,6 +1,12 @@
 ---
 name: html-semantic
-description: "Semantic HTML, ARIA basics, accessibility tree"
+description: "Semantic HTML, ARIA basics, accessibility tree" 
+triggers:
+  extensions: [".html", ".tsx"]
+  keywords: ["semantic", "HTML5", "section", "article", "nav", "figure", "landmark", "heading", "ARIA"]
+auto_load_when: "Writing HTML structure or semantic markup"
+agent: seo-agent
+tools: ["Read", "Write", "Bash"]
 ---
 
 # HTML Semantic Patterns
@@ -129,3 +135,38 @@ Table semantics:
 3. Keep accessibility tree logical — focus, live regions
 4. One main element per page
 5. Proper heading hierarchy always
+
+---
+
+## Anti-Patterns
+
+```
+❌ <div> for everything — div soup
+✅ Use landmark elements: <header>, <main>, <nav>, <aside>, <footer>
+
+❌ <b> and <i> for visual style
+✅ <strong> (importance) and <em> (stress emphasis)
+
+❌ Tables for layout
+✅ Tables only for tabular data; CSS Grid for layout
+
+❌ Skipping heading levels (h1 → h4)
+✅ Sequential heading hierarchy — never skip levels
+
+❌ Images with no alt text
+✅ Always alt="description"; alt="" only for decorative images
+```
+
+---
+
+## Quick Reference
+
+| Element | Use for | Not for |
+|---|---|---|
+| `<article>` | Self-contained content | Generic containers |
+| `<section>` | Thematic grouping with heading | Styling hooks |
+| `<aside>` | Supplementary content | Sidebars by default |
+| `<nav>` | Navigation links | Any list of links |
+| `<figure>` | Image + caption pair | All images |
+| `<time>` | Dates/times | Generic text |
+| `<mark>` | Highlighted/searched text | Styling emphasis |

@@ -1,6 +1,11 @@
 ---
 name: internationalization
-description: "i18n architecture, pluralization rules, RTL support, and locale patterns for global applications."
+description: "i18n architecture, pluralization rules, RTL support, and locale patterns for global applications." 
+triggers:
+  keywords: ["i18n", "locale", "translation", "next-intl", "react-i18next", "ICU", "pluralization", "RTL"]
+auto_load_when: "Adding internationalization or localization"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Internationalization Patterns
@@ -157,3 +162,37 @@ Language fallbacks:
 4. **Plural properly** - Never concatenate count + string
 5. **Format numbers/dates** - Never manually format
 6. **Consider text expansion** - Some languages 30-40% longer
+
+---
+
+## Anti-Patterns
+
+```
+❌ Hardcoded strings in component templates
+✅ All user-visible strings in translation files (en.json, tr.json)
+
+❌ Concatenating translated strings ("Hello " + name)
+✅ Parameterized messages: t('greeting', { name })
+
+❌ Date/number formatting without Intl API
+✅ Intl.DateTimeFormat and Intl.NumberFormat for locale-aware output
+
+❌ RTL layout that breaks because of left/right CSS
+✅ Use logical properties: margin-inline-start instead of margin-left
+
+❌ Loading all language bundles upfront
+✅ Lazy-load translations per locale on demand
+```
+
+---
+
+## Quick Reference
+
+| Feature | API / Library | Note |
+|---|---|---|
+| Translation | next-intl / react-i18next | Key-based |
+| Pluralization | ICU message format | {count, plural, ...} |
+| Date format | Intl.DateTimeFormat | Locale-aware |
+| Number format | Intl.NumberFormat | Currency, percent |
+| Locale detect | Accept-Language header | Server-side redirect |
+| RTL support | CSS logical properties | inline/block instead of left/right |

@@ -1,6 +1,12 @@
 ---
 name: logging-patterns
-description: "Logging: Log levels, structured logging, log aggregation, and debugging strategies."
+description: "Logging: Log levels, structured logging, log aggregation, and debugging strategies." 
+triggers:
+  extensions: [".ts"]
+  keywords: ["logger", "log", "winston", "pino", "structured logging", "trace", "span", "observability"]
+auto_load_when: "Implementing logging or observability"
+agent: devops-engineer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Logging Patterns
@@ -163,3 +169,45 @@ How to handle logging at scale:
 3. **Parseable format** — JSON preferred for production
 4. **Contextual logging** — Include request ID, user ID, service name
 5. **Retention policy** — Define what to keep and for how long
+
+---
+
+## Anti-Patterns
+
+```
+❌ console.log in application code
+✅ Structured logger (pino/winston) with log levels
+
+❌ Logging sensitive data (passwords, tokens, PII)
+✅ Redact sensitive fields; log IDs not values
+
+❌ Logging inside tight loops (millions/sec)
+✅ Log entry/exit of operations; aggregate metrics instead
+
+❌ No correlation ID across service calls
+✅ Propagate trace-id/request-id header; include in every log line
+
+❌ Log statements that say what, not why
+✅ Log context: what was being attempted, not just the error
+```
+
+---
+
+## Quick Reference
+
+| Level | When to use | Example |
+|---|---|---|
+| error | Unhandled exceptions, outages | DB connection failed |
+| warn | Recoverable issues, deprecations | Fallback used |
+| info | Business events, lifecycle | User signed up |
+| debug | Diagnostic detail | Query took 200ms |
+| trace | Very verbose paths | Enter function X |
+
+| Field | Always include | Optional |
+|---|---|---|
+| timestamp | ISO 8601 | — |
+| level | string | — |
+| message | string | — |
+| trace_id | string | — |
+| service | string | version |
+| user_id | string | — |

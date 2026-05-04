@@ -1,6 +1,11 @@
 ---
 name: event-driven-patterns
-description: "Event-driven: Event sourcing, CQRS, event patterns, choreography vs orchestration."
+description: "Event-driven: Event sourcing, CQRS, event patterns, choreography vs orchestration." 
+triggers:
+  keywords: ["event", "emit", "subscribe", "pub/sub", "event bus", "event sourcing", "CQRS", "choreography"]
+auto_load_when: "Designing event-driven systems"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Event-Driven Architecture Patterns
@@ -211,3 +216,43 @@ How to achieve:
 3. **Version events** — Plan for schema changes
 4. **Choreography for simple, orchestration for complex**
 5. **CQRS when read/write patterns differ**
+
+---
+
+## Anti-Patterns
+
+```
+❌ Event consumers with direct coupling to producers
+✅ Events via broker (Kafka/SNS/EventBridge) — producer never calls consumer
+
+❌ Events with no schema contract (free-form JSON)
+✅ Schema registry (Confluent/Glue) or Zod schema for every event type
+
+❌ Event handlers that throw and cause infinite retry loops
+✅ Bounded retry + dead letter queue; separate poison pill handling
+
+❌ Choreography only — no visibility into multi-step workflows
+✅ Add distributed tracing correlation ID across all event hops
+
+❌ Mutable events — changing an event after publish
+✅ Events are immutable facts in the past; append-only log
+```
+
+---
+
+## Quick Reference
+
+| Pattern | When | Complexity |
+|---|---|---|
+| Choreography | Loose coupling, simple flows | Low |
+| Orchestration | Complex workflows, visibility | Medium |
+| Saga | Distributed transaction rollback | High |
+| Event sourcing | Full audit trail | High |
+| CQRS + events | Read/write separation | High |
+
+| Broker | Throughput | Durability |
+|---|---|---|
+| Kafka | Very high | Durable replay |
+| RabbitMQ | High | Configurable |
+| SNS/SQS | High | Managed |
+| EventBridge | Medium | Managed |

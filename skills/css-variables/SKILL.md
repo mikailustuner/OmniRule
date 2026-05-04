@@ -1,6 +1,12 @@
 ---
 name: css-variables
-description: "Custom properties, theming, runtime changes"
+description: "Custom properties, theming, runtime changes" 
+triggers:
+  extensions: [".css", ".scss"]
+  keywords: ["--var", "custom properties", "CSS variables", "design tokens", "theme", "var("]
+auto_load_when: "Working with CSS custom properties or design tokens"
+agent: style-architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # CSS Variables (Custom Properties)
@@ -149,3 +155,37 @@ When to precalculate:
 3. Prefer prefers-color-scheme over manual toggle
 4. Always provide fallback for critical values
 5. Use calc() for responsive, clamp() for fluid
+
+---
+
+## Anti-Patterns
+
+```
+❌ Defining CSS variables inside component selectors (scope too narrow)
+✅ Define tokens at :root; override per component/theme
+
+❌ Variable names that describe appearance (--blue-500)
+✅ Semantic names: --color-primary, --color-text-muted
+
+❌ Duplicating values instead of referencing variables
+✅ Reference variables everywhere — single source of truth
+
+❌ JavaScript setting CSS variables on every frame
+✅ Use CSS calc() and CSS math instead; JS for initial set only
+
+❌ No fallback for browsers that don't support var()
+✅ var(--value, fallback) — always provide fallback
+```
+
+---
+
+## Quick Reference
+
+| Task | Syntax | Example |
+|---|---|---|
+| Define token | :root { --name: value } | --spacing-4: 1rem |
+| Use token | var(--name) | padding: var(--spacing-4) |
+| Fallback | var(--name, fallback) | color: var(--text, #000) |
+| Dark theme | [data-theme="dark"] { } | Override tokens |
+| JS read | getPropertyValue | getComputedStyle(el) |
+| JS set | setProperty | el.style.setProperty |

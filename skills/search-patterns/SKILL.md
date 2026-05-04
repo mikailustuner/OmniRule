@@ -1,6 +1,11 @@
 ---
 name: search-patterns
-description: "Search: Full-text search, Elasticsearch patterns, filters, and relevance tuning."
+description: "Search: Full-text search, Elasticsearch patterns, filters, and relevance tuning." 
+triggers:
+  keywords: ["search", "Elasticsearch", "Algolia", "full-text", "indexing", "relevance", "facets", "fuzzy"]
+auto_load_when: "Implementing search functionality"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Search Patterns
@@ -155,3 +160,36 @@ How to optimize search:
 3. **Denormalize** — Store related data together, avoid joins
 4. **Reindex strategy** — Plan for reindexing (new index, alias swap)
 5. **Relevance tuning** — Use function_score, boost specific fields
+
+---
+
+## Anti-Patterns
+
+```
+❌ LIKE '%query%' on large tables (full scan)
+✅ Full-text search index: PostgreSQL tsvector or Elasticsearch
+
+❌ Re-indexing entire dataset on every document update
+✅ Incremental indexing — queue updates to search index
+
+❌ Returning raw search scores without relevance tuning
+✅ Boost by recency, popularity, and field weight
+
+❌ No search analytics — unknown what users can't find
+✅ Log zero-result queries and click-through rate
+
+❌ Typos breaking search entirely
+✅ Fuzzy matching with configurable edit distance
+```
+
+---
+
+## Quick Reference
+
+| Scale | Solution | Note |
+|---|---|---|
+| Small (<100k docs) | PostgreSQL FTS | Built-in, no extra infra |
+| Medium | Typesense / Meilisearch | Self-hosted, fast |
+| Large | Elasticsearch / OpenSearch | Complex, powerful |
+| Hosted | Algolia | SaaS, fast setup |
+| Vector search | pgvector / Pinecone | Semantic / AI search |

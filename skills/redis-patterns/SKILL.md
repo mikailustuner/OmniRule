@@ -1,6 +1,11 @@
 ---
 name: redis-patterns
-description: "Redis Patterns: Data structures, cache strategies, pub/sub, distributed locks."
+description: "Redis Patterns: Data structures, cache strategies, pub/sub, distributed locks." 
+triggers:
+  keywords: ["Redis", "cache", "session", "pub/sub", "rate limit", "distributed lock", "sorted set", "pipeline"]
+auto_load_when: "Using Redis for caching or pub/sub"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Redis Patterns
@@ -141,3 +146,38 @@ AOF (append-only):
 5. **TTL** - auto-expiration
 
 (End of file - 82 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Storing large objects (>1MB) in Redis
+✅ Redis for hot, small data; use S3/DB for large blobs
+
+❌ No TTL on cached keys — memory fills up
+✅ Every cache key has a TTL; use allkeys-lru eviction policy
+
+❌ KEYS * in production (blocks Redis)
+✅ Use SCAN with cursor for key iteration
+
+❌ Using Redis as primary data store
+✅ Redis is cache / queue / pub-sub — not source of truth
+
+❌ No Redis Sentinel / Cluster for production
+✅ Sentinel for HA; Cluster for horizontal scale
+```
+
+---
+
+## Quick Reference
+
+| Use case | Redis type | Command |
+|---|---|---|
+| Cache key-value | String | SET key val EX 300 |
+| Rate limiting | String + INCR | INCR + EXPIRE |
+| Session store | Hash | HSET session:id field val |
+| Queue | List | LPUSH / BRPOP |
+| Pub/sub | Pub/Sub | PUBLISH / SUBSCRIBE |
+| Leaderboard | Sorted Set | ZADD / ZRANGE |
+| Distributed lock | String + NX | SET lock nx ex 30 |

@@ -1,6 +1,11 @@
 ---
 name: message-queues
-description: "Message Queues: Queue vs pub/sub, ordering guarantees, consumers, and delivery patterns."
+description: "Message Queues: Queue vs pub/sub, ordering guarantees, consumers, and delivery patterns." 
+triggers:
+  keywords: ["queue", "BullMQ", "RabbitMQ", "Kafka", "SQS", "job", "worker", "retry", "dead letter"]
+auto_load_when: "Implementing message queues or background jobs"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Message Queue Patterns
@@ -166,3 +171,36 @@ What to include in messages:
 3. **Correlation IDs** — Trace messages through system
 4. **Size limits** — Keep messages small (< 1MB)
 5. **Backpressure** — Limit queue depth when consumers slow
+
+---
+
+## Anti-Patterns
+
+```
+❌ Fire-and-forget without acknowledging (message lost on crash)
+✅ Explicit ack after successful processing; use dead letter queue
+
+❌ Large payloads in queue messages (>256KB)
+✅ Store payload in S3/DB; put reference ID in message
+
+❌ No idempotency — processing same message twice causes duplicate
+✅ Idempotency key per message; deduplicate before processing
+
+❌ One queue for everything (low priority blocks high)
+✅ Separate queues by priority; separate consumer groups
+
+❌ No monitoring on queue depth
+✅ Alert on queue depth > threshold and age > SLA
+```
+
+---
+
+## Quick Reference
+
+| System | Use case | Key feature |
+|---|---|---|
+| BullMQ (Redis) | Background jobs | Cron, retry, priority |
+| RabbitMQ | Complex routing | Exchanges, topics |
+| Kafka | Event streaming | High throughput, replay |
+| SQS | AWS-native | Managed, DLQ built-in |
+| Inngest | Serverless workflows | Step functions |

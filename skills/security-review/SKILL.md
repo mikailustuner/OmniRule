@@ -1,6 +1,11 @@
 ---
 name: security-review
-description: "Security: Threat modeling, Validation strategy, Auth patterns, When to use what."
+description: "Security: Threat modeling, Validation strategy, Auth patterns, When to use what." 
+triggers:
+  keywords: ["security", "vulnerability", "OWASP", "injection", "XSS", "CSRF", "auth", "sanitize", "encrypt"]
+auto_load_when: "Security review or implementing security measures"
+agent: security-officer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Security Architecture Patterns
@@ -151,3 +156,38 @@ How to implement:
 3. **Authenticate + authorize** - Both needed, different purposes
 4. **Secrets in env** - Never in code
 5. **Rate limit public** - Prevent abuse
+
+---
+
+## Anti-Patterns
+
+```
+❌ Trust user input inside SQL/shell strings
+✅ Parameterized queries always; never string-concatenate SQL
+
+❌ Sensitive data in URL query parameters
+✅ POST body for sensitive data; never tokens/passwords in URLs
+
+❌ JWT with alg: none or HS256 with weak secret
+✅ RS256/ES256 for JWTs; rotate keys; verify signature server-side
+
+❌ Storing plaintext passwords
+✅ bcrypt (cost 12+) or Argon2id — never reversible encryption
+
+❌ CORS * in production
+✅ Explicit allowlist of origins; never wildcard with credentials
+```
+
+---
+
+## Quick Reference
+
+| Threat | Mitigation | Priority |
+|---|---|---|
+| SQLi | Parameterized queries | Critical |
+| XSS | CSP + sanitize output | Critical |
+| Auth bypass | Verify JWT server-side | Critical |
+| CSRF | SameSite=Strict cookie | High |
+| Path traversal | Validate + normalize paths | High |
+| Rate limiting | Redis sliding window | High |
+| Secrets exposure | Vault / env injection | Critical |

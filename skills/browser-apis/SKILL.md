@@ -1,6 +1,12 @@
 ---
 name: browser-apis
-description: "Browser APIs: Storage, IndexedDB, BroadcastChannel, SharedWorker, Clipboard"
+description: "Browser APIs: Storage, IndexedDB, BroadcastChannel, SharedWorker, Clipboard" 
+triggers:
+  extensions: [".ts", ".tsx"]
+  keywords: ["navigator", "localStorage", "IndexedDB", "ServiceWorker", "clipboard", "geolocation", "notification", "Web API"]
+auto_load_when: "Using browser-native APIs"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Browser APIs Patterns
@@ -174,3 +180,37 @@ Cache API:
 4. **SharedWorker** - Shared background processing
 5. **Clipboard requires gesture** - Don't rely on read
 6. **Always handle quota errors** - Storage limited
+
+---
+
+## Anti-Patterns
+
+```
+❌ IntersectionObserver not disconnected after element removed
+✅ observer.disconnect() in cleanup / useEffect return
+
+❌ Blocking main thread with synchronous XHR
+✅ Always async: fetch() with await
+
+❌ Storing sensitive data in localStorage (XSS accessible)
+✅ Sensitive data in HttpOnly cookies; localStorage only for non-sensitive
+
+❌ Registering event listeners without removing on unmount
+✅ Return cleanup function in useEffect; removeEventListener
+
+❌ navigator.geolocation without feature detect
+✅ Always feature-detect: if ('geolocation' in navigator)
+```
+
+---
+
+## Quick Reference
+
+| API | Use case | MDN |
+|---|---|---|
+| IntersectionObserver | Lazy load, scroll trigger | observe/unobserve |
+| ResizeObserver | Responsive components | observe element |
+| MutationObserver | Watch DOM changes | observe with config |
+| Web Workers | Off-thread computation | postMessage |
+| IndexedDB | Large client storage | via idb library |
+| Web Crypto | Client-side crypto | subtle.digest, encrypt |

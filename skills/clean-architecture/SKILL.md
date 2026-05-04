@@ -1,6 +1,11 @@
 ---
 name: clean-architecture
-description: "Clean Architecture: Layered architecture, dependency rule, use cases, business logic isolation."
+description: "Clean Architecture: Layered architecture, dependency rule, use cases, business logic isolation." 
+triggers:
+  keywords: ["architecture", "layer", "domain", "use case", "clean", "dependency inversion"]
+auto_load_when: "Designing system architecture or layers"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Clean Architecture Patterns
@@ -123,3 +128,37 @@ Infrastructure Layer:
 5. **Composition Root** - wire dependencies once
 
 (End of file - 79 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Business logic in controllers/routes
+✅ Logic lives in use cases and domain services
+
+❌ Domain entities importing framework classes
+✅ Domain layer has zero framework dependencies
+
+❌ Repository implementations in domain layer
+✅ Domain defines interfaces; infra implements them
+
+❌ Anemic domain model (entities = just data bags)
+✅ Rich domain model — entities enforce their own invariants
+
+❌ Direct DB calls from UI/presentation layer
+✅ Always go through use case → repository interface
+```
+
+---
+
+## Quick Reference
+
+| Concept | Where it lives | Rule |
+|---|---|---|
+| Business rules | Domain entities / services | No framework imports |
+| Orchestration | Use cases (application layer) | Calls domain + repos |
+| DB / HTTP | Infrastructure layer | Implements domain interfaces |
+| DI wiring | Composition root | Once, at startup |
+| Input validation | Application layer | Before reaching domain |
+| Error types | Domain layer | No HTTP status codes inside |

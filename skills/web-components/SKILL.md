@@ -1,6 +1,12 @@
 ---
 name: web-components
-description: "Shadow DOM, custom elements, slots pattern"
+description: "Shadow DOM, custom elements, slots pattern" 
+triggers:
+  extensions: [".ts"]
+  keywords: ["Web Components", "custom element", "shadow DOM", "LitElement", "HTMLElement", "slot", "template"]
+auto_load_when: "Building native Web Components"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Web Components Patterns
@@ -150,3 +156,38 @@ When event detail:
 3. Slots for content projection with fallbacks
 4. Reflect attributes to properties or vice versa
 5. Lifecycle: constructor setup, connected/disconnected cleanup
+
+---
+
+## Anti-Patterns
+
+```
+❌ Deeply nested shadow DOM piercing with CSS vars hack
+✅ Design tokens via CSS custom properties — they cross shadow boundaries
+
+❌ Web Components that require framework to use
+✅ Pure web components have zero framework dependencies
+
+❌ Exposing internal DOM structure via public API
+✅ Use well-defined attributes and events as public interface
+
+❌ No form participation (custom inputs don't work in <form>)
+✅ Implement ElementInternals for form-associated elements
+
+❌ Re-inventing every component from scratch
+✅ Extend existing HTML elements via customized built-ins
+```
+
+---
+
+## Quick Reference
+
+| API | Purpose | Example |
+|---|---|---|
+| customElements.define | Register element | define('my-btn', MyBtn) |
+| connectedCallback | Mounted | Set up listeners |
+| disconnectedCallback | Unmounted | Clean up listeners |
+| attributeChangedCallback | Prop change | Re-render |
+| observedAttributes | Prop list | static get list |
+| adoptedCallback | Moved to new doc | Rare |
+| attachShadow | Encapsulate | { mode: 'open' } |

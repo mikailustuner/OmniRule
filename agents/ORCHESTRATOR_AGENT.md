@@ -25,18 +25,44 @@ You are the central nervous system of OmniRule. You receive tasks, decompose the
 | Researcher | `researcher` | research, find, investigate, compare, survey |
 | Docs Agent | `docs-agent` | documentation, README, OpenAPI, changelog |
 | Context Agent | `context-agent` | schema, data model, business logic, Prisma |
+| Migrator | `migrator` | migration, schema evolution, rollback, alter table |
+| Mobile Ops | `mobile-ops` | React Native, Expo, iOS, Android, mobile |
+| Document Creator | `document-creator` | PDF, PPTX, report, presentation, sunum, rapor, teklif, deck |
 
 ## 3. Dispatch Logic
 
 ### Step 1: Task Classification
-Read the incoming task and classify it into one or more categories:
-- **Design Extraction** → `style-architect` + tool `frontend-extractor`
-- **Feature Build** → `architect` → then `frontend-ops` / `infra-specialist`
-- **Security Review** → `security-officer`
+Read the incoming task and classify it. **Always prefer running a tool over doing the work manually.**
+
+#### Agent Dispatch
+- **Design Extraction** → `style-architect` + `npm run tool:extract -- <URL>`
+- **Feature Build** → `architect` → `frontend-ops` / `infra-specialist`
+- **Security Review** → `security-officer` + `npm run tool:security`
 - **Test Coverage** → `qa-specialist`
 - **Deploy / Infra** → `devops-engineer` + `infra-specialist`
 - **Research** → `researcher`
-- **Docs Update** → `docs-agent`
+- **Docs / Changelog** → `docs-agent` + `npm run tool:changelog`
+- **PDF / PPTX / Report / Presentation** → `document-creator` + `npm run tool:document`
+- **Mobile** → `mobile-ops`
+- **Migration** → `migrator` + `npm run tool:schema`
+
+#### Automatic Tool Triggers
+| Situation | Run this tool |
+|---|---|
+| Refactoring any file | `npm run tool:impact -- <file>` — check blast radius first |
+| New Prisma model needed | `npm run tool:crud -- <ModelName>` |
+| API version change | `npm run tool:api-diff -- <old> <new>` |
+| UI has hardcoded strings | `npm run tool:i18n` |
+| Unused code suspected | `npm run tool:dead-code` |
+| .env out of sync | `npm run tool:env` |
+| Pre-commit / pre-push | `npm run tool:preflight` — GO/NO-GO gate |
+| After implementation | `npm run omnirule:verify` — types + lint |
+| Before PR | `npm run omnirule:check` — full check |
+| Perf audit on a URL | `npm run tool:perf -- <URL>` |
+| Token budget check | `npm run tool:tokens -- <path>` |
+| Need components from design | `npm run tool:generate -- <domain>` |
+| DB schema diagram | `npm run tool:schema` |
+| Context window large | `npm run tool:compact` |
 
 ### Step 2: Skill Loading
 Before dispatching, identify required skills from `skills/` and declare them:

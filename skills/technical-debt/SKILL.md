@@ -1,6 +1,11 @@
 ---
 name: technical-debt
-description: "Technical Debt: Identification, prioritization, payoff strategy, prevention."
+description: "Technical Debt: Identification, prioritization, payoff strategy, prevention." 
+triggers:
+  keywords: ["refactor", "technical debt", "cleanup", "legacy", "TODO", "FIXME", "complexity", "coupling"]
+auto_load_when: "Addressing technical debt or refactoring"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Technical Debt Patterns
@@ -132,3 +137,37 @@ Prevent debt:
 5. **Pay regularly** - small batches
 
 (End of file - 77 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ "We'll fix it later" with no ticket created
+✅ Log all debt immediately with TODO + ticket reference
+
+❌ Paying all debt in one big refactor sprint
+✅ Boy Scout Rule — leave code cleaner than you found it
+
+❌ Ignoring debt until it causes an outage
+✅ Track debt metric (complexity, coverage) in CI
+
+❌ Rewriting everything instead of targeted refactors
+✅ Strangler Fig: replace incrementally, keep working at all times
+
+❌ Debt that no one owns
+✅ Each debt item has an assigned owner and deadline
+```
+
+---
+
+## Quick Reference
+
+| Debt type | Detection | Remedy |
+|---|---|---|
+| Design debt | Arch review, complexity score | Targeted refactor |
+| Code debt | High cyclomatic complexity | Extract + simplify |
+| Test debt | Low coverage, flaky tests | Add tests before feature |
+| Dependency debt | Outdated/vulnerable packages | Dependency sentinel |
+| Documentation debt | No README, stale docs | docs-agent |
+| Performance debt | CWV regressions | Perf audit + fix |

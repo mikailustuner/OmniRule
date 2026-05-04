@@ -1,6 +1,11 @@
 ---
 name: debugging-strategies
-description: "Debugging Strategies: Systematic approach, tools, techniques, root cause analysis."
+description: "Debugging Strategies: Systematic approach, tools, techniques, root cause analysis." 
+triggers:
+  keywords: ["debug", "error", "trace", "breakpoint", "investigate", "bug", "reproduce", "root cause"]
+auto_load_when: "Debugging errors or investigating unexpected behavior"
+agent: qa-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Debugging Strategies
@@ -155,3 +160,37 @@ Document - writing clarifies thinking
 5. **Prevent** - add test
 
 (End of file - 82 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ console.log debugging in production code
+✅ Structured logging with log levels; remove debug logs before commit
+
+❌ Changing multiple things at once while debugging
+✅ Change one variable at a time; binary search the bug
+
+❌ Fixing the symptom without understanding root cause
+✅ Reproduce reliably → isolate → understand → fix → verify
+
+❌ Skipping reproduction step ("I'll just fix it")
+✅ Write a failing test first — it documents the bug and prevents regression
+
+❌ Debugging in prod instead of staging
+✅ Reproduce locally; add observability to prod for future incidents
+```
+
+---
+
+## Quick Reference
+
+| Technique | When to use | Tool |
+|---|---|---|
+| Breakpoints | Step through logic | DevTools / VSCode |
+| Binary search | Narrow down commit | git bisect |
+| Network tab | API / fetch issues | DevTools Network |
+| Memory snapshot | Leak investigation | DevTools Memory |
+| Performance flame | Slow renders | DevTools Performance |
+| Error boundary | React render errors | React DevTools |

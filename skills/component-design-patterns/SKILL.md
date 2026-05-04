@@ -1,6 +1,13 @@
 ---
 name: component-design-patterns
-description: "Component design: Atomic design, composition, prop design, state placement."
+description: "Component design: Atomic design, composition, prop design, state placement." 
+triggers:
+  extensions: [".tsx", ".jsx"]
+  directories: ["components/", "ui/"]
+  keywords: ["component", "props", "composition", "compound", "atomic", "slot"]
+auto_load_when: "Designing or editing React components"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Component Design Patterns
@@ -201,3 +208,37 @@ Where to put state:
 3. **Children for content slots** - Props for configuration
 4. **Composition over inheritance** - Flexibility
 5. **State in lowest common ancestor** - But not lower than needed
+
+---
+
+## Anti-Patterns
+
+```
+❌ Component that does data fetching + rendering + state management
+✅ Single responsibility: container (data) vs presentational (UI)
+
+❌ Props drilling 5 levels deep
+✅ Composition pattern or context for cross-cutting concerns
+
+❌ Boolean prop explosion (isLoading, isDisabled, isError, isLarge...)
+✅ Variant prop with discriminated union: variant="loading" | "error"
+
+❌ Ref forwarding broken by wrapping in HOC
+✅ forwardRef at every wrapper; compose with mergeRefs
+
+❌ Component accepting 20+ props
+✅ Split component; use render props or compound components for complexity
+```
+
+---
+
+## Quick Reference
+
+| Pattern | Use case | Trade-off |
+|---|---|---|
+| Compound components | Complex related UI | Flexible but verbose API |
+| Render props | Injecting behavior | More flexible than HOC |
+| HOC | Cross-cutting (auth, analytics) | Hard to compose |
+| Custom hook | Reusable logic only | No rendering |
+| Polymorphic `as` prop | Semantic element flex | Type complexity |
+| Slot pattern | Content projection | Like Vue slots in React |

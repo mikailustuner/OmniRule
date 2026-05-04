@@ -1,0 +1,110 @@
+name: OmniRule CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── Fast checks (run on every push) ──────────────────────────────────────────
+  quality:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: TypeScript check
+        run: npx tsc --noEmit 2>&1 || true
+
+      - name: Dependency Sentinel
+        run: npm run tool:deps
+        continue-on-error: true
+
+      - name: Security Audit
+        run: npm run tool:security
+        continue-on-error: true
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: omnirule-reports
+          path: .omnirule/reports/
+          retention-days: 14
+
+  # ── PR-only deep checks ───────────────────────────────────────────────────────
+  deep-review:
+    name: Deep Review (PR only)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for diff
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Code Complexity Analysis
+        run: npm run tool:complexity -- src/ 2>/dev/null || npm run tool:complexity 2>/dev/null || echo "No src/ dir found, skipping"
+        continue-on-error: true
+
+      - name: Full OmniRule Check
+        run: npm run omnirule:check
+        continue-on-error: true
+
+      - name: Upload PR reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: omnirule-pr-reports
+          path: .omnirule/reports/
+          retention-days: 7
+
+  # ── Schema visualization (only when schema changes) ───────────────────────────
+  schema:
+    name: Schema Visualizer
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.modified, 'schema.prisma') ||
+      contains(github.event.head_commit.modified, 'prisma/schema.prisma')
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Generate Schema Visualization
+        run: npm run tool:schema
+
+      - name: Upload Schema Docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: schema-visualization
+          path: |
+            .omnirule/reports/SCHEMA_VISUAL.md
+            .omnirule/reports/schema-map.json
+          retention-days: 30

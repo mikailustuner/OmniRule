@@ -1,6 +1,12 @@
 ---
 name: caching-patterns
-description: "Caching: Cache strategies, invalidation, TTL, CDN patterns, and performance optimization."
+description: "Caching: Cache strategies, invalidation, TTL, CDN patterns, and performance optimization." 
+triggers:
+  extensions: [".ts"]
+  keywords: ["cache", "redis", "TTL", "invalidate", "memoize", "stale", "revalidate"]
+auto_load_when: "Implementing caching strategy"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Caching Patterns
@@ -155,3 +161,37 @@ How to handle:
 3. **Graceful degradation** — App works without cache
 4. **Monitor hit rate** — Target 90%+ for frequently accessed data
 5. **Stale-while-revalidate** — Serve stale while updating
+
+---
+
+## Anti-Patterns
+
+```
+❌ Caching mutable data without TTL
+✅ Every cache entry has a TTL or explicit invalidation
+
+❌ Cache stampede — all entries expire simultaneously
+✅ Jitter on TTLs; probabilistic early expiration
+
+❌ Caching at multiple layers with different stale states
+✅ Define cache hierarchy: browser → CDN → app → DB query
+
+❌ Not caching because "it's complex"
+✅ Start with simple TTL caching; add complexity only if needed
+
+❌ Sensitive data in shared caches
+✅ User-specific data in private cache (no CDN); strip auth headers
+```
+
+---
+
+## Quick Reference
+
+| Layer | Tool | TTL guidance |
+|---|---|---|
+| Browser | Cache-Control, ETag | Static: 1y, HTML: no-cache |
+| CDN | Cloudflare / Fastly | Vary on Accept-Encoding |
+| App memory | node-cache / LRU | Short TTL, small hot set |
+| Distributed | Redis | Session: 24h, API: 5-60s |
+| DB query | Prisma + Redis | Heavy aggregations |
+| Full-page | Next.js ISR | revalidate: 60 |

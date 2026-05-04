@@ -1,6 +1,13 @@
 ---
 name: api-design
-description: "API Design: Resource structure, HTTP method selection, Response patterns, Error handling."
+description: "API Design: Resource structure, HTTP method selection, Response patterns, Error handling." 
+triggers:
+  extensions: [".ts", ".yaml", ".json"]
+  directories: ["api/"]
+  keywords: ["REST", "openapi", "swagger", "versioning", "pagination", "resource"]
+auto_load_when: "Designing API contracts or OpenAPI specs"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # API Design Patterns
@@ -155,3 +162,47 @@ When to use codes:
 4. **Consistent format** - data/meta/error
 5. **Pagination always** - for lists
 6. **Version in URL** - /api/v1/
+
+---
+
+## Anti-Patterns
+
+```
+❌ Verbs in REST URLs (/getUser, /deletePost)
+✅ Nouns only: GET /users/:id, DELETE /posts/:id
+
+❌ Breaking changes without versioning
+✅ Version with /v1/ prefix; never remove fields from v1
+
+❌ Inconsistent response shapes per endpoint
+✅ Standard envelope: { data, meta, error }
+
+❌ 200 OK for errors ("success: false" in body)
+✅ Correct HTTP status codes: 400, 401, 403, 404, 422, 500
+
+❌ No pagination — returning all records
+✅ Cursor-based pagination; document max page size
+```
+
+---
+
+## Quick Reference
+
+| HTTP Method | Semantics | Idempotent? |
+|---|---|---|
+| GET | Read resource | Yes |
+| POST | Create resource | No |
+| PUT | Replace resource | Yes |
+| PATCH | Partial update | No |
+| DELETE | Remove resource | Yes |
+
+| Status | Meaning | When |
+|---|---|---|
+| 200 | OK | Success |
+| 201 | Created | POST success |
+| 204 | No Content | DELETE success |
+| 400 | Bad Request | Validation fail |
+| 401 | Unauthorized | No auth |
+| 403 | Forbidden | No permission |
+| 404 | Not Found | Resource missing |
+| 422 | Unprocessable | Semantic error |

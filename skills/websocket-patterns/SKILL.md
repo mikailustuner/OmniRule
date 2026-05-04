@@ -1,6 +1,11 @@
 ---
 name: websocket-patterns
-description: "WebSockets: Connection management, reconnection, rooms, and real-time communication."
+description: "WebSockets: Connection management, reconnection, rooms, and real-time communication." 
+triggers:
+  keywords: ["WebSocket", "ws", "socket", "connection", "reconnect", "heartbeat", "room", "namespace"]
+auto_load_when: "Implementing WebSocket communication"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # WebSocket Patterns
@@ -151,3 +156,37 @@ WebSocket gateway (production):
 3. **Graceful degradation** — Fallback to polling if needed
 4. **Message queue** — Buffer during disconnect
 5. **Rate limiting** — Prevent flooding
+
+---
+
+## Anti-Patterns
+
+```
+❌ No reconnection logic — broken connection = dead client
+✅ Exponential backoff reconnect with jitter
+
+❌ Sending full state on every update
+✅ Send diffs/patches; client reconciles
+
+❌ No authentication on WebSocket upgrade
+✅ Validate JWT/cookie on HTTP upgrade handshake
+
+❌ Unlimited connections per user
+✅ Enforce max connections per user; close old on new connect
+
+❌ Ignoring WebSocket close codes
+✅ Handle 1000 (normal), 1001 (going away), 4xxx (app errors)
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Solution | Note |
+|---|---|---|
+| Reconnect | Exponential backoff | 1s, 2s, 4s, 8s... max 60s |
+| Auth | Token in query or upgrade header | Not in URL for prod |
+| Rooms | Map<roomId, Set<socket>> | Server-side routing |
+| Broadcast | Iterate room sockets | Or Redis Pub/Sub for multi-node |
+| Heartbeat | ping/pong interval | 30s; close if no pong |
+| Compression | permessage-deflate | Header negotiation |

@@ -1,128 +1,296 @@
 ---
-description: Global catalog of standalone tools available in the OmniRule ecosystem.
+description: Global catalog of all tools available in the OmniRule ecosystem. ALWAYS read this before deciding how to approach a task — use a tool instead of doing it manually.
 alwaysApply: true
 ---
 
 # OmniRule Tool Catalog
 
-All agents access these tools via `npm run <script>` or `tsx tools/<file>`.
+All agents access these tools via `npm run <script>`. **Prefer tools over manual work.**
+
+---
+
+## Quick Reference — When to Reach for a Tool
+
+| Situation | Tool to use |
+|---|---|
+| User asks for PDF / report / rapor / analiz / teklif | `tool:document --type=pdf` via `document-creator` agent |
+| User asks for sunum / presentation / slayt / deck | `tool:document --type=pptx` via `document-creator` agent |
+| User gives a URL to copy/clone design | `tool:extract` |
+| Starting a new session or project | `tool:skills` |
+| About to commit or push code | `tool:preflight` |
+| Refactoring a file — want to know what breaks | `tool:impact` |
+| Need CRUD for a new Prisma model | `tool:crud` |
+| Changing an API — need to check for breaking changes | `tool:api-diff` |
+| Suspecting dead/unused exports | `tool:dead-code` |
+| Missing translations or hardcoded strings | `tool:i18n` |
+| .env is out of sync | `tool:env` |
+| Need a CHANGELOG for a release | `tool:changelog` |
+| Want to know how many tokens a folder costs | `tool:tokens` |
+| Need React components from design tokens | `tool:generate` |
+| PR or major task complete | `omnirule:check` |
+| After implementation — verify types | `omnirule:verify` |
+| Security concern or auth file edited | `tool:security` |
+| Dependency audit | `tool:deps` |
+| Context window getting large | `tool:compact` |
 
 ---
 
 ## 1. Frontend Extractor
 
-- **Command:** `npm run tool:extract -- <URL> [--pages /path1,/path2]`
+- **Command:** `npm run tool:extract -- <URL>`
 - **Source:** `tools/frontend-extractor.ts`
-- **Engine:** Playwright (Chromium, headless)
-- **Output:** `.design/{domain}/`
+- **Output:** `.design/{domain}/` — colors, typography, spacing, effects, screenshots, tailwind config
 
-### What it extracts:
-| Category | Data |
-|---|---|
-| Screenshots | Full-page desktop (1440px) + mobile (390px) per page |
-| Colors | Background, text, border colors → hex palette |
-| Typography | Font families, sizes, weights, line-heights, letter-spacing |
-| Spacing | Padding, margin, gap values |
-| Effects | Border-radius, box-shadow, backdrop-filter, transitions |
-| Layout | Max-widths, z-index scale, display modes |
-
-### Output files:
-```
-.design/{domain}/
-  screenshots/          ← PNG files
-  tokens/
-    colors.json
-    typography.json
-    spacing.json
-    effects.json
-    layout.json
-  DESIGN_RULES.md       ← Human-readable summary
-  tailwind.config.js    ← Ready-to-use Tailwind config
-```
-
-### Setup (first time only):
-```bash
-npm run tool:extract:install   # installs Playwright Chromium
-```
-
-### When to use:
-- User provides a reference URL for "build something similar"
-- User says "extract design from X"
-- Style Architect agent needs reference tokens
+**When to use:** User says "build something like X", "extract design from Y", or provides a reference URL.
 
 ---
 
-## 2. Skill Detector
+## 2. Component Generator
+
+- **Command:** `npm run tool:generate -- <domain>` | `--list` | `--all`
+- **Source:** `tools/component-generator.ts`
+- **Output:** `src/components/{domain}/` — Button, Card, Input, Badge, Text with design token values
+
+**When to use:** After running `tool:extract`, or when user asks for components matching the extracted design system.
+
+---
+
+## 3. Skill Detector
 
 - **Command:** `npm run tool:skills`
 - **Source:** `tools/skill-detector.ts`
-- **Purpose:** Scans the project and returns which expert skills are relevant
 
-### Detected indicators:
-- `next.config.*` → `nextjs-expert`
-- `tailwind.config.*` → `tailwind-expert`
-- `schema.prisma` → `prisma-expert`
-- `tsconfig.json` → `typescript-expert`
-- `Dockerfile` → `docker-patterns`
-
-### When to use:
-- Start of a new session in an unfamiliar project
-- Orchestrator uses it automatically before dispatching
+**When to use:** Start of session, unfamiliar project, or before dispatching sub-agents.
 
 ---
 
-## 3. Quality Gate
+## 4. Impact Analyzer
+
+- **Command:** `npm run tool:impact -- <file-path>`
+- **Source:** `tools/impact-analyzer.ts`
+- **Output:** `.omnirule/reports/impact-{name}.md` — full reverse dependency graph, risk score
+
+**When to use:** Before refactoring any file. Shows every file that imports the target, recursively. If risk is CRITICAL, warn user before proceeding.
+
+---
+
+## 5. CRUD Generator
+
+- **Command:** `npm run tool:crud -- <ModelName> [--schema path/to/schema.prisma]`
+- **Source:** `tools/crud-gen.ts`
+- **Output:** `src/` — types, Zod schema, service layer, route handlers, test file
+
+**When to use:** User asks for CRUD for a new or existing Prisma model. Reads `prisma/schema.prisma` automatically. Works without schema too (generates a scaffold).
+
+---
+
+## 6. Pre-flight Check
+
+- **Command:** `npm run tool:preflight`
+- **Source:** `tools/pre-flight.ts`
+- **Checks:** Branch name, secrets, debug statements, TypeScript, cyclomatic complexity, test coverage, env
+
+**When to use:** Before any `git push`, before reporting a task complete. **This is a GO/NO-GO gate.**
+
+---
+
+## 7. API Diff
+
+- **Command:** `npm run tool:api-diff -- <spec-a> <spec-b>`
+- **Source:** `tools/api-diff.ts`
+- **Checks:** Removed endpoints, changed parameters, response type changes — exits 1 on breaking changes
+
+**When to use:** When modifying API routes, before deploying a new version. Compare old OpenAPI spec vs new.
+
+---
+
+## 8. i18n Audit
+
+- **Command:** `npm run tool:i18n`
+- **Source:** `tools/i18n-audit.ts`
+- **Checks:** Hardcoded strings in JSX, missing keys in locale files, orphan keys
+
+**When to use:** Before a release, or any time new UI text is added.
+
+---
+
+## 9. Dead Code Detector
+
+- **Command:** `npm run tool:dead-code`
+- **Source:** `tools/dead-code.ts`
+- **Checks:** Named exports that are never imported anywhere
+
+**When to use:** Before a major refactor, or as part of tech-debt cleanup.
+
+---
+
+## 10. Env Validator
+
+- **Command:** `npm run tool:env [--fix]`
+- **Source:** `tools/env-validator.ts`
+- **Checks:** .env.example ↔ .env ↔ process.env references in source code
+
+**When to use:** When env issues are suspected, before deploy, when onboarding a new dev. `--fix` auto-appends missing vars to .env.
+
+---
+
+## 11. Changelog Generator
+
+- **Command:** `npm run tool:changelog [--unreleased] [--from v1.0.0] [--to v2.0.0] [--dry-run]`
+- **Source:** `tools/changelog-gen.ts`
+- **Output:** `CHANGELOG.md` — grouped by feat/fix/perf/security from Conventional Commits
+
+**When to use:** Before a release, or when user asks for a changelog.
+
+---
+
+## 12. Token Counter
+
+- **Command:** `npm run tool:tokens -- <path> [--model=sonnet-4-6] [--budget=8000] [--models]`
+- **Source:** `tools/token-counter.ts`
+
+**When to use:** Before including a large directory in context, estimating API cost, checking if content fits in a token budget.
+
+---
+
+## 13. Git Sentinel
+
+- **Command:** `npm run tool:git [--staged]`
+- **Source:** `tools/git-sentinel.ts`
+
+**When to use:** Pre-commit validation. Also run automatically via lefthook.
+
+---
+
+## 14. Schema Visualizer
+
+- **Command:** `npm run tool:schema`
+- **Source:** `tools/schema-visualizer.ts`
+- **Output:** Mermaid ER diagram + JSON model map from `prisma/schema.prisma`
+
+**When to use:** When explaining or auditing the database schema, before migrations.
+
+---
+
+## 15. Performance Auditor
+
+- **Command:** `npm run tool:perf -- <URL>`
+- **Source:** `tools/performance-auditor.ts`
+
+**When to use:** User asks for Core Web Vitals, LCP/CLS/FCP scores, or performance issues on a URL.
+
+---
+
+## 16. Code Complexity
+
+- **Command:** `npm run tool:complexity`
+- **Source:** `tools/code-complexity.ts`
+
+**When to use:** During refactor planning, tech-debt audit, or when a file seems too complex.
+
+---
+
+## 17. Security Audit
+
+- **Command:** `npm run tool:security`
+- **Source:** `tools/security-audit.ts`
+
+**When to use:** Before any commit, when auth/API/middleware files are edited, or when security officer agent is active.
+
+---
+
+## 18. Dependency Check
+
+- **Command:** `npm run tool:deps`
+- **Source:** `tools/dependency-sentinel.ts`
+
+**When to use:** Session start, when package.json changes, before deploy.
+
+---
+
+## 19. Compact Context
+
+- **Command:** `npm run tool:compact`
+- **Source:** `tools/context-compactor.ts`
+
+**When to use:** Context window is getting large. Builds a critical snapshot so nothing is lost during compaction.
+
+---
+
+## 20. Quality Gate
 
 - **Command:** `npm run omnirule:verify`
 - **Source:** `scripts/hooks/quality-gate.js`
-- **Purpose:** Batch lint + typecheck + test run
 
-### When to use:
-- Before completing any implementation task
-- QA Agent uses it as final verification step
-- DevOps Agent uses it as a CI gate check
+**When to use:** After every implementation task, before reporting done.
 
 ---
 
-## 4. Security Audit
-
-- **Command:** `npm run tool:security`
-- **Purpose:** Scan changed files for security vulnerabilities.
-- **When to Use:** Before any commit or when auth/API files are edited.
-
----
-
-## 5. Dependency Check
-
-- **Command:** `npm run tool:deps`
-- **Purpose:** Scan package.json for vulnerable or deprecated packages.
-- **When to Use:** At session start or when package.json changes.
-
----
-
-## 6. Compact Context
-
-- **Command:** `npm run tool:compact`
-- **Purpose:** Build a critical context snapshot to survive context window compaction.
-- **When to Use:** When context is getting large.
-
----
-
-## 7. Full Check
+## 21. Full Check
 
 - **Command:** `npm run omnirule:check`
-- **Purpose:** Run all checks: deps + security + quality.
-- **When to Use:** Before PR or major task completion.
+- **Purpose:** deps + security + quality in one shot.
+
+**When to use:** Before PR or major milestone.
+
+---
+
+## 22. Mission Runner
+
+- **Command:** `npm run tool:missions`
+- **Source:** `tools/mission-runner.ts`
+
+**When to use:** Viewing active mission state, checking agent handoff status.
+
+---
+
+## 23. Document Creator
+
+- **Command:** `npm run tool:document -- --type=pdf --title="Title" --input=content.md --output=out.pdf`
+- **Command (PPTX):** `npm run tool:document -- --type=pptx --title="Title" --input=content.md --output=out.pptx`
+- **Source:** `tools/document-creator.ts`
+- **Agent:** `document-creator` — handles research + structuring + generation end-to-end
+
+### Flags:
+| Flag | Description | Default |
+|---|---|---|
+| `--type` | `pdf` or `pptx` | `pdf` |
+| `--title` | Document title | `Untitled Document` |
+| `--subtitle` | Cover page subtitle | — |
+| `--org` | Organisation name on cover | `OmniRule` |
+| `--client` | Client name on cover | — |
+| `--input` | Markdown content file | *(placeholder used)* |
+| `--output` | Output file path | `output.pdf` / `output.pptx` |
+
+### Output style: IBM/McKinsey
+- Dark navy (`#051C2C`) + IBM blue (`#0F62FE`) palette
+- IBM Plex Sans typography, A4 pages, 20mm/25mm margins
+- Auto cover page, page numbers, section breaks
+- PPTX: 16:9, 5 slide types (title, bullets, kpi, table, content)
+
+**When to use — MANDATORY triggers:**
+- User says "PDF", "rapor", "report", "analiz", "teklif", "proposal" → `--type=pdf`
+- User says "sunum", "presentation", "slayt", "deck", "slides", "pptx" → `--type=pptx`
+- Any document that needs to be downloaded, shared, or printed
+- **NEVER write raw HTML/PPTX manually** — always run this tool
+
+### Full workflow (document-creator agent follows this exactly):
+```
+1. Understand topic → research if needed (grep files, read docs)
+2. Write structured markdown to a temp content file
+3. Run: npm run tool:document -- --type=<pdf|pptx> --title="..." --input=content.md --output=<file>
+4. Report output path + file size to user
+```
 
 ---
 
 ## Adding a New Tool
 
-1. Create `tools/{name}.ts`
-2. Add CLI entry point at the bottom (check `process.argv[1]`)
-3. Add script to `package.json`: `"tool:{name}": "tsx tools/{name}.ts"`
-4. Register here in `TOOL_CATALOG.md`
-5. Reference in `ORCHESTRATOR_AGENT.md` dispatch table
+1. Create `tools/{name}.ts` with a CLI entry at the bottom
+2. Add `"tool:{name}": "tsx tools/{name}.ts"` to `package.json`
+3. Add entry here in `TOOL_CATALOG.md`
+4. Add command to `userspec/opencode.json`
+5. Add entry to `registry.json`
 
 ---
 

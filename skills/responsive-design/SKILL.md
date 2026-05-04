@@ -1,6 +1,12 @@
 ---
 name: responsive-design
-description: "Breakpoint strategy, mobile-first, responsive images"
+description: "Breakpoint strategy, mobile-first, responsive images" 
+triggers:
+  extensions: [".css", ".scss", ".tsx"]
+  keywords: ["responsive", "breakpoint", "mobile-first", "media query", "viewport", "fluid", "container query"]
+auto_load_when: "Building responsive layouts"
+agent: style-architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Responsive Design Patterns
@@ -129,3 +135,37 @@ When to use viewport units:
 3. Prefer content-based breakpoints over device-specific
 4. Touch targets: minimum 44x44px
 5. Use container queries for self-contained components
+
+---
+
+## Anti-Patterns
+
+```
+❌ Desktop-first breakpoints (everything starts wide)
+✅ Mobile-first — min-width breakpoints only
+
+❌ Fixed pixel widths on containers
+✅ max-width with 100% fluid containers
+
+❌ Touch targets smaller than 44×44px
+✅ Minimum 44×44px clickable areas for mobile
+
+❌ Viewport-locked font sizes (px only)
+✅ Fluid typography with clamp() or rem units
+
+❌ Testing only at 375px and 1440px
+✅ Test the fluid range — resize slowly between breakpoints
+```
+
+---
+
+## Quick Reference
+
+| Concern | Solution | Example |
+|---|---|---|
+| Container width | max-width + padding | max-width: 1280px |
+| Fluid columns | CSS Grid auto-fill | repeat(auto-fill, minmax(280px, 1fr)) |
+| Fluid type | clamp() | clamp(1rem, 2.5vw, 1.5rem) |
+| Breakpoints | 640 / 768 / 1024 / 1280 | Tailwind defaults |
+| Images | max-width: 100% | Prevent overflow |
+| Touch targets | min 44px | WCAG 2.5.5 |

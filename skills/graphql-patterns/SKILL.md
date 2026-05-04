@@ -1,6 +1,12 @@
 ---
 name: graphql-patterns
-description: "GraphQL: Schema design, resolvers, pagination, caching, subscriptions, vs REST decisions"
+description: "GraphQL: Schema design, resolvers, pagination, caching, subscriptions, vs REST decisions" 
+triggers:
+  extensions: [".graphql", ".gql", ".ts"]
+  keywords: ["GraphQL", "query", "mutation", "resolver", "schema", "Apollo", "DataLoader"]
+auto_load_when: "Building GraphQL APIs or clients"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # GraphQL Patterns
@@ -133,3 +139,38 @@ Error handling:
 3. **Connection** - Standard pagination
 4. **Subscriptions** - Use sparingly, WebSocket over SSE
 5. **Errors in response** - Don't throw, return errors array
+
+---
+
+## Anti-Patterns
+
+```
+❌ N+1 queries — resolver fetches per-item inside list
+✅ Use DataLoader to batch & deduplicate DB calls
+
+❌ Returning full objects when client needs 2 fields
+✅ Let GraphQL projection do the work; never over-fetch in resolvers
+
+❌ Deeply nested mutations that do too much
+✅ Single-responsibility mutations, max 2 levels deep
+
+❌ No query depth/complexity limits
+✅ Set max depth (10) and max complexity (1000) per query
+
+❌ Exposing internal DB IDs as GraphQL IDs directly
+✅ Opaque cursor-based IDs for relay-compatible pagination
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Solution | Library |
+|---|---|---|
+| Batch DB calls | DataLoader | dataloader |
+| Input validation | Input types + Zod/yup | graphql-shield |
+| Auth per field | Field-level directives | graphql-shield |
+| Real-time | Subscriptions over WS | graphql-ws |
+| File upload | multipart request | graphql-upload |
+| Schema-first | SDL + codegen | @graphql-codegen |
+| Code-first | Resolver decorators | TypeGraphQL / Pothos |

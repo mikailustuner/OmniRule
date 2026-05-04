@@ -1,6 +1,11 @@
 ---
 name: cron-jobs
-description: "Cron jobs: Scheduling patterns, idempotency strategy, failure handling, monitoring."
+description: "Cron jobs: Scheduling patterns, idempotency strategy, failure handling, monitoring." 
+triggers:
+  keywords: ["cron", "schedule", "recurring", "job", "BullMQ", "queue", "worker", "background"]
+auto_load_when: "Setting up scheduled or background jobs"
+agent: devops-engineer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Cron Jobs Patterns
@@ -181,3 +186,43 @@ How to handle time zones:
 3. **Alert on failure, not every retry** — Noise reduction
 4. **UTC for infrastructure** — Simpler, consistent
 5. **Log everything** — Debug failures later
+
+---
+
+## Anti-Patterns
+
+```
+❌ Multiple instances running the same cron simultaneously
+✅ Distributed lock (Redis SET NX) before executing cron job
+
+❌ Cron jobs with no logging or alerting
+✅ Log start/end/duration; alert on failure or long runtime
+
+❌ Cron times in local timezone
+✅ Always use UTC in cron expressions
+
+❌ Heavy work blocking the cron process
+✅ Cron dispatches a job to a queue; worker handles the heavy lifting
+
+❌ No graceful shutdown handling
+✅ Handle SIGTERM; complete current job, reject new during shutdown
+```
+
+---
+
+## Quick Reference
+
+| Expression | Meaning | Example |
+|---|---|---|
+| `* * * * *` | Every minute | Health check |
+| `0 * * * *` | Every hour | Hourly rollup |
+| `0 0 * * *` | Daily midnight UTC | Daily report |
+| `0 0 * * 0` | Weekly Sunday | Weekly summary |
+| `*/5 * * * *` | Every 5 minutes | Polling job |
+
+| Library | Runtime | Note |
+|---|---|---|
+| node-cron | Node.js | In-process |
+| BullMQ repeat | Node.js | Queue-backed |
+| Inngest | Serverless | Managed |
+| GitHub Actions schedule | CI | Simple periodic |

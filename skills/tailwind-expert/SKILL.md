@@ -1,6 +1,13 @@
 ---
 name: tailwind-expert
-description: "Tailwind 4: Theme architecture, Responsive strategy, Component patterns, Dark mode approach."
+description: "Tailwind 4: Theme architecture, Responsive strategy, Component patterns, Dark mode approach." 
+triggers:
+  extensions: [".tsx", ".html"]
+  filenames: ["tailwind.config.js", "tailwind.config.ts"]
+  keywords: ["Tailwind", "class", "utility", "tw", "@apply", "theme", "extend"]
+auto_load_when: "Writing Tailwind CSS classes or config"
+agent: style-architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Tailwind CSS 4 Architecture Patterns
@@ -163,3 +170,37 @@ Migration priority:
 3. **Container queries** - Components adapt to parent
 4. **Variant pattern** - Simple components, compose for complex
 5. **CSS variables** - Enable runtime theming
+
+---
+
+## Anti-Patterns
+
+```
+❌ Overriding Tailwind with arbaitrary [value] everywhere
+✅ Extend theme in tailwind.config.ts; use custom tokens
+
+❌ Long className strings that repeat across components
+✅ Extract to component with cva() (class-variance-authority)
+
+❌ Purging accidentally removes used classes (dynamic class strings)
+✅ Safelist dynamic classes or construct full class names in code
+
+❌ Mixing Tailwind with global CSS for the same styles
+✅ Tailwind for all layout/spacing; CSS for animations not in Tailwind
+
+❌ No dark mode strategy — adding dark: to every class
+✅ Centralize dark mode in design tokens via CSS variables
+```
+
+---
+
+## Quick Reference
+
+| Pattern | Implementation | Note |
+|---|---|---|
+| Component variants | cva() + cn() | Type-safe variants |
+| Responsive | sm: md: lg: | Mobile-first |
+| Dark mode | dark: prefix | class or media strategy |
+| Animation | animate-* + @keyframes | Extend in config |
+| Arbitrary value | w-[37px] | Use sparingly |
+| Custom token | extend.colors.brand | In tailwind.config.ts |

@@ -483,3 +483,41 @@ export function middleware(request: NextRequest) {
 3. **Intercepting** shows modal while preserving parent context
 4. **Middleware** runs before every request (Edge compatible)
 5. **Server Actions** for mutations, Route Handlers for external APIs
+
+---
+
+## Anti-Patterns
+
+```
+❌ Using pages/ router patterns in App Router (getServerSideProps, etc.)
+✅ App Router: fetch in async Server Components; no lifecycle functions
+
+❌ Middleware that imports heavy Node.js modules (fs, crypto)
+✅ Middleware is Edge Runtime — use Web APIs only (fetch, crypto.subtle)
+
+❌ Nested dynamic segments with overlapping patterns (/[id] and /[slug])
+✅ Use distinct segment names; add route matchers to differentiate
+
+❌ Intercepting route that breaks on full-page refresh
+✅ Always provide full-page fallback at the real route path
+
+❌ Client-side navigation to protect routes (easy to bypass)
+✅ Auth check in middleware — runs before any page is rendered
+```
+
+---
+
+## Quick Reference
+
+| Pattern | File convention | Use case |
+|---|---|---|
+| Dynamic segment | [id]/page.tsx | Detail pages |
+| Catch-all | [...slug]/page.tsx | CMS, docs |
+| Optional catch-all | [[...slug]]/page.tsx | Root + nested |
+| Route group | (group)/page.tsx | Organize without URL change |
+| Parallel route | @slot/page.tsx | Dashboard widgets |
+| Intercepting | (.)path/page.tsx | Modal overlay |
+| Layout | layout.tsx | Shared chrome |
+| Loading | loading.tsx | Streaming skeleton |
+| Error | error.tsx | Error boundary |
+| Not found | not-found.tsx | 404 page |

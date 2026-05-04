@@ -1,6 +1,11 @@
 ---
 name: real-time-patterns
-description: "Real-time: WebSockets, SSE, polling, rooms, presence, reconnection"
+description: "Real-time: WebSockets, SSE, polling, rooms, presence, reconnection" 
+triggers:
+  keywords: ["real-time", "WebSocket", "SSE", "Socket.io", "live", "streaming", "presence", "room", "broadcast"]
+auto_load_when: "Implementing real-time features"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Real-Time Patterns
@@ -145,3 +150,37 @@ Offline queue:
 4. **Heartbeat for presence** - 30-60s intervals
 5. **Exponential backoff** - Reconnection
 6. **Message acks** - Reliability over UDP
+
+---
+
+## Anti-Patterns
+
+```
+❌ Polling every second from client
+✅ Server-Sent Events for server→client; WebSocket for bidirectional
+
+❌ Broadcasting every event to every connected client
+✅ Room/channel-based routing — clients subscribe to relevant streams
+
+❌ No backpressure handling on fast publishers
+✅ Implement flow control; drop/buffer when consumer is slow
+
+❌ Storing real-time state only in memory (lost on restart)
+✅ Persist to Redis / DB; reconnecting clients can catch up
+
+❌ WebSocket without heartbeat/ping-pong
+✅ Send heartbeat every 30s; disconnect silent clients
+```
+
+---
+
+## Quick Reference
+
+| Pattern | Transport | Use case |
+|---|---|---|
+| Chat / collaboration | WebSocket | Bidirectional |
+| Notifications | SSE | Server→client only |
+| Live dashboards | SSE | Server→client only |
+| Game state | WebSocket | Low latency |
+| Presence | WebSocket + Redis | User online/offline |
+| Event stream | Kafka / Redis Streams | Durable replay |

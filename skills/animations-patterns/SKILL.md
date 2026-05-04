@@ -1,6 +1,12 @@
 ---
 name: animations-patterns
-description: "Animation decisions, performance, accessibility"
+description: "Animation decisions, performance, accessibility" 
+triggers:
+  extensions: [".tsx", ".css", ".ts"]
+  keywords: ["animation", "transition", "motion", "framer", "keyframe", "gsap"]
+auto_load_when: "Adding animations or transitions"
+agent: style-architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Animations Patterns
@@ -124,3 +130,37 @@ When to use spring:
 3. Use will-change sparingly — add before, remove after
 4. Timing: fast for UI (200ms), slower for emphasis (400ms)
 5. Spring for interactive, easing for one-way
+
+---
+
+## Anti-Patterns
+
+```
+❌ Animating layout properties (width, height, top, left)
+✅ Animate transform and opacity only — GPU-composited
+
+❌ JavaScript setInterval for animations
+✅ requestAnimationFrame or CSS transitions
+
+❌ Blocking main thread with heavy JS during animation
+✅ Use CSS animations or offload to Web Animations API
+
+❌ Auto-playing motion with no prefers-reduced-motion check
+✅ Always wrap motion in @media (prefers-reduced-motion: no-preference)
+
+❌ Animating every interaction (overload)
+✅ Reserve animation for meaningful state changes
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Solution | Performance |
+|---|---|---|
+| Simple hover | CSS transition | Excellent |
+| Complex sequence | Web Animations API / Framer Motion | Good |
+| Enter/exit | CSS keyframes + class toggle | Excellent |
+| Scroll-linked | Intersection Observer | Good |
+| Canvas/game | requestAnimationFrame | Excellent |
+| Reduced motion | prefers-reduced-motion media query | — |

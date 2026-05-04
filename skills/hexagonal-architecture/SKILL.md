@@ -1,6 +1,11 @@
 ---
 name: hexagonal-architecture
-description: "Hexagonal Architecture: Ports and adapters, domain-driven design, external dependencies isolation."
+description: "Hexagonal Architecture: Ports and adapters, domain-driven design, external dependencies isolation." 
+triggers:
+  keywords: ["hexagonal", "ports", "adapters", "domain isolation", "infrastructure", "application service"]
+auto_load_when: "Designing hexagonal/ports-adapters architecture"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Hexagonal Architecture Patterns
@@ -130,3 +135,37 @@ Mocking pattern:
 5. **Domain first** - build core, add adapters
 
 (End of file - 80 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Port (interface) defined in infrastructure layer
+✅ Ports belong to the application/domain core
+
+❌ Adapter directly instantiated inside business logic
+✅ Inject adapters via constructor/DI container
+
+❌ HTTP concerns (status codes, headers) leaking into use cases
+✅ HTTP is an adapter detail — use cases return plain results
+
+❌ Testing with real DB instead of fake adapter
+✅ Swap adapters with in-memory fakes in tests
+
+❌ One giant port that does everything
+✅ Small, focused ports per capability
+```
+
+---
+
+## Quick Reference
+
+| Concept | Hexagonal term | Lives where |
+|---|---|---|
+| Business logic | Application core | Center |
+| Interface definition | Port | Core (defines shape) |
+| Framework integration | Adapter | Outside |
+| DB implementation | Driven adapter | Outside |
+| HTTP handler | Driving adapter | Outside |
+| DI wiring | Composition root | App startup |

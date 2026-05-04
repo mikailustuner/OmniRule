@@ -1,6 +1,13 @@
 ---
 name: testing-patterns
-description: "Testing: TDD workflow, Test selection strategy, Mock strategy, When to test what."
+description: "Testing: TDD workflow, Test selection strategy, Mock strategy, When to test what." 
+triggers:
+  extensions: [".test.ts", ".spec.ts", ".test.tsx", ".spec.tsx"]
+  directories: ["__tests__/", "e2e/", "test/"]
+  keywords: ["test", "vitest", "jest", "playwright", "coverage", "mock", "fixture", "assertion"]
+auto_load_when: "Writing tests or test infrastructure"
+agent: qa-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Testing Architecture Patterns
@@ -168,3 +175,37 @@ What NOT to test:
 3. **Mock external** - Test internal logic
 4. **80% coverage** - Focus critical paths
 5. **E2E sparingly** - Only critical flows
+
+---
+
+## Anti-Patterns
+
+```
+❌ Testing implementation details (internals, private methods)
+✅ Test behavior from the user's perspective — what it does, not how
+
+❌ Mocking everything, including the thing under test
+✅ Mock only external boundaries (DB, HTTP, clock); test real logic
+
+❌ Single test file with 200 test cases — slow, hard to navigate
+✅ Co-locate tests with feature; one file per module
+
+❌ Tests that pass individually but fail in CI (global state leak)
+✅ Reset all shared state in beforeEach/afterEach
+
+❌ 0% E2E tests relying only on unit tests
+✅ Testing trophy: many unit, some integration, few critical E2E
+```
+
+---
+
+## Quick Reference
+
+| Test type | Tool | What to test |
+|---|---|---|
+| Unit | Vitest / Jest | Pure functions, hooks |
+| Component | Testing Library | User interactions |
+| Integration | Supertest | API routes |
+| E2E | Playwright | Critical user journeys |
+| Visual | Chromatic | UI regression |
+| Performance | Lighthouse CI | CWV thresholds |

@@ -1,6 +1,12 @@
 ---
 name: bundle-optimization
-description: "Code splitting, tree shaking, lazy loading"
+description: "Code splitting, tree shaking, lazy loading" 
+triggers:
+  filenames: ["vite.config", "webpack.config", "next.config", "rollup.config"]
+  keywords: ["bundle", "chunk", "tree-shaking", "lazy", "code split", "dynamic import"]
+auto_load_when: "Optimizing bundle size or code splitting"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Bundle Optimization Patterns
@@ -145,3 +151,38 @@ When to exceed:
 3. Tree shake: ES modules, declare sideEffects
 4. Analyze bundles regularly, set size budgets
 5. Use prefetch for likely, preload for critical
+
+---
+
+## Anti-Patterns
+
+```
+❌ Importing entire library for one utility (import _ from 'lodash')
+✅ Named imports only: import { debounce } from 'lodash-es'
+
+❌ No code splitting — one 2MB bundle
+✅ Dynamic import() for routes and heavy components
+
+❌ Images not compressed or sized
+✅ Next/Image or <picture> with srcset; WebP/AVIF formats
+
+❌ Third-party scripts blocking render
+✅ async/defer for non-critical; load analytics after interaction
+
+❌ No tree-shaking (CommonJS modules)
+✅ ESM everywhere — enables dead code elimination
+```
+
+---
+
+## Quick Reference
+
+| Optimization | Technique | Impact |
+|---|---|---|
+| Route splitting | dynamic import() | Large |
+| Tree shaking | ESM named imports | Medium–Large |
+| Image formats | WebP/AVIF + srcset | Large |
+| Font loading | font-display: swap + subset | Medium |
+| Compression | Brotli / gzip | Medium |
+| Preload | <link rel=preload> | Medium |
+| Bundle analysis | webpack-bundle-analyzer | Discovery |

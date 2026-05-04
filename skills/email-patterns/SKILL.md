@@ -1,6 +1,11 @@
 ---
 name: email-patterns
-description: "Email: Transactional email, templates, delivery patterns, feedback loops."
+description: "Email: Transactional email, templates, delivery patterns, feedback loops." 
+triggers:
+  keywords: ["email", "SMTP", "SendGrid", "nodemailer", "transactional", "Resend", "template", "newsletter"]
+auto_load_when: "Building email sending functionality"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Email Patterns
@@ -188,3 +193,43 @@ When to act:
 3. **Handle bounces** — Suppress invalid, track errors
 4. **Monitor engagement** — Act on data
 5. **Plain text fallback** — Always have
+
+---
+
+## Anti-Patterns
+
+```
+❌ Sending email synchronously inside HTTP request handler
+✅ Queue email; deliver async via background worker
+
+❌ Plain-text email only (no HTML template)
+✅ Multipart emails: text/plain fallback + text/html styled
+
+❌ Sending bulk email through SMTP directly
+✅ Use transactional ESP (Resend, SendGrid, Postmark) for deliverability
+
+❌ No unsubscribe link in marketing emails
+✅ CAN-SPAM / GDPR: unsubscribe + physical address required
+
+❌ Not testing email rendering across clients
+✅ Litmus / Email on Acid preview before sending
+```
+
+---
+
+## Quick Reference
+
+| Service | Use case | SDK |
+|---|---|---|
+| Resend | Transactional | resend npm |
+| SendGrid | Transactional + marketing | @sendgrid/mail |
+| Postmark | High deliverability | postmark |
+| Mailchimp | Marketing / newsletters | API v3 |
+| React Email | Template authoring | react-email |
+
+| Header | Purpose | Required? |
+|---|---|---|
+| List-Unsubscribe | One-click unsubscribe | Marketing: Yes |
+| DKIM | Email authentication | Always |
+| SPF | Sender policy | Always |
+| DMARC | Alignment policy | Recommended |

@@ -1,6 +1,13 @@
 ---
 name: ci-cd-patterns
-description: "CI/CD: Pipeline strategy, testing stages, deployment patterns, and release workflows."
+description: "CI/CD: Pipeline strategy, testing stages, deployment patterns, and release workflows." 
+triggers:
+  extensions: [".yml", ".yaml"]
+  filenames: [".github/workflows", ".gitlab-ci.yml", "Jenkinsfile", ".circleci"]
+  keywords: ["pipeline", "deploy", "CI", "CD", "workflow", "release"]
+auto_load_when: "Editing CI/CD pipeline files"
+agent: devops-engineer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # CI/CD Pipeline Patterns
@@ -135,3 +142,37 @@ Version strategy:
 3. **Immutable artifacts** — Build once, deploy everywhere
 4. **Rollback-first** — Always know how to revert
 5. **Secrets management** — Never inject secrets in pipeline code
+
+---
+
+## Anti-Patterns
+
+```
+❌ Deploying directly from developer laptops
+✅ All deployments via CI/CD pipeline — never manual
+
+❌ CI runs only on main branch
+✅ Run CI on every PR — catch issues before merge
+
+❌ No staging environment — dev → prod directly
+✅ At minimum: dev → staging → prod with approval gates
+
+❌ Secrets hardcoded in pipeline YAML
+✅ Secrets from vault/secrets manager, injected as env vars
+
+❌ Flaky tests causing random pipeline failures
+✅ Quarantine flaky tests; fix or remove — never ignore
+```
+
+---
+
+## Quick Reference
+
+| Stage | What runs | Gate to next |
+|---|---|---|
+| Build | Compile, lint, typecheck | All pass |
+| Test | Unit + integration tests | >80% coverage |
+| Security | SAST, dependency audit | No criticals |
+| Artifact | Docker build + push | Image tagged |
+| Deploy staging | Helm/Terraform apply | Smoke tests pass |
+| Deploy prod | Same image, prod values | Manual approval |

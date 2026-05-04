@@ -1,6 +1,11 @@
 ---
 name: edge-computing
-description: "Edge functions, serverless edge, Cloudflare Workers, and edge computing patterns for low-latency applications."
+description: "Edge functions, serverless edge, Cloudflare Workers, and edge computing patterns for low-latency applications." 
+triggers:
+  keywords: ["edge", "CDN", "Cloudflare Workers", "Vercel edge", "middleware", "edge function", "serverless"]
+auto_load_when: "Implementing edge functions or CDN logic"
+agent: devops-engineer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Edge Computing Patterns
@@ -167,3 +172,36 @@ Hybrid approach:
 4. **Start simple** - Migrate static first
 5. **Handle cold starts** - Accept warm-up latency
 6. **Watch costs** - Many platforms have free tiers
+
+---
+
+## Anti-Patterns
+
+```
+❌ Running Node.js-only APIs at edge (unsupported runtime)
+✅ Use Edge Runtime compatible APIs: fetch, crypto, TextEncoder only
+
+❌ Accessing database directly from edge worker
+✅ Use edge-compatible DBs (PlanetScale, Neon, Turso) or cache layer
+
+❌ Edge functions for long-running tasks (>30s limit)
+✅ Edge for short-lived transformations; offload heavy work to serverless
+
+❌ No geo-awareness — same content to every region
+✅ Edge KV for regionally replicated data; vary by cf-ipcountry header
+
+❌ Debugging edge with console.log (no runtime visibility)
+✅ Use structured logging + wrangler tail / Cloudflare Logpush
+```
+
+---
+
+## Quick Reference
+
+| Platform | Runtime limit | Best for |
+|---|---|---|
+| Cloudflare Workers | 50ms CPU | Global low-latency |
+| Vercel Edge | 25s wall clock | Next.js middleware |
+| Deno Deploy | Generous | Full Deno APIs |
+| Fastly Compute | 50ms | CDN logic |
+| AWS Lambda@Edge | 5s | CloudFront integration |

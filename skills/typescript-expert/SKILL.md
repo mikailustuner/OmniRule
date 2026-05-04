@@ -1,6 +1,12 @@
 ---
 name: typescript-expert
-description: "TypeScript: Type inference strategy, Generic patterns, Utility type selection, Safety patterns."
+description: "TypeScript: Type inference strategy, Generic patterns, Utility type selection, Safety patterns." 
+triggers:
+  extensions: [".ts", ".tsx"]
+  keywords: ["TypeScript", "type", "interface", "generic", "infer", "utility type", "satisfies", "as const"]
+auto_load_when: "Writing TypeScript types or resolving type errors"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # TypeScript Architecture Patterns
@@ -168,3 +174,38 @@ How to type modules:
 3. **Discriminated unions** - Type-safe conditionals
 4. **Zod for input** - Runtime validation + type inference
 5. **Strict by default** - any is a code smell
+
+---
+
+## Anti-Patterns
+
+```
+❌ Using `any` — opts out of type checking entirely
+✅ `unknown` for truly unknown types; narrow with type guards
+
+❌ Type assertions (as Type) hiding real type errors
+✅ Fix the underlying type; use `satisfies` operator for validation
+
+❌ Overusing generics making code unreadable
+✅ Generics only when the type truly varies by caller
+
+❌ Not enabling strict mode
+✅ "strict": true in tsconfig.json — catches null/undefined errors
+
+❌ Duplicating type definitions across layers
+✅ Generate types from schema (Prisma → types, OpenAPI → types)
+```
+
+---
+
+## Quick Reference
+
+| Feature | Syntax | When to use |
+|---|---|---|
+| Discriminated union | type A = { kind: 'a' } | Type-safe conditionals |
+| Type guard | is narrowed type | Custom narrowing |
+| Conditional type | T extends U ? A : B | Generic branching |
+| Template literal | \`${Status}Event\` | String unions |
+| Mapped type | { [K in keyof T]: ... } | Transform types |
+| Infer | infer R in conditional | Extract inner type |
+| Satisfies | value satisfies Type | Validate without widen |

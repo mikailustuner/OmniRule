@@ -1,6 +1,12 @@
 ---
 name: mobile-patterns
-description: "Mobile: React Native, PWA, native features, offline-first, app store"
+description: "Mobile: React Native, PWA, native features, offline-first, app store" 
+triggers:
+  extensions: [".tsx"]
+  keywords: ["React Native", "Expo", "mobile", "iOS", "Android", "native", "FlashList", "expo-router"]
+auto_load_when: "Building React Native or Expo mobile apps"
+agent: mobile-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Mobile Patterns
@@ -153,3 +159,37 @@ Metrics:
 4. **IndexedDB over localStorage** - Size limit
 5. **Test on real devices** - Not emulator only
 6. **App-specific UX** - Not just responsive web
+
+---
+
+## Anti-Patterns
+
+```
+❌ Using web-style touch handlers instead of Gesture Responder
+✅ Use React Native PanResponder or Gesture Handler for touch
+
+❌ Large JS bundle causing slow TTI on mobile
+✅ Hermes engine + Metro bundler tree-shaking; lazy load screens
+
+❌ Platform-specific code scattered everywhere
+✅ Platform.select() or .ios.tsx / .android.tsx file extensions
+
+❌ ScrollView wrapping FlatList (double scroll)
+✅ FlatList / SectionList for any dynamic list — not ScrollView
+
+❌ No deep link handling
+✅ React Navigation linking config + universal links setup
+```
+
+---
+
+## Quick Reference
+
+| Need | React Native API | Expo |
+|---|---|---|
+| Navigation | React Navigation | expo-router |
+| Camera | react-native-vision-camera | expo-camera |
+| Storage | MMKV / AsyncStorage | expo-secure-store |
+| Push notifications | notifee | expo-notifications |
+| OTA update | CodePush | expo-updates |
+| Device info | react-native-device-info | expo-device |

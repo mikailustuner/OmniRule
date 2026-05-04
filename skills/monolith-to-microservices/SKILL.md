@@ -1,6 +1,11 @@
 ---
 name: monolith-to-microservices
-description: "Monolith to Microservices: Strangler pattern, incremental migration, decomposition strategies."
+description: "Monolith to Microservices: Strangler pattern, incremental migration, decomposition strategies." 
+triggers:
+  keywords: ["migration", "strangler fig", "decompose", "monolith", "extract service", "bounded context"]
+auto_load_when: "Planning monolith decomposition"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Monolith to Microservices Patterns
@@ -142,3 +147,37 @@ Duration: Days to weeks
 5. **Canary** - test with traffic
 
 (End of file - 74 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Extracting services by technical layer (all DBs in one service)
+✅ Extract by business domain — each service owns its data
+
+❌ Migrating everything in a big-bang rewrite
+✅ Strangler Fig: route traffic to new service; keep old running
+
+❌ Shared database between microservices
+✅ Each service owns its DB — communicate via events/APIs
+
+❌ Chatty services (10+ sync calls per request)
+✅ Denormalize data; use async events to avoid call chains
+
+❌ No service mesh or circuit breakers
+✅ Add retry, timeout, circuit breaker for every inter-service call
+```
+
+---
+
+## Quick Reference
+
+| Phase | Action | Risk |
+|---|---|---|
+| 1. Identify boundaries | Domain-driven decomposition | Low |
+| 2. Split data | Separate DB per service | Medium |
+| 3. Add API gateway | Route + auth centrally | Medium |
+| 4. Extract first service | Low-coupling, read-heavy | Low |
+| 5. Event sourcing | Replace sync calls | High |
+| 6. Remove strangler | Delete old code path | Low |

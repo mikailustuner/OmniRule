@@ -1,6 +1,12 @@
 ---
 name: terraform-basics
-description: "Terraform: Infrastructure as code, state management, module patterns, CI/CD integration."
+description: "Terraform: Infrastructure as code, state management, module patterns, CI/CD integration." 
+triggers:
+  extensions: [".tf", ".tfvars"]
+  keywords: ["Terraform", "IaC", "infrastructure", "AWS", "resource", "provider", "module", "state"]
+auto_load_when: "Writing Terraform infrastructure code"
+agent: devops-engineer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Terraform Patterns
@@ -163,3 +169,37 @@ How to organize environments:
 3. **Plan before apply** — Always review plan
 4. **Lock state** — Prevent concurrent changes
 5. **Don't hardcode** — Use variables everywhere
+
+---
+
+## Anti-Patterns
+
+```
+❌ Storing tfstate locally — lost on laptop change, blocks team
+✅ Remote state: S3 + DynamoDB lock, or Terraform Cloud
+
+❌ Hardcoding secrets in .tf files
+✅ Secrets via AWS Secrets Manager, Vault, or env vars
+
+❌ Running terraform apply directly without plan review
+✅ Always terraform plan → review → apply; automate in CI with approval gate
+
+❌ One giant module for everything
+✅ Split into reusable modules: networking, compute, database
+
+❌ No lifecycle rules on resources that shouldn't be destroyed
+✅ prevent_destroy = true on databases, S3 buckets with data
+```
+
+---
+
+## Quick Reference
+
+| Command | What it does | When |
+|---|---|---|
+| terraform init | Download providers | Before first apply |
+| terraform plan | Show changes | Before every apply |
+| terraform apply | Apply changes | After reviewing plan |
+| terraform destroy | Remove all | Only in dev/staging |
+| terraform import | Adopt existing resource | Brownfield migration |
+| terraform state | Manipulate state | Advanced / emergency |

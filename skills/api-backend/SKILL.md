@@ -1,6 +1,13 @@
 ---
 name: api-backend
-description: "Backend: Middleware flow, Error handling strategy, Auth middleware pattern, Validation pattern."
+description: "Backend: Middleware flow, Error handling strategy, Auth middleware pattern, Validation pattern." 
+triggers:
+  extensions: [".ts"]
+  directories: ["api/", "routes/", "handlers/"]
+  keywords: ["route", "handler", "middleware", "endpoint", "controller"]
+auto_load_when: "Building or editing API routes/handlers"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Backend API Architecture Patterns
@@ -145,3 +152,38 @@ Response on limit:
 3. **Consistent response format** - Easier to consume
 4. **Auth middleware** - Single place to check
 5. **Never leak internals** - Error messages to user vs logs
+
+---
+
+## Anti-Patterns
+
+```
+❌ Returning raw DB errors to clients (exposes schema)
+✅ Map all errors to application error types with safe messages
+
+❌ No request validation at API boundary
+✅ Validate every request with Zod/Joi before business logic
+
+❌ Unbounded list endpoints (return all 1M records)
+✅ Mandatory pagination with max page size
+
+❌ Different error shapes per endpoint
+✅ Consistent error envelope: { error: { code, message, details } }
+
+❌ Mutation endpoints that are idempotent by accident
+✅ Explicit idempotency key header for critical mutations
+```
+
+---
+
+## Quick Reference
+
+| Concern | Pattern | Implementation |
+|---|---|---|
+| Validation | Input schema | Zod + middleware |
+| Auth | JWT + refresh token | Middleware layer |
+| Pagination | Cursor-based | `next_cursor` in response |
+| Rate limiting | Sliding window | Redis + middleware |
+| Versioning | URL prefix /v1/ | Never break existing clients |
+| Error format | RFC 7807 | application/problem+json |
+| Logging | Correlation ID | trace-id header |

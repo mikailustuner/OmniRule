@@ -1,6 +1,11 @@
 ---
 name: web-performance
-description: "Core Web Vitals, LCP, FID, CLS optimization"
+description: "Core Web Vitals, LCP, FID, CLS optimization" 
+triggers:
+  keywords: ["performance", "Core Web Vitals", "LCP", "CLS", "INP", "optimization", "lazy", "prefetch", "preload"]
+auto_load_when: "Optimizing web performance metrics"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Web Performance Patterns
@@ -154,3 +159,37 @@ CSS optimization:
 3. CLS: reserve space for dynamic, specify dimensions, font-display
 4. Measure with RUM in production, Lighthouse in dev
 5. Quick wins: images, render-blocking, preload
+
+---
+
+## Anti-Patterns
+
+```
+❌ Optimizing before measuring
+✅ Measure first with Lighthouse / WebPageTest; fix bottlenecks
+
+❌ Blocking render with synchronous scripts in <head>
+✅ defer/async on all scripts; inline only critical CSS
+
+❌ Serving same large image to all viewports
+✅ Responsive images with srcset + WebP/AVIF
+
+❌ No caching strategy (every request hits origin)
+✅ Cache-Control headers + CDN for static assets
+
+❌ Third-party scripts with no facade pattern
+✅ Facade/lazy-load heavy embeds (video, chat, maps)
+```
+
+---
+
+## Quick Reference
+
+| Metric | Good | Tool to fix |
+|---|---|---|
+| LCP | < 2.5s | Image optimization, preload |
+| CLS | < 0.1 | Explicit dimensions, no injected content |
+| INP | < 200ms | Debounce, web workers |
+| TTFB | < 800ms | CDN, caching, edge rendering |
+| TBT | < 200ms | Split large tasks, defer scripts |
+| FCP | < 1.8s | Critical CSS inline, preload fonts |

@@ -1,6 +1,11 @@
 ---
 name: video-audio-patterns
-description: "Media handling, streaming protocols, transcoding, formats, and WebRTC patterns for web applications."
+description: "Media handling, streaming protocols, transcoding, formats, and WebRTC patterns for web applications." 
+triggers:
+  keywords: ["video", "audio", "media", "WebRTC", "HLS", "DASH", "streaming", "transcoding", "MediaRecorder"]
+auto_load_when: "Implementing video or audio features"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Video & Audio Patterns
@@ -127,3 +132,37 @@ CDN considerations:
 3. **Lazy loading** - Only load player when needed
 4. **Preload hints** - Use preload="metadata" for quick start
 5. **Error boundaries** - Graceful degradation on failure
+
+---
+
+## Anti-Patterns
+
+```
+❌ Autoplay video with sound by default
+✅ Autoplay muted only; require user gesture for audio
+
+❌ No preload strategy — loading everything upfront
+✅ preload="metadata" for above-fold, preload="none" for offscreen
+
+❌ Single video format (only .mp4)
+✅ Serve WebM + MP4 with <source> fallbacks
+
+❌ Blocking main thread with video decode work
+✅ Use dedicated codec, offload to GPU
+
+❌ No poster image — blank area before playback
+✅ Always set poster attribute for perceived performance
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Attribute / API | Note |
+|---|---|---|
+| Background video | autoplay muted loop | No sound |
+| Lazy load video | IntersectionObserver + src swap | Save bandwidth |
+| Custom controls | HTMLMediaElement API | play(), pause(), currentTime |
+| Adaptive bitrate | HLS.js / dash.js | For long videos |
+| Captions | <track kind="captions"> | Accessibility requirement |
+| Format priority | WebM → MP4 → fallback | Bandwidth savings |

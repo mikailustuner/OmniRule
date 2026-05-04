@@ -1,6 +1,12 @@
 ---
 name: kubernetes-basics
-description: "Kubernetes: Pods, services, deployments, scaling, and orchestration patterns."
+description: "Kubernetes: Pods, services, deployments, scaling, and orchestration patterns." 
+triggers:
+  extensions: [".yaml"]
+  keywords: ["k8s", "kubernetes", "pod", "deployment", "service", "ingress", "configmap", "secret", "helm"]
+auto_load_when: "Writing Kubernetes manifests or configs"
+agent: devops-engineer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Kubernetes Patterns
@@ -172,3 +178,37 @@ Service mesh options:
 3. **Horizontal scaling first** — More resilient than vertical
 4. **Rolling updates by default** — Safe, easy
 5. **Liveness/readiness probes** — Don't skip
+
+---
+
+## Anti-Patterns
+
+```
+❌ Running containers as root in pods
+✅ securityContext: runAsNonRoot: true; runAsUser: 1000
+
+❌ No resource limits on containers (noisy neighbor)
+✅ Always set requests and limits for CPU and memory
+
+❌ kubectl apply -f with no review
+✅ GitOps: ArgoCD / Flux sync from git; no manual kubectl in prod
+
+❌ All pods in default namespace
+✅ Namespaces per team/environment with RBAC policies
+
+❌ No liveness/readiness probes
+✅ Readiness: ready to serve traffic; liveness: restart if stuck
+```
+
+---
+
+## Quick Reference
+
+| Resource | Purpose | Key fields |
+|---|---|---|
+| Deployment | Manage pod replicas | replicas, selector, template |
+| Service | Network endpoint | ClusterIP, LoadBalancer, NodePort |
+| Ingress | HTTP routing | rules, TLS, annotations |
+| ConfigMap | Non-secret config | data key-value |
+| Secret | Sensitive config | data base64-encoded |
+| HPA | Auto-scale pods | minReplicas, maxReplicas, metrics |

@@ -1,6 +1,12 @@
 ---
 name: postgres-patterns
-description: "PostgreSQL: Schema design patterns, Query optimization, JSON handling, Partitioning strategy."
+description: "PostgreSQL: Schema design patterns, Query optimization, JSON handling, Partitioning strategy." 
+triggers:
+  extensions: [".sql", ".ts"]
+  keywords: ["PostgreSQL", "SQL", "query", "index", "transaction", "JOIN", "EXPLAIN", "CTE", "window function"]
+auto_load_when: "Writing SQL queries or designing PostgreSQL schema"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # PostgreSQL Architecture Patterns
@@ -138,3 +144,38 @@ When to use:
 3. **JSONB for flexible** - When schema varies
 4. **Partition large** - Time-based queries
 5. **EXPLAIN first** - Measure, then optimize
+
+---
+
+## Anti-Patterns
+
+```
+❌ SELECT * in application queries
+✅ Always specify needed columns — saves bandwidth + enables index-only scans
+
+❌ N+1 queries from ORM lazy loading
+✅ Eager load with JOINs or Prisma include
+
+❌ No EXPLAIN ANALYZE on slow queries
+✅ Run EXPLAIN (ANALYZE, BUFFERS) before adding indexes
+
+❌ Transactions that hold locks too long
+✅ Keep transactions short; move expensive work outside
+
+❌ Storing JSON blobs instead of normalized tables
+✅ Use JSONB for truly schemaless data; normalize everything else
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Pattern | Note |
+|---|---|---|
+| Unique constraint | UNIQUE INDEX | DB enforces, not just app |
+| Soft delete | deleted_at TIMESTAMP | Add partial index WHERE deleted_at IS NULL |
+| Pagination | Keyset (cursor) pagination | OFFSET is slow at scale |
+| Full-text | tsvector + GIN index | Built-in, no extension needed |
+| Enum values | PostgreSQL ENUM type | Type-safe at DB level |
+| Connection pool | PgBouncer / prisma pool | Max 100 pg connections |
+| Migrations | Up + down scripts | Always have rollback |

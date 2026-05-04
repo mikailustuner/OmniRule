@@ -1,6 +1,13 @@
 ---
 name: authentication-patterns
-description: "Auth flows: JWT, OAuth, sessions, tokens, password handling, 2FA, SSO"
+description: "Auth flows: JWT, OAuth, sessions, tokens, password handling, 2FA, SSO" 
+triggers:
+  extensions: [".ts", ".tsx"]
+  directories: ["auth/", "middleware/"]
+  keywords: ["auth", "jwt", "session", "login", "oauth", "password", "token", "2fa"]
+auto_load_when: "Building auth flows or middleware"
+agent: security-officer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Authentication Patterns
@@ -152,3 +159,37 @@ Security:
 4. **OAuth with PKCE** - Required for SPA
 5. **2FA for sensitive** - Not everywhere
 6. **Log auth failures** - Detect attacks
+
+---
+
+## Anti-Patterns
+
+```
+❌ Rolling your own auth from scratch
+✅ Use battle-tested library (NextAuth, Auth.js, Clerk, Supabase Auth)
+
+❌ Storing JWT in localStorage (XSS vulnerable)
+✅ HttpOnly, Secure, SameSite=Strict cookies
+
+❌ No refresh token rotation
+✅ Rotate refresh token on every use; invalidate old on rotation
+
+❌ Weak password policy (4 chars allowed)
+✅ Min 12 chars, check against breached password DB (HaveIBeenPwned)
+
+❌ Not expiring sessions on logout
+✅ Invalidate session server-side on logout (blocklist or token version)
+```
+
+---
+
+## Quick Reference
+
+| Flow | Library | Note |
+|---|---|---|
+| OAuth 2.0 | Auth.js / NextAuth | Social login |
+| Email/password | Lucia / better-auth | Full control |
+| Passkeys | SimpleWebAuthn | FIDO2 |
+| JWT | jose | RS256, not HS256 |
+| MFA | speakeasy (TOTP) | Backup codes required |
+| Session | iron-session | Encrypted cookie |

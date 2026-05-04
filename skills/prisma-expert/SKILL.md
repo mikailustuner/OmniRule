@@ -1,6 +1,13 @@
 ---
 name: prisma-expert
-description: "Prisma: Schema design patterns, Query optimization strategy, Transaction patterns, When to use what."
+description: "Prisma: Schema design patterns, Query optimization strategy, Transaction patterns, When to use what." 
+triggers:
+  extensions: [".prisma"]
+  filenames: ["schema.prisma"]
+  keywords: ["Prisma", "schema", "migration", "relation", "query", "select", "include", "connect"]
+auto_load_when: "Editing Prisma schema or writing Prisma queries"
+agent: context-agent
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Prisma Architecture Patterns
@@ -149,3 +156,39 @@ Implementation approaches:
 3. **Connection pooling for serverless** - Prevent exhaustion
 4. **Indexes on WHERE/ORDER BY** - Not just foreign keys
 5. **Soft delete middleware** - Single place, not every query
+
+---
+
+## Anti-Patterns
+
+```
+❌ findMany with no limit (fetch all rows)
+✅ Always take + skip or cursor pagination
+
+❌ Nested includes without selecting fields
+✅ select specific fields in include to avoid over-fetching
+
+❌ Running migrations in production without a rollback plan
+✅ Test migration down script; use shadow DB for preview
+
+❌ Raw SQL queries bypassing Prisma type safety
+✅ Use Prisma Client; raw only for unsupported features with $queryRaw
+
+❌ Multiple Prisma Client instances in serverless
+✅ Singleton pattern with global caching in dev
+```
+
+---
+
+## Quick Reference
+
+| Operation | Prisma API | Note |
+|---|---|---|
+| Create | prisma.model.create | Returns created record |
+| Update | prisma.model.update | Requires where |
+| Upsert | prisma.model.upsert | create + update in one |
+| Delete | prisma.model.delete | Soft-delete via deleted_at |
+| Find many | findMany + take/skip | Never unbounded |
+| Cursor page | findMany + cursor | For large datasets |
+| Transaction | prisma.$transaction([]) | Atomic batch |
+| Relation | include: { rel: true } | With select for perf |

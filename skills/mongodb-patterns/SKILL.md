@@ -1,6 +1,12 @@
 ---
 name: mongodb-patterns
-description: "MongoDB Patterns: Schema design, aggregation pipeline, indexing, data modeling."
+description: "MongoDB Patterns: Schema design, aggregation pipeline, indexing, data modeling." 
+triggers:
+  extensions: [".ts"]
+  keywords: ["MongoDB", "mongoose", "aggregation", "atlas", "NoSQL", "collection", "document", "pipeline"]
+auto_load_when: "Working with MongoDB queries or schemas"
+agent: infra-specialist
+tools: ["Read", "Write", "Bash"]
 ---
 
 # MongoDB Patterns
@@ -136,3 +142,37 @@ Aggregation:
 5. **Stage ordering** - filter early
 
 (End of file - 79 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ No indexes on query fields — full collection scans
+✅ explain() every slow query; add compound indexes
+
+❌ Storing large blobs (images, files) in documents
+✅ Use GridFS or object storage; store URLs in MongoDB
+
+❌ Deeply nested arrays updated with positional $ on multiple levels
+✅ Flatten nested structures; split into separate collections if complex
+
+❌ Schema-less = schema-free thinking
+✅ Define Mongoose schema or Zod validation — enforce shape
+
+❌ Reading entire documents to get 1 field
+✅ Projection: { name: 1, email: 1, _id: 0 }
+```
+
+---
+
+## Quick Reference
+
+| Operation | Pattern | Note |
+|---|---|---|
+| Find + filter | find({field: value}) + index | Always index query fields |
+| Partial update | $set, $inc, $push | Never replace whole doc for updates |
+| Aggregation | $match early, $project late | Reduce pipeline cardinality first |
+| Transactions | session.withTransaction() | Requires replica set |
+| TTL expiry | createIndex + expireAfterSeconds | Auto-cleanup |
+| Full-text search | $text index | Or Atlas Search for advanced |

@@ -1,6 +1,12 @@
 ---
 name: css-architecture
-description: "CSS organization, BEM, component patterns"
+description: "CSS organization, BEM, component patterns" 
+triggers:
+  extensions: [".css", ".scss", ".module.css", ".sass"]
+  keywords: ["CSS", "BEM", "SMACSS", "cascade", "specificity", "selector", "stylesheet"]
+auto_load_when: "Editing CSS files or designing CSS structure"
+agent: style-architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # CSS Architecture Patterns
@@ -124,3 +130,37 @@ When to refactor:
 3. Keep specificity low — enable easy overrides
 4. Organize by component — co-locate styles
 5. Use index files — clean public API
+
+---
+
+## Anti-Patterns
+
+```
+❌ Deep selector chains (.nav ul li a span)
+✅ Flat, single-class selectors with BEM/utility approach
+
+❌ Inline styles scattered throughout HTML
+✅ Style only via classes — one source of truth
+
+❌ !important everywhere to override specificity wars
+✅ Fix specificity at the root — flatten the cascade
+
+❌ One monolithic CSS file for the whole app
+✅ Co-located styles per component/feature
+
+❌ Global .button styles affecting every button
+✅ Namespace component styles to their scope
+```
+
+---
+
+## Quick Reference
+
+| Task | Approach | Why |
+|---|---|---|
+| Component styles | CSS Modules / scoped | No bleed |
+| Global tokens | CSS custom properties | Runtime themeable |
+| Utility classes | Tailwind / UnoCSS | Zero dead CSS |
+| Dark mode | `[data-theme]` attribute | No flash |
+| Responsive | Mobile-first breakpoints | Progressive enhancement |
+| Specificity | Flat selectors (0,1,0) | Predictable override |

@@ -1,6 +1,13 @@
 ---
 name: react-expert
-description: "React 19: Hooks decision tree, State patterns, Component composition, Performance optimization strategy."
+description: "React 19: Hooks decision tree, State patterns, Component composition, Performance optimization strategy." 
+triggers:
+  extensions: [".tsx", ".jsx"]
+  directories: ["components/", "app/"]
+  keywords: ["React", "hooks", "useState", "useEffect", "useCallback", "Suspense", "use()"]
+auto_load_when: "Writing React components or hooks"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # React 19 Architecture Patterns
@@ -170,3 +177,39 @@ Ask in order:
 3. **Action state** - Forms with validation
 4. **Compose when needed** - Flexibility over flatness
 5. **Measure first** - Profile before optimizing
+
+---
+
+## Anti-Patterns
+
+```
+❌ useEffect for derived state
+✅ Compute derived state inline during render — no effect needed
+
+❌ Mutating state directly (array.push, obj.key = val)
+✅ Always return new references: [...arr, item], { ...obj, key: val }
+
+❌ Large components that re-render on every parent change
+✅ React.memo on stable components; split fast-changing state down
+
+❌ useCallback/useMemo everywhere as "optimization"
+✅ Profile first; memoize only when renders measurably slow
+
+❌ key={index} for dynamic lists
+✅ key={item.id} — stable, unique identity prevents wrong reconciliation
+```
+
+---
+
+## Quick Reference
+
+| Hook | Use case | Note |
+|---|---|---|
+| useState | Local UI state | Simple values |
+| useReducer | Complex state machine | Action-based |
+| useContext | Cross-tree shared state | Don't overuse |
+| useEffect | Side effects only | Not for derived state |
+| useCallback | Stable function ref | Only when passed to memo'd child |
+| useMemo | Expensive computation | Profile first |
+| useRef | DOM ref / mutable | Doesn't trigger re-render |
+| useTransition | Non-urgent updates | Mark slow state as transition |

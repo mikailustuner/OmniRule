@@ -1,6 +1,11 @@
 ---
 name: monitoring-patterns
-description: "Monitoring: Metrics collection, alerting strategy, observability, and uptime tracking."
+description: "Monitoring: Metrics collection, alerting strategy, observability, and uptime tracking." 
+triggers:
+  keywords: ["metrics", "Prometheus", "Grafana", "alert", "observability", "APM", "Sentry", "Datadog", "uptime"]
+auto_load_when: "Setting up monitoring or alerting"
+agent: devops-engineer
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Monitoring Patterns
@@ -135,3 +140,37 @@ Check types:
 3. **Golden signals** — Latency, traffic, errors, saturation
 4. **Alert on symptoms** — Not causes (e.g., "high latency" not "DB slow")
 5. **Runbook required** — Every alert needs documented response
+
+---
+
+## Anti-Patterns
+
+```
+❌ Alert on every error — alert fatigue kills response
+✅ Alert only on symptoms that affect users (SLO breach)
+
+❌ Logs with no structure (free-text printf)
+✅ Structured JSON logs with trace_id, user_id, severity
+
+❌ Single dashboard with 50 panels nobody reads
+✅ Service-level dashboards: one golden signals view per service
+
+❌ No runbook linked to alert
+✅ Every alert links to a runbook with diagnosis steps
+
+❌ Monitoring added after incidents
+✅ Define SLOs and add observability in the same PR as the feature
+```
+
+---
+
+## Quick Reference
+
+| Signal | Tool | Alert threshold |
+|---|---|---|
+| Latency | Histogram p95/p99 | > SLO threshold |
+| Error rate | Counter / rate() | > 1% (5xx) |
+| Saturation | CPU/memory gauge | > 80% sustained |
+| Availability | Synthetic probe | < 99.9% (30d) |
+| Business KPI | Custom counter | Domain-defined |
+| Traces | Span duration | Outlier detection |

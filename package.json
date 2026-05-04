@@ -10,9 +10,30 @@
     "tool:compact": "tsx tools/context-compactor.ts",
     "agents:list": "node -e \"const fs=require('fs');fs.readdirSync('agents').forEach(f=>console.log(f.replace('_AGENT.md','').toLowerCase()))\"",
     "tools:list": "node -e \"const fs=require('fs');const p=JSON.parse(fs.readFileSync('package.json','utf8'));Object.keys(p.scripts).filter(k=>k.startsWith('tool:')).forEach(k=>console.log(k))\"",
-    "omnirule:check": "tsx tools/dependency-sentinel.ts && tsx tools/security-audit.ts && node scripts/hooks/quality-gate.js"
+    "omnirule:check": "tsx tools/dependency-sentinel.ts && tsx tools/security-audit.ts && node scripts/hooks/quality-gate.js",
+    "tool:perf": "tsx tools/performance-auditor.ts",
+    "tool:complexity": "tsx tools/code-complexity.ts",
+    "tool:git": "tsx tools/git-sentinel.ts",
+    "tool:schema": "tsx tools/schema-visualizer.ts",
+    "tool:missions": "tsx tools/mission-runner.ts",
+    "registry": "node -e \"const r=JSON.parse(require('fs').readFileSync('registry.json','utf8'));console.log('Agents:',r.agents.length,'Tools:',r.tools.length,'Commands:',r.commands.length,'Skills:',r.skills.count)\"",
+    "tool:generate": "tsx tools/component-generator.ts",
+    "tool:impact": "tsx tools/impact-analyzer.ts",
+    "tool:crud": "tsx tools/crud-gen.ts",
+    "tool:preflight": "tsx tools/pre-flight.ts",
+    "tool:api-diff": "tsx tools/api-diff.ts",
+    "tool:i18n": "tsx tools/i18n-audit.ts",
+    "tool:dead-code": "tsx tools/dead-code.ts",
+    "tool:env": "tsx tools/env-validator.ts",
+    "tool:changelog": "tsx tools/changelog-gen.ts",
+    "omnirule:full": "npm run tool:preflight && npm run tool:deps && npm run tool:security && npm run tool:complexity && npm run omnirule:verify",
+    "tool:tokens": "tsx tools/token-counter.ts",
+    "tool:document": "tsx tools/document-creator.ts",
+    "hooks:install": "npx lefthook install",
+    "hooks:uninstall": "npx lefthook uninstall",
+    "hooks:run": "npx lefthook run pre-commit"
   },
-  "version": "1.10.0",
+  "version": "1.15.0",
   "type": "module",
   "dependencies": {
     "@prisma/client": "latest",
@@ -24,13 +45,15 @@
     "tailwindcss": "latest",
     "ts-node": "latest",
     "typescript": "latest",
-    "zod": "^4.4.2"
+    "zod": "^4.4.2",
+    "pptxgenjs": "^3.12.0"
   },
   "devDependencies": {
     "@clack/prompts": "^1.3.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.0",
     "commander": "^14.0.3",
+    "lefthook": "^1.6.0",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0"
   }

@@ -1,6 +1,12 @@
 ---
 name: forms-patterns
-description: "Form architecture, validation patterns, state handling"
+description: "Form architecture, validation patterns, state handling" 
+triggers:
+  extensions: [".tsx", ".jsx"]
+  keywords: ["form", "input", "validation", "react-hook-form", "formik", "zod", "submit", "field"]
+auto_load_when: "Building or editing forms"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Forms Patterns
@@ -149,3 +155,42 @@ When to use preview:
 3. Group related fields with fieldset
 4. Show inline errors + summary for complex forms
 5. Controlled for complex, uncontrolled for simple
+
+---
+
+## Anti-Patterns
+
+```
+❌ Validating only on submit — user waits for errors
+✅ Validate on blur for each field; show inline errors immediately
+
+❌ Disabling submit button until valid (accessibility issue)
+✅ Keep submit enabled; validate on submit, show all errors at once
+
+❌ Resetting the form on validation error
+✅ Preserve user input on error — never lose filled data
+
+❌ Generic "Invalid" error message
+✅ Specific messages: "Password must be at least 8 characters"
+
+❌ No loading state after submit
+✅ Disable submit + show spinner during submission
+```
+
+---
+
+## Quick Reference
+
+| Library | Use case | Key feature |
+|---|---|---|
+| react-hook-form | Performance-first | Uncontrolled inputs |
+| Zod | Schema validation | Type inference |
+| Formik | Complex forms | Built-in state |
+| Server Actions | Next.js 15 | No JS bundle cost |
+| HTML5 validation | Simple forms | Zero dependencies |
+
+| UX Pattern | When | Note |
+|---|---|---|
+| Inline error | On blur | Don't show on pristine |
+| Summary error | On submit | Anchor to first error |
+| Success feedback | After submit | Toast or redirect |

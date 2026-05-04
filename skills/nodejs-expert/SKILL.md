@@ -1,6 +1,13 @@
 ---
 name: nodejs-expert
-description: "Node.js 22 LTS (2025): Native fetch, WebStreams, worker threads, ESM, package exports. Expert patterns for server-side JS."
+description: "Node.js 22 LTS (2025): Native fetch, WebStreams, worker threads, ESM, package exports. Expert patterns for server-side JS." 
+triggers:
+  extensions: [".js", ".ts", ".mjs"]
+  directories: ["server/", "src/"]
+  keywords: ["Node.js", "Express", "Fastify", "streams", "events", "worker thread", "cluster"]
+auto_load_when: "Building Node.js server-side code"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Node.js Expert Patterns
@@ -200,3 +207,37 @@ console.log(process.memoryUsage()) // heapUsed, heapTotal, external, rss
 4. **Streaming** - Large files, memory
 5. **Error classes** - Structured error handling
 6. **Process signals** - Graceful shutdown
+
+---
+
+## Anti-Patterns
+
+```
+❌ Blocking the event loop with CPU-intensive code
+✅ Offload CPU work to Worker Threads or child_process
+
+❌ Unhandled promise rejections crashing the process
+✅ process.on('unhandledRejection', ...) + proper async error handling
+
+❌ require() in hot paths (module cache miss on first load)
+✅ Require at top of file; lazy require only for rarely-used modules
+
+❌ Large synchronous JSON.parse() in request handler
+✅ Stream parsing with streaming-json or offload to worker
+
+❌ No graceful shutdown — dropping in-flight requests
+✅ Handle SIGTERM: drain connections, wait for pending, then exit
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Solution | Note |
+|---|---|---|
+| HTTP server | Fastify / Express | Fastify 2x faster |
+| Async queue | BullMQ | Redis-backed |
+| CPU work | Worker Threads | Shared ArrayBuffer |
+| Child process | child_process.fork | Separate process |
+| Streams | Transform stream | Backpressure built-in |
+| Shutdown | http.closeAllConnections | Node 18.2+ |

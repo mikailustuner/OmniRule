@@ -1,6 +1,12 @@
 ---
 name: state-management
-description: "State patterns: When to use what, Zustand vs Context vs Query, Performance strategies, Persistence."
+description: "State patterns: When to use what, Zustand vs Context vs Query, Performance strategies, Persistence." 
+triggers:
+  extensions: [".tsx", ".ts"]
+  keywords: ["state", "Zustand", "Redux", "Jotai", "Recoil", "context", "store", "atom", "selector"]
+auto_load_when: "Choosing or implementing state management"
+agent: frontend-ops
+tools: ["Read", "Write", "Bash"]
 ---
 
 # State Management Architecture Patterns
@@ -154,3 +160,37 @@ What NOT to test:
 3. **Select everywhere** - Don't subscribe to full state
 4. **Persist only what makes sense** - Auth, preferences
 5. **Test behavior** - Not implementation
+
+---
+
+## Anti-Patterns
+
+```
+❌ Global state for everything (even local UI state)
+✅ Keep state as local as possible; hoist only when needed
+
+❌ Storing server data in Redux/Zustand (duplicates cache)
+✅ Use TanStack Query / SWR for server state; client store for UI state
+
+❌ Deeply nested state objects
+✅ Normalize state: entities by ID map + IDs array
+
+❌ Mutating state directly (bypassing immutability)
+✅ Immer or spread for immutable updates — never direct mutation
+
+❌ Synchronizing two separate state slices manually
+✅ Derive computed values with selectors — don't duplicate state
+```
+
+---
+
+## Quick Reference
+
+| State type | Solution | Why |
+|---|---|---|
+| Server data | TanStack Query / SWR | Cache + deduplicate |
+| Global UI | Zustand | Minimal boilerplate |
+| Complex global | Redux Toolkit | Time-travel debug |
+| Component local | useState | No over-engineering |
+| Form | react-hook-form | Performance |
+| URL state | searchParams | Shareable, bookmarkable |

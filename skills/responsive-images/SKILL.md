@@ -1,6 +1,12 @@
 ---
 name: responsive-images
-description: "Image formats, srcset, picture element, lazy loading"
+description: "Image formats, srcset, picture element, lazy loading" 
+triggers:
+  extensions: [".tsx", ".html"]
+  keywords: ["Image", "srcset", "picture", "next/image", "WebP", "AVIF", "lazy load", "optimization"]
+auto_load_when: "Optimizing or implementing images"
+agent: style-architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Responsive Images Patterns
@@ -152,3 +158,37 @@ When to check metrics:
 3. Lazy load below fold, eager load above fold
 4. Preload LCP image
 5. Test with Lighthouse + RUM
+
+---
+
+## Anti-Patterns
+
+```
+❌ Single 2000px image served to all devices
+✅ srcset with multiple widths: 400w, 800w, 1200w
+
+❌ Loading all images on page load (even below fold)
+✅ loading="lazy" on all below-fold images
+
+❌ JPEG for everything
+✅ AVIF → WebP → JPEG with <picture> format fallbacks
+
+❌ No width/height on images (causes layout shift)
+✅ Always set width and height to prevent CLS
+
+❌ CSS background-image for hero images (not optimizable)
+✅ <img> with LCP optimization; CSS bg only for decorative
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Solution | Attribute |
+|---|---|---|
+| Responsive sizes | srcset + sizes | sizes="(max-width:768px) 100vw, 50vw" |
+| Lazy load | Native lazy | loading="lazy" |
+| Format fallback | <picture> + <source> | type="image/avif" |
+| LCP image | Eager + preload | loading="eager" fetchpriority="high" |
+| Prevent CLS | Explicit dimensions | width="800" height="600" |
+| Art direction | <picture> with media | Different crops per breakpoint |

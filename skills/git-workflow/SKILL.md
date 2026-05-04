@@ -1,6 +1,11 @@
 ---
 name: git-workflow
-description: "Git: Branch strategy, Commit patterns, Merge vs Rebase, When to use what."
+description: "Git: Branch strategy, Commit patterns, Merge vs Rebase, When to use what." 
+triggers:
+  keywords: ["git", "branch", "commit", "PR", "merge", "rebase", "workflow", "conventional commits"]
+auto_load_when: "Git workflow decisions or commit standards"
+agent: researcher
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Git Workflow Patterns
@@ -143,3 +148,37 @@ Merge:
 3. **Rebase locally** - Linear history
 4. **Squash to main** - Clean history
 5. **Atomic commits** - Logical, understandable
+
+---
+
+## Anti-Patterns
+
+```
+❌ Force-pushing to main/master
+✅ Protected branches + PR reviews — no direct push
+
+❌ Commits like "fix", "WIP", "misc"
+✅ Conventional Commits: feat(scope): description
+
+❌ One giant commit per PR
+✅ Atomic commits — each commit passes tests independently
+
+❌ Long-lived feature branches (> 2 days)
+✅ Trunk-based development with feature flags for incomplete work
+
+❌ Merging without squashing messy WIP commits
+✅ Squash-and-merge for clean main history
+```
+
+---
+
+## Quick Reference
+
+| Scenario | Command | Note |
+|---|---|---|
+| New feature | git checkout -b feat/name | Branch from main |
+| Sync branch | git rebase main | Not merge — cleaner history |
+| Interactive rebase | git rebase -i HEAD~N | Squash WIP commits |
+| Undo last commit | git reset --soft HEAD~1 | Keeps changes staged |
+| Cherry-pick | git cherry-pick <sha> | Port specific commit |
+| Stash | git stash push -m "WIP: description" | Named stash |

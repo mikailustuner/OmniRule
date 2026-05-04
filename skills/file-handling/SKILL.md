@@ -1,6 +1,12 @@
 ---
 name: file-handling
-description: "File handling: Upload strategy, storage patterns, CDN integration, processing."
+description: "File handling: Upload strategy, storage patterns, CDN integration, processing." 
+triggers:
+  extensions: [".ts"]
+  keywords: ["fs", "file", "upload", "stream", "multer", "S3", "storage", "download", "blob"]
+auto_load_when: "Implementing file upload/download or storage"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # File Handling Patterns
@@ -182,3 +188,37 @@ Cleanup methods:
 3. **CDN for static** — Not for dynamic
 4. **Validate before storage** — Save resources
 5. **Cleanup strategy** — Don't let files accumulate
+
+---
+
+## Anti-Patterns
+
+```
+❌ Reading entire large file into memory (fs.readFileSync)
+✅ Stream large files: createReadStream + pipe
+
+❌ User-controlled file paths without sanitization (path traversal)
+✅ path.basename() + restrict to allowed directory
+
+❌ Storing uploaded files on server disk (ephemeral in serverless)
+✅ Stream directly to S3 / object storage
+
+❌ No file type validation (accept any extension)
+✅ Check magic bytes (file-type library), not just extension
+
+❌ Synchronous file operations in hot paths
+✅ Always async: fs.promises / streams in API handlers
+```
+
+---
+
+## Quick Reference
+
+| Scenario | API | Note |
+|---|---|---|
+| Read small file | fs.promises.readFile | Await |
+| Read large file | fs.createReadStream | Streaming |
+| Write atomically | write to tmp then rename | Prevents corruption |
+| Upload to S3 | @aws-sdk/lib-storage | Multipart auto |
+| Temp file | tmp / os.tmpdir | Clean up on close |
+| Watch file | fs.watch / chokidar | chokidar more reliable |

@@ -1,6 +1,11 @@
 ---
 name: microservices-patterns
-description: "Microservices Patterns: Service decomposition, communication, data management, resilience."
+description: "Microservices Patterns: Service decomposition, communication, data management, resilience." 
+triggers:
+  keywords: ["microservice", "service mesh", "API gateway", "circuit breaker", "service discovery", "saga"]
+auto_load_when: "Designing or debugging microservices"
+agent: architect
+tools: ["Read", "Write", "Bash"]
 ---
 
 # Microservices Patterns
@@ -145,3 +150,38 @@ Avoid when:
 5. **Observability** - debug distributed
 
 (End of file - 84 lines)
+
+---
+
+## Anti-Patterns
+
+```
+❌ Distributed monolith — services that must deploy together
+✅ True loose coupling: each service deploys independently
+
+❌ Synchronous request chains (service A → B → C → D)
+✅ Async event-driven for non-critical paths; aggregate at gateway
+
+❌ No idempotency on message consumers
+✅ Every consumer deduplicates by message ID
+
+❌ Schema changes without backward compatibility
+✅ Additive changes only; use schema registry for events
+
+❌ No distributed tracing across service calls
+✅ Propagate trace-id header; instrument with OpenTelemetry
+```
+
+---
+
+## Quick Reference
+
+| Pattern | Problem solved | Trade-off |
+|---|---|---|
+| API Gateway | Single entry point + auth | Extra hop |
+| Circuit breaker | Cascade failures | Stale data |
+| Saga | Distributed transactions | Complexity |
+| CQRS | Read/write optimization | Two models to maintain |
+| Event sourcing | Audit trail + replay | Storage growth |
+| Sidecar | Cross-cutting concerns | Resource overhead |
+| Service mesh | mTLS + observability | Ops complexity |
