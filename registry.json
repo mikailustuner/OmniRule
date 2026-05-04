@@ -4,119 +4,358 @@
   "version": "1.15.0",
   "description": "Universal AI agent toolkit — agents, skills, tools, commands, hooks",
   "entrypoint": "agents/ORCHESTRATOR_AGENT.md",
-
   "agents": [
-    { "slug": "orchestrator", "file": "agents/ORCHESTRATOR_AGENT.md", "role": "primary", "description": "Main dispatch agent. Entry point for all tasks." },
-    { "slug": "planner",      "file": "agents/PLANNER_AGENT.md",      "role": "subagent", "description": "Task decomposition and DAG planning specialist." },
-    { "slug": "architect",    "file": "agents/ARCHITECT_AGENT.md",    "role": "subagent", "description": "System design, architecture, tech strategy." },
-    { "slug": "style-architect", "file": "agents/STYLE_AGENT.md",     "role": "subagent", "description": "Visual reverse-engineering, CSS, design tokens." },
-    { "slug": "frontend-ops", "file": "agents/FRONTEND_OPS_AGENT.md", "role": "subagent", "description": "React, state management, bundle optimization." },
-    { "slug": "qa-specialist","file": "agents/QA_AGENT.md",           "role": "subagent", "description": "TDD, E2E testing, coverage, quality gates." },
-    { "slug": "security-officer", "file": "agents/SECURITY_AGENT.md","role": "subagent", "description": "Threat modeling, OWASP, secure coding." },
-    { "slug": "devops-engineer",  "file": "agents/DEVOPS_AGENT.md",  "role": "subagent", "description": "CI/CD, Docker, Kubernetes, Terraform." },
-    { "slug": "infra-specialist", "file": "agents/INFRA_AGENT.md",   "role": "subagent", "description": "Database, Redis, caching, message queues." },
-    { "slug": "seo-agent",    "file": "agents/SEO_AGENT.md",          "role": "subagent", "description": "SEO, Core Web Vitals, semantic HTML." },
-    { "slug": "researcher",   "file": "agents/RESEARCHER.md",         "role": "subagent", "description": "Deep research, documentation, investigation." },
-    { "slug": "docs-agent",   "file": "agents/DOCS_AGENT.md",         "role": "subagent", "description": "Technical docs, OpenAPI, README." },
-    { "slug": "context-agent","file": "agents/CONTEXT_AGENT.md",      "role": "subagent", "description": "Schema mapping, Prisma, business logic." },
-    { "slug": "migrator",     "file": "agents/MIGRATOR_AGENT.md",     "role": "subagent", "description": "Database migrations, schema evolution, rollback." },
-    { "slug": "mobile-ops",   "file": "agents/MOBILE_AGENT.md",       "role": "subagent", "description": "React Native, Expo, cross-platform mobile." },
-    { "slug": "document-creator", "file": "agents/DOCUMENT_CREATOR_AGENT.md", "role": "subagent", "description": "PDF and PPTX generation with IBM/McKinsey professional style." }
+    {
+      "slug": "orchestrator",
+      "file": "agents/ORCHESTRATOR_AGENT.md",
+      "role": "primary",
+      "description": "Main dispatch agent. Entry point for all tasks."
+    },
+    {
+      "slug": "planner",
+      "file": "agents/PLANNER_AGENT.md",
+      "role": "subagent",
+      "description": "Task decomposition and DAG planning specialist."
+    },
+    {
+      "slug": "architect",
+      "file": "agents/ARCHITECT_AGENT.md",
+      "role": "subagent",
+      "description": "System design, architecture, tech strategy."
+    },
+    {
+      "slug": "style-architect",
+      "file": "agents/STYLE_AGENT.md",
+      "role": "subagent",
+      "description": "Visual reverse-engineering, CSS, design tokens."
+    },
+    {
+      "slug": "frontend-ops",
+      "file": "agents/FRONTEND_OPS_AGENT.md",
+      "role": "subagent",
+      "description": "React, state management, bundle optimization."
+    },
+    {
+      "slug": "qa-specialist",
+      "file": "agents/QA_AGENT.md",
+      "role": "subagent",
+      "description": "TDD, E2E testing, coverage, quality gates."
+    },
+    {
+      "slug": "security-officer",
+      "file": "agents/SECURITY_AGENT.md",
+      "role": "subagent",
+      "description": "Threat modeling, OWASP, secure coding."
+    },
+    {
+      "slug": "devops-engineer",
+      "file": "agents/DEVOPS_AGENT.md",
+      "role": "subagent",
+      "description": "CI/CD, Docker, Kubernetes, Terraform."
+    },
+    {
+      "slug": "infra-specialist",
+      "file": "agents/INFRA_AGENT.md",
+      "role": "subagent",
+      "description": "Database, Redis, caching, message queues."
+    },
+    {
+      "slug": "seo-agent",
+      "file": "agents/SEO_AGENT.md",
+      "role": "subagent",
+      "description": "SEO, Core Web Vitals, semantic HTML."
+    },
+    {
+      "slug": "researcher",
+      "file": "agents/RESEARCHER.md",
+      "role": "subagent",
+      "description": "Deep research, documentation, investigation."
+    },
+    {
+      "slug": "docs-agent",
+      "file": "agents/DOCS_AGENT.md",
+      "role": "subagent",
+      "description": "Technical docs, OpenAPI, README."
+    },
+    {
+      "slug": "context-agent",
+      "file": "agents/CONTEXT_AGENT.md",
+      "role": "subagent",
+      "description": "Schema mapping, Prisma, business logic."
+    },
+    {
+      "slug": "migrator",
+      "file": "agents/MIGRATOR_AGENT.md",
+      "role": "subagent",
+      "description": "Database migrations, schema evolution, rollback."
+    },
+    {
+      "slug": "mobile-ops",
+      "file": "agents/MOBILE_AGENT.md",
+      "role": "subagent",
+      "description": "React Native, Expo, cross-platform mobile."
+    },
+    {
+      "slug": "document-creator",
+      "file": "agents/DOCUMENT_CREATOR_AGENT.md",
+      "role": "subagent",
+      "description": "PDF and PPTX generation with IBM/McKinsey professional style."
+    }
   ],
-
   "tools": [
-    { "slug": "extract-design",    "command": "npm run tool:extract -- <URL>",     "file": "tools/frontend-extractor.ts",    "description": "Screenshot + full design token extraction from any URL. Output: .design/{domain}/" },
-    { "slug": "skill-detect",      "command": "npm run tool:skills",               "file": "tools/skill-detector.ts",        "description": "Detect required skills from project structure." },
-    { "slug": "security-audit",    "command": "npm run tool:security",             "file": "tools/security-audit.ts",        "description": "Static analysis for OWASP vulnerabilities in changed files." },
-    { "slug": "dependency-check",  "command": "npm run tool:deps",                 "file": "tools/dependency-sentinel.ts",   "description": "Scan package.json for vulnerable/deprecated packages." },
-    { "slug": "compact-context",   "command": "npm run tool:compact",              "file": "tools/context-compactor.ts",     "description": "Build critical context snapshot for session compaction." },
-    { "slug": "performance-audit", "command": "npm run tool:perf -- <URL>",        "file": "tools/performance-auditor.ts",   "description": "Core Web Vitals measurement (LCP, CLS, FCP, TTFB, TTI)." },
-    { "slug": "code-complexity",   "command": "npm run tool:complexity",           "file": "tools/code-complexity.ts",       "description": "Cyclomatic complexity, nesting depth, function length analysis." },
-    { "slug": "git-sentinel",      "command": "npm run tool:git",                  "file": "tools/git-sentinel.ts",          "description": "Optional pre-commit audit: secrets, focused tests, commit message lint. Run manually when needed." },
-    { "slug": "schema-visualizer", "command": "npm run tool:schema",              "file": "tools/schema-visualizer.ts",     "description": "Prisma schema → Mermaid ER diagram + JSON model map." },
-    { "slug": "mission-runner",    "command": "npm run tool:missions",             "file": "tools/mission-runner.ts",        "description": "Mission dashboard and lifecycle management." },
-    { "slug": "component-gen",     "command": "npm run tool:generate -- <domain>", "file": "tools/component-generator.ts",  "description": "Generate React+Tailwind components from extracted design tokens." },
-    { "slug": "impact-analyzer",   "command": "npm run tool:impact -- <file>",     "file": "tools/impact-analyzer.ts",      "description": "Show all files affected by changing a target file. GO/NO-GO refactor safety." },
-    { "slug": "crud-gen",          "command": "npm run tool:crud -- <Model>",       "file": "tools/crud-gen.ts",             "description": "Prisma model → full CRUD stack: routes, service, schema, types, tests." },
-    { "slug": "pre-flight",        "command": "npm run tool:preflight",             "file": "tools/pre-flight.ts",           "description": "Optional environment and code quality audit. Run manually before push." },
-    { "slug": "api-diff",          "command": "npm run tool:api-diff -- <a> <b>",  "file": "tools/api-diff.ts",             "description": "Compare two OpenAPI specs — find breaking changes before deploy." },
-    { "slug": "i18n-audit",        "command": "npm run tool:i18n",                 "file": "tools/i18n-audit.ts",           "description": "Find hardcoded strings in JSX and missing translation keys across locales." },
-    { "slug": "dead-code",         "command": "npm run tool:dead-code",             "file": "tools/dead-code.ts",            "description": "Find exports never imported anywhere in the project." },
-    { "slug": "env-validator",     "command": "npm run tool:env",                  "file": "tools/env-validator.ts",        "description": "Three-way check: .env.example vs .env vs process.env in source code." },
-    { "slug": "changelog-gen",     "command": "npm run tool:changelog",            "file": "tools/changelog-gen.ts",        "description": "Generate CHANGELOG.md from Conventional Commits git history." },
-    { "slug": "document-creator", "command": "npm run tool:document -- --type=pdf --title=\"Title\" --input=content.md", "file": "tools/document-creator.ts", "description": "Generate professional PDF or PPTX with IBM/McKinsey style via HTML→Playwright pipeline." },
-    { "slug": "quality-gate",      "command": "npm run omnirule:verify",           "file": "scripts/hooks/quality-gate.js", "description": "TypeScript + ESLint batch check." },
-    { "slug": "full-check",        "command": "npm run omnirule:check",            "file": "package.json",                  "description": "Full check: deps + security + quality." }
+    {
+      "slug": "extract-design",
+      "command": "npm run tool:extract -- <URL>",
+      "file": "tools/frontend-extractor.ts",
+      "description": "Screenshot + full design token extraction from any URL. Output: .design/{domain}/"
+    },
+    {
+      "slug": "skill-detect",
+      "command": "npm run tool:skills",
+      "file": "tools/skill-detector.ts",
+      "description": "Detect required skills from project structure."
+    },
+    {
+      "slug": "security-audit",
+      "command": "npm run tool:security",
+      "file": "tools/security-audit.ts",
+      "description": "Static analysis for OWASP vulnerabilities in changed files."
+    },
+    {
+      "slug": "dependency-check",
+      "command": "npm run tool:deps",
+      "file": "tools/dependency-sentinel.ts",
+      "description": "Scan package.json for vulnerable/deprecated packages."
+    },
+    {
+      "slug": "compact-context",
+      "command": "npm run tool:compact",
+      "file": "tools/context-compactor.ts",
+      "description": "Build critical context snapshot for session compaction."
+    },
+    {
+      "slug": "quality-gate",
+      "command": "npm run omnirule:verify",
+      "file": "scripts/hooks/quality-gate.js",
+      "description": "TypeScript + ESLint batch check."
+    },
+    {
+      "slug": "full-check",
+      "command": "npm run omnirule:check",
+      "file": "package.json",
+      "description": "Full check: deps + security + quality."
+    }
   ],
-
   "commands": [
-    { "slug": "orchestrate", "file": "commands/orchestrate.md", "agent": "orchestrator",     "description": "Route any task through the agent fleet." },
-    { "slug": "extract",     "file": "commands/extract.md",     "agent": "style-architect",  "description": "Extract design tokens from a URL." },
-    { "slug": "design",      "file": "commands/design.md",      "agent": "style-architect",  "description": "Analyze, apply, or create a design system." },
-    { "slug": "agent",       "file": "commands/agent.md",       "agent": "orchestrator",     "description": "Directly dispatch a specific agent." },
-    { "slug": "mode",        "file": "commands/mode.md",        "agent": "orchestrator",     "description": "Switch agent behavior mode (dev/research/review)." },
-    { "slug": "plan",        "file": "commands/plan.md",        "agent": "planner",          "description": "Strategic implementation planning with DAG." },
-    { "slug": "tdd",         "file": "commands/tdd.md",         "agent": "qa-specialist",    "description": "Red-Green-Refactor TDD workflow." },
-    { "slug": "review",      "file": "commands/review.md",      "agent": "security-officer", "description": "Deep code review: security + quality + architecture." },
-    { "slug": "security",    "file": "commands/security.md",    "agent": "security-officer", "description": "Security audit and threat modeling." },
-    { "slug": "refactor",    "file": "commands/refactor.md",    "agent": "architect",        "description": "Structured code refactoring." },
-    { "slug": "research",    "file": "commands/research.md",    "agent": "researcher",       "description": "Deep investigation and documentation lookup." },
-    { "slug": "docs",        "file": "commands/documentation.md","agent": "docs-agent",      "description": "Generate or update documentation." },
-    { "slug": "build-fix",   "file": "commands/build-fix.md",   "agent": "devops-engineer",  "description": "Diagnose and fix build failures." },
-    { "slug": "migrate",     "file": "commands/migrate.md",     "agent": "migrator",         "description": "Database migration with rollback planning." },
-    { "slug": "perf",        "file": "commands/perf.md",        "agent": "frontend-ops",     "description": "Performance audit — Core Web Vitals." },
-    { "slug": "api",         "file": "commands/api.md",         "agent": "architect",        "description": "API generation, OpenAPI scaffolding, route documentation." },
-    { "slug": "mobile",      "file": "commands/mobile.md",      "agent": "mobile-ops",       "description": "React Native / Expo mobile development." }
+    {
+      "slug": "orchestrate",
+      "file": "commands/orchestrate.md",
+      "agent": "orchestrator",
+      "description": "Route any task through the agent fleet."
+    },
+    {
+      "slug": "extract",
+      "file": "commands/extract.md",
+      "agent": "style-architect",
+      "description": "Extract design tokens from a URL."
+    },
+    {
+      "slug": "design",
+      "file": "commands/design.md",
+      "agent": "style-architect",
+      "description": "Analyze, apply, or create a design system."
+    },
+    {
+      "slug": "agent",
+      "file": "commands/agent.md",
+      "agent": "orchestrator",
+      "description": "Directly dispatch a specific agent."
+    },
+    {
+      "slug": "mode",
+      "file": "commands/mode.md",
+      "agent": "orchestrator",
+      "description": "Switch agent behavior mode (dev/research/review)."
+    },
+    {
+      "slug": "plan",
+      "file": "commands/plan.md",
+      "agent": "planner",
+      "description": "Strategic implementation planning with DAG."
+    },
+    {
+      "slug": "tdd",
+      "file": "commands/tdd.md",
+      "agent": "qa-specialist",
+      "description": "Red-Green-Refactor TDD workflow."
+    },
+    {
+      "slug": "review",
+      "file": "commands/review.md",
+      "agent": "security-officer",
+      "description": "Deep code review: security + quality + architecture."
+    },
+    {
+      "slug": "security",
+      "file": "commands/security.md",
+      "agent": "security-officer",
+      "description": "Security audit and threat modeling."
+    },
+    {
+      "slug": "refactor",
+      "file": "commands/refactor.md",
+      "agent": "architect",
+      "description": "Structured code refactoring."
+    },
+    {
+      "slug": "research",
+      "file": "commands/research.md",
+      "agent": "researcher",
+      "description": "Deep investigation and documentation lookup."
+    },
+    {
+      "slug": "docs",
+      "file": "commands/documentation.md",
+      "agent": "docs-agent",
+      "description": "Generate or update documentation."
+    },
+    {
+      "slug": "build-fix",
+      "file": "commands/build-fix.md",
+      "agent": "devops-engineer",
+      "description": "Diagnose and fix build failures."
+    },
+    {
+      "slug": "migrate",
+      "file": "commands/migrate.md",
+      "agent": "migrator",
+      "description": "Database migration with rollback planning."
+    },
+    {
+      "slug": "perf",
+      "file": "commands/perf.md",
+      "agent": "frontend-ops",
+      "description": "Performance audit — Core Web Vitals."
+    },
+    {
+      "slug": "api",
+      "file": "commands/api.md",
+      "agent": "architect",
+      "description": "API generation, OpenAPI scaffolding, route documentation."
+    },
+    {
+      "slug": "mobile",
+      "file": "commands/mobile.md",
+      "agent": "mobile-ops",
+      "description": "React Native / Expo mobile development."
+    }
   ],
-
   "modes": [
-    { "slug": "dev",      "file": "modes/dev.md",      "description": "Fast implementation mode — full tool access, batched quality gate." },
-    { "slug": "research", "file": "modes/research.md", "description": "Read-only investigation — no writes, deep analysis." },
-    { "slug": "review",   "file": "modes/review.md",   "description": "Critical code review — full security + quality audit." }
+    {
+      "slug": "dev",
+      "file": "modes/dev.md",
+      "description": "Fast implementation mode — full tool access, batched quality gate."
+    },
+    {
+      "slug": "research",
+      "file": "modes/research.md",
+      "description": "Read-only investigation — no writes, deep analysis."
+    },
+    {
+      "slug": "review",
+      "file": "modes/review.md",
+      "description": "Critical code review — full security + quality audit."
+    }
   ],
-
   "skills": {
     "count": 63,
     "directory": "skills/",
     "format": "skills/{name}/SKILL.md",
     "highlights": [
-      "react-expert", "typescript-expert", "nextjs-expert", "tailwind-expert",
-      "css-architecture", "prisma-expert", "testing-patterns", "security-review",
-      "api-backend", "docker-patterns", "clean-architecture", "ddd-patterns"
+      "react-expert",
+      "typescript-expert",
+      "nextjs-expert",
+      "tailwind-expert",
+      "css-architecture",
+      "prisma-expert",
+      "testing-patterns",
+      "security-review",
+      "api-backend",
+      "docker-patterns",
+      "clean-architecture",
+      "ddd-patterns"
     ]
   },
-
   "hooks": {
     "config": "hooks/hooks.json",
     "scripts": "scripts/hooks/",
-    "events": ["SessionStart", "PreToolUse", "PostToolUse", "Stop"],
+    "events": [
+      "SessionStart",
+      "PreToolUse",
+      "PostToolUse",
+      "Stop"
+    ],
     "list": [
-      { "id": "session:init",         "event": "SessionStart",  "script": "scripts/hooks/session-start.js" },
-      { "id": "pre:write:gateguard",  "event": "PreToolUse",    "script": "scripts/hooks/gateguard.js",     "matcher": "Write|Edit" },
-      { "id": "pre:bash:security",    "event": "PreToolUse",    "script": "scripts/hooks/security-check.js","matcher": "Bash" },
-      { "id": "post:read:skill-inject","event": "PostToolUse",  "script": "scripts/hooks/skill-injector.js","matcher": "Read|Write|Edit" },
-      { "id": "stop:quality-gate",    "event": "Stop",          "script": "scripts/hooks/quality-gate.js" }
+      {
+        "id": "session:init",
+        "event": "SessionStart",
+        "script": "scripts/hooks/session-start.js"
+      },
+      {
+        "id": "pre:write:gateguard",
+        "event": "PreToolUse",
+        "script": "scripts/hooks/gateguard.js",
+        "matcher": "Write|Edit"
+      },
+      {
+        "id": "pre:bash:security",
+        "event": "PreToolUse",
+        "script": "scripts/hooks/security-check.js",
+        "matcher": "Bash"
+      },
+      {
+        "id": "post:read:skill-inject",
+        "event": "PostToolUse",
+        "script": "scripts/hooks/skill-injector.js",
+        "matcher": "Read|Write|Edit"
+      },
+      {
+        "id": "stop:quality-gate",
+        "event": "Stop",
+        "script": "scripts/hooks/quality-gate.js"
+      }
     ]
   },
-
   "ci": {
     "github_actions": ".github/workflows/omnirule.yml",
-    "jobs": ["quality", "deep-review", "schema"]
+    "jobs": [
+      "quality",
+      "deep-review",
+      "schema"
+    ]
   },
-
   "output_dirs": {
     "design_tokens": ".design/{domain}/",
-    "reports":       ".omnirule/reports/",
-    "missions":      ".omnirule/missions/",
-    "context":       ".designrules/",
-    "snapshots":     ".omnirule/context-snapshot.md",
-    "dashboard":     ".omnirule/DASHBOARD.md"
+    "reports": ".omnirule/reports/",
+    "missions": ".omnirule/missions/",
+    "context": ".designrules/",
+    "snapshots": ".omnirule/context-snapshot.md",
+    "dashboard": ".omnirule/DASHBOARD.md"
   },
-
   "platforms": {
-    "claude_code": { "commands": ".claude/commands/", "format": "{file:commands/{slug}.md}" },
-    "opencode":    { "config": "userspec/opencode.json" },
-    "codex":       { "manifest": "AGENTS.md" },
-    "universal":   { "manifest": "AGENTS.md", "registry": "registry.json" }
+    "claude_code": {
+      "commands": ".claude/commands/",
+      "format": "{file:commands/{slug}.md}"
+    },
+    "opencode": {
+      "config": "userspec/opencode.json"
+    },
+    "codex": {
+      "manifest": "AGENTS.md"
+    },
+    "universal": {
+      "manifest": "AGENTS.md",
+      "registry": "registry.json"
+    }
   }
 }

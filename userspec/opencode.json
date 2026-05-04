@@ -17,15 +17,29 @@
       "mode": "primary",
       "prompt": "{file:agents/ORCHESTRATOR_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/blueprint/SKILL.md}\n{file:skills/clean-architecture/SKILL.md}\n{file:skills/typescript-expert/SKILL.md}",
       "tools": {
-        "read": true, "grep": true, "glob": true,
-        "write": true, "bash": true, "delete": false, "mcp": true
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": true,
+        "bash": true,
+        "delete": false,
+        "mcp": true
       },
       "capabilities": {
         "subAgents": [
-          "architect", "style-architect", "frontend-ops",
-          "qa-specialist", "security-officer", "devops-engineer",
-          "infra-specialist", "seo-agent", "researcher",
-          "docs-agent", "context-agent", "migrator", "mobile-ops"
+          "architect",
+          "style-architect",
+          "frontend-ops",
+          "qa-specialist",
+          "security-officer",
+          "devops-engineer",
+          "infra-specialist",
+          "seo-agent",
+          "researcher",
+          "docs-agent",
+          "context-agent",
+          "migrator",
+          "mobile-ops"
         ],
         "maxParallel": 4
       }
@@ -35,8 +49,12 @@
       "mode": "subagent",
       "prompt": "{file:agents/ARCHITECT_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/clean-architecture/SKILL.md}\n{file:skills/hexagonal-architecture/SKILL.md}\n{file:skills/ddd-patterns/SKILL.md}\n{file:skills/microservices-patterns/SKILL.md}",
       "tools": {
-        "read": true, "grep": true, "glob": true,
-        "write": true, "bash": true, "delete": false
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": true,
+        "bash": true,
+        "delete": false
       }
     },
     "style-architect": {
@@ -44,7 +62,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/STYLE_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/tailwind-expert/SKILL.md}\n{file:skills/css-architecture/SKILL.md}\n{file:skills/css-variables/SKILL.md}\n{file:skills/responsive-design/SKILL.md}\n{file:skills/animations-patterns/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "frontend-ops": {
@@ -52,7 +72,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/FRONTEND_OPS_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/react-expert/SKILL.md}\n{file:skills/nextjs-expert/SKILL.md}\n{file:skills/state-management/SKILL.md}\n{file:skills/bundle-optimization/SKILL.md}\n{file:skills/web-performance/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "qa-specialist": {
@@ -60,7 +82,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/QA_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/testing-patterns/SKILL.md}\n{file:skills/debugging-strategies/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "security-officer": {
@@ -68,7 +92,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/SECURITY_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/security-review/SKILL.md}\n{file:skills/authentication-patterns/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "devops-engineer": {
@@ -76,7 +102,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/DEVOPS_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/docker-patterns/SKILL.md}\n{file:skills/ci-cd-patterns/SKILL.md}\n{file:skills/kubernetes-basics/SKILL.md}\n{file:skills/terraform-basics/SKILL.md}",
       "tools": {
-        "read": true, "bash": true, "write": true
+        "read": true,
+        "bash": true,
+        "write": true
       }
     },
     "infra-specialist": {
@@ -84,7 +112,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/INFRA_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/postgres-patterns/SKILL.md}\n{file:skills/redis-patterns/SKILL.md}\n{file:skills/caching-patterns/SKILL.md}\n{file:skills/message-queues/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "seo-agent": {
@@ -92,7 +122,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/SEO_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/html-semantic/SKILL.md}\n{file:skills/web-performance/SKILL.md}\n{file:skills/accessibility-basics/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "researcher": {
@@ -100,7 +132,10 @@
       "mode": "subagent",
       "prompt": "{file:agents/RESEARCHER.md}\n\n---\n## Loaded Skills\n{file:skills/documentation-patterns/SKILL.md}\n{file:skills/code-review-patterns/SKILL.md}",
       "tools": {
-        "read": true, "grep": true, "glob": true, "bash": true
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "bash": true
       }
     },
     "docs-agent": {
@@ -108,7 +143,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/DOCS_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/documentation-patterns/SKILL.md}\n{file:skills/api-design/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "context-agent": {
@@ -116,7 +153,8 @@
       "mode": "subagent",
       "prompt": "{file:agents/CONTEXT_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/prisma-expert/SKILL.md}\n{file:skills/postgres-patterns/SKILL.md}\n{file:skills/ddd-patterns/SKILL.md}",
       "tools": {
-        "read": true, "bash": true
+        "read": true,
+        "bash": true
       }
     },
     "migrator": {
@@ -124,7 +162,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/MIGRATOR_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/prisma-expert/SKILL.md}\n{file:skills/postgres-patterns/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "mobile-ops": {
@@ -132,7 +172,9 @@
       "mode": "subagent",
       "prompt": "{file:agents/MOBILE_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/mobile-patterns/SKILL.md}\n{file:skills/react-expert/SKILL.md}\n{file:skills/typescript-expert/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true
+        "read": true,
+        "write": true,
+        "bash": true
       }
     },
     "document-creator": {
@@ -140,7 +182,11 @@
       "mode": "subagent",
       "prompt": "{file:agents/DOCUMENT_CREATOR_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/html-to-pdf/SKILL.md}\n{file:skills/pptx-generation/SKILL.md}\n{file:skills/documentation-patterns/SKILL.md}",
       "tools": {
-        "read": true, "write": true, "bash": true, "grep": true, "glob": true
+        "read": true,
+        "write": true,
+        "bash": true,
+        "grep": true,
+        "glob": true
       }
     }
   },
@@ -271,66 +317,7 @@
       "description": "Run all checks: deps + security + quality. Use before PR or major task completion.",
       "template": "npm run omnirule:check 2>&1"
     },
-    "git-summary": {
-      "description": "Generate an intelligent summary of staged git changes.",
-      "template": "tsx tools/git-sentinel.ts summary"
-    },
-    "visualize-schema": {
-      "description": "Generate a Mermaid ER diagram from your Prisma schema.",
-      "template": "tsx tools/schema-visualizer.ts $ARGUMENTS"
-    },
-    "tokens": {
-      "description": "Estimate token count + API cost for any file or directory. Usage: /tokens <path> [--model=opus-4] [--budget=8000]",
-      "template": "npm run tool:tokens -- $ARGUMENTS 2>&1"
-    },
-    "impact": {
-      "description": "Show all files affected by changing a target file — GO/NO-GO refactor safety. Usage: /impact <file>",
-      "template": "npm run tool:impact -- $ARGUMENTS 2>&1"
-    },
-    "crud": {
-      "description": "Scaffold full CRUD stack from a Prisma model — routes, service, schema, types, tests. Usage: /crud <ModelName>",
-      "template": "npm run tool:crud -- $ARGUMENTS 2>&1",
-      "agent": "context-agent",
-      "subtask": true
-    },
-    "preflight": {
-      "description": "GO/NO-GO gate before push: types, secrets, complexity, coverage, env. AUTO-INVOKE before any commit.",
-      "template": "npm run tool:preflight 2>&1"
-    },
-    "api-diff": {
-      "description": "Compare two OpenAPI specs and detect breaking changes. Usage: /api-diff <spec-a> <spec-b>",
-      "template": "npm run tool:api-diff -- $ARGUMENTS 2>&1"
-    },
-    "i18n": {
-      "description": "Find hardcoded strings in JSX and missing/orphan translation keys across locale files.",
-      "template": "npm run tool:i18n 2>&1"
-    },
-    "dead-code": {
-      "description": "Find exports that are never imported anywhere in the project.",
-      "template": "npm run tool:dead-code 2>&1"
-    },
-    "env": {
-      "description": "Three-way env validation: .env.example vs .env vs process.env in source. Pass --fix to auto-patch.",
-      "template": "npm run tool:env -- $ARGUMENTS 2>&1"
-    },
-    "changelog": {
-      "description": "Generate CHANGELOG.md from Conventional Commits git history. Pass --unreleased for pending changes.",
-      "template": "npm run tool:changelog -- $ARGUMENTS 2>&1"
-    },
-    "generate": {
-      "description": "Generate React+Tailwind components from extracted design tokens. Usage: /generate <domain> | --list | --all",
-      "template": "npm run tool:generate -- $ARGUMENTS 2>&1",
-      "agent": "style-architect",
-      "subtask": true
-    },
-    "document": {
-      "description": "Create professional PDF reports or PowerPoint presentations. Usage: /document --type=pdf --title=\"Title\" [--input=content.md] [--output=report.pdf]",
-      "template": "{file:commands/document.md}\n\n$ARGUMENTS",
-      "agent": "document-creator",
-      "subtask": true
-    }
   },
-
   "permission": {
     "write_to_file": "ask",
     "replace_file_content": "ask",
