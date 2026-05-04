@@ -55,11 +55,10 @@ Read the incoming task and classify it. **Always prefer running a tool over doin
 | UI has hardcoded strings | `npm run tool:i18n` |
 | Unused code suspected | `npm run tool:dead-code` |
 | .env out of sync | `npm run tool:env` |
-| Pre-commit / pre-push | `npm run tool:preflight` — GO/NO-GO gate |
+| Pre-commit / pre-push | `npm run tool:preflight` —  GO/NO-GO gate |
 | After implementation | `npm run omnirule:verify` — types + lint |
 | Before PR | `npm run omnirule:check` — full check |
 | Perf audit on a URL | `npm run tool:perf -- <URL>` |
-| Token budget check | `npm run tool:tokens -- <path>` |
 | Need components from design | `npm run tool:generate -- <domain>` |
 | DB schema diagram | `npm run tool:schema` |
 | Context window large | `npm run tool:compact` |

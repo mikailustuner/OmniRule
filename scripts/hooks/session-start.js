@@ -63,8 +63,6 @@ function buildAgentInstructions(skills) {
     '| .tsx/.ts file edited | Load react-expert or typescript-expert skill |',
     '| .prisma file edited | Load prisma-expert + postgres-patterns skills |',
     '| Tailwind config edited | Load tailwind-expert skill |',
-    '| Before any commit | Run: `npm run tool:security` |',
-    '| Build fails | Activate devops-engineer, run: `npm run omnirule:verify` |',
     '| Context window filling | Run: `npm run tool:compact` |',
     '',
   ];

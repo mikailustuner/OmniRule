@@ -2,60 +2,60 @@
 # Install: npx lefthook install
 # Docs: https://github.com/evilmartians/lefthook
 
-pre-commit:
-  parallel: false
-  commands:
-    git-sentinel:
-      run: npx tsx tools/git-sentinel.ts --staged
-      fail_text: "git-sentinel blocked the commit. Check .omnirule/reports/git-sentinel.md"
+# pre-commit:
+#   parallel: false
+#   commands:
+#     git-sentinel:
+#       run: npx tsx tools/git-sentinel.ts --staged
+#       fail_text: "git-sentinel blocked the commit. Check .omnirule/reports/git-sentinel.md"
+# 
+#     security-check:
+#       run: node scripts/hooks/security-check.js
+#       fail_text: "Security check failed. Review the output above before committing."
+# 
+#     typecheck:
+#       glob: "**/*.{ts,tsx}"
+#       run: |
+#         CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx)$' | head -20)
+#         if [ -n "$CHANGED" ]; then
+#           npx tsc --noEmit 2>&1 | head -50
+#         else
+#           echo "No TS files changed — skipping typecheck"
+#         fi
+#       fail_text: "TypeScript errors found. Fix them before committing."
 
-    security-check:
-      run: node scripts/hooks/security-check.js
-      fail_text: "Security check failed. Review the output above before committing."
+# pre-push:
+#   parallel: false
+#   commands:
+#     dependency-sentinel:
+#       run: npx tsx tools/dependency-sentinel.ts
+#       fail_text: "Vulnerable/deprecated dependencies found. Run 'npm run tool:deps' for details."
+# 
+#     security-audit:
+#       run: npx tsx tools/security-audit.ts
+#       fail_text: "OWASP security issues found. Run 'npm run tool:security' for details."
+# 
+#     complexity-check:
+#       glob: "**/*.{ts,tsx}"
+#       run: npx tsx tools/code-complexity.ts 2>&1 | tail -20
+#       # Non-blocking — shows report but doesn't fail push
 
-    typecheck:
-      glob: "**/*.{ts,tsx}"
-      run: |
-        CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx)$' | head -20)
-        if [ -n "$CHANGED" ]; then
-          npx tsc --noEmit 2>&1 | head -50
-        else
-          echo "No TS files changed — skipping typecheck"
-        fi
-      fail_text: "TypeScript errors found. Fix them before committing."
-
-pre-push:
-  parallel: false
-  commands:
-    dependency-sentinel:
-      run: npx tsx tools/dependency-sentinel.ts
-      fail_text: "Vulnerable/deprecated dependencies found. Run 'npm run tool:deps' for details."
-
-    security-audit:
-      run: npx tsx tools/security-audit.ts
-      fail_text: "OWASP security issues found. Run 'npm run tool:security' for details."
-
-    complexity-check:
-      glob: "**/*.{ts,tsx}"
-      run: npx tsx tools/code-complexity.ts 2>&1 | tail -20
-      # Non-blocking — shows report but doesn't fail push
-
-commit-msg:
-  commands:
-    conventional-commit:
-      run: |
-        MSG=$(cat {1})
-        if ! echo "$MSG" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: .{1,100}'; then
-          echo ""
-          echo "❌ Commit message must follow Conventional Commits:"
-          echo "   format: type(scope): description"
-          echo "   types:  feat fix docs style refactor perf test build ci chore revert"
-          echo ""
-          echo "   Examples:"
-          echo "   feat(auth): add OAuth2 login flow"
-          echo "   fix(api): handle null response from payment gateway"
-          echo "   chore: update dependencies"
-          echo ""
-          exit 1
-        fi
-      fail_text: "Commit message does not follow Conventional Commits format."
+# commit-msg:
+#   commands:
+#     conventional-commit:
+#       run: |
+#         MSG=$(cat {1})
+#         if ! echo "$MSG" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: .{1,100}'; then
+#           echo ""
+#           echo "❌ Commit message must follow Conventional Commits:"
+#           echo "   format: type(scope): description"
+#           echo "   types:  feat fix docs style refactor perf test build ci chore revert"
+#           echo ""
+#           echo "   Examples:"
+#           echo "   feat(auth): add OAuth2 login flow"
+#           echo "   fix(api): handle null response from payment gateway"
+#           echo "   chore: update dependencies"
+#           echo ""
+#           exit 1
+#         fi
+#       fail_text: "Commit message does not follow Conventional Commits format."

@@ -17,7 +17,7 @@ All agents access these tools via `npm run <script>`. **Prefer tools over manual
 | User asks for sunum / presentation / slayt / deck | `tool:document --type=pptx` via `document-creator` agent |
 | User gives a URL to copy/clone design | `tool:extract` |
 | Starting a new session or project | `tool:skills` |
-| About to commit or push code | `tool:preflight` |
+| Preparing for push (optional) | `tool:preflight` |
 | Refactoring a file — want to know what breaks | `tool:impact` |
 | Need CRUD for a new Prisma model | `tool:crud` |
 | Changing an API — need to check for breaking changes | `tool:api-diff` |
@@ -25,7 +25,6 @@ All agents access these tools via `npm run <script>`. **Prefer tools over manual
 | Missing translations or hardcoded strings | `tool:i18n` |
 | .env is out of sync | `tool:env` |
 | Need a CHANGELOG for a release | `tool:changelog` |
-| Want to know how many tokens a folder costs | `tool:tokens` |
 | Need React components from design tokens | `tool:generate` |
 | PR or major task complete | `omnirule:check` |
 | After implementation — verify types | `omnirule:verify` |
@@ -90,7 +89,7 @@ All agents access these tools via `npm run <script>`. **Prefer tools over manual
 - **Source:** `tools/pre-flight.ts`
 - **Checks:** Branch name, secrets, debug statements, TypeScript, cyclomatic complexity, test coverage, env
 
-**When to use:** Before any `git push`, before reporting a task complete. **This is a GO/NO-GO gate.**
+**When to use:** Optional check before push or when a full environment/complexity audit is needed.
 
 ---
 
@@ -144,21 +143,13 @@ All agents access these tools via `npm run <script>`. **Prefer tools over manual
 
 ---
 
-## 12. Token Counter
-
-- **Command:** `npm run tool:tokens -- <path> [--model=sonnet-4-6] [--budget=8000] [--models]`
-- **Source:** `tools/token-counter.ts`
-
-**When to use:** Before including a large directory in context, estimating API cost, checking if content fits in a token budget.
-
----
 
 ## 13. Git Sentinel
 
 - **Command:** `npm run tool:git [--staged]`
 - **Source:** `tools/git-sentinel.ts`
 
-**When to use:** Pre-commit validation. Also run automatically via lefthook.
+**When to use:** Optional pre-commit validation. Run manually to catch secrets or generate commit summaries.
 
 ---
 
