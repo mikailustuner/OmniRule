@@ -102,10 +102,10 @@ export default function Home() {
             <div className="bg-black/90 backdrop-blur-2xl rounded-[15px] px-8 py-5 flex items-center justify-between font-mono text-sm group">
               <div className="flex items-center gap-4 overflow-hidden">
                 <span className="text-blue-500 select-none">❯</span>
-                <span className="text-gray-300 truncate whitespace-nowrap">curl -fsSL omnirule.ai/install.sh | bash</span>
+                <span className="text-gray-300 truncate whitespace-nowrap">curl -fsSL https://mikailustuner.github.io/OmniRule/install.sh | bash</span>
               </div>
               <button 
-                onClick={() => navigator.clipboard.writeText('curl -fsSL omnirule.ai/install.sh | bash')}
+                onClick={() => navigator.clipboard.writeText('curl -fsSL https://mikailustuner.github.io/OmniRule/install.sh | bash')}
                 className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors pl-4 border-l border-white/10"
               >
                 <Copy className="w-4 h-4" />
