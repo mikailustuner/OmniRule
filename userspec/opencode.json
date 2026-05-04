@@ -39,7 +39,15 @@
           "docs-agent",
           "context-agent",
           "migrator",
-          "mobile-ops"
+          "mobile-ops",
+          "document-creator",
+          "ai-engineer",
+          "cloud-architect",
+          "blockchain-developer",
+          "data-engineer",
+          "security-expert",
+          "platform-engineer",
+          "swift-developer"
         ],
         "maxParallel": 4
       }
@@ -178,15 +186,85 @@
       }
     },
     "document-creator": {
-      "description": "Professional PDF and PPTX document generation. McKinsey/IBM style. Research → structure → generate.",
+      "description": "Professional PDF and PPTX document generation. IBM/McKinsey style. Research → structure → generate.",
       "mode": "subagent",
-      "prompt": "{file:agents/DOCUMENT_CREATOR_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/html-to-pdf/SKILL.md}\n{file:skills/pptx-generation/SKILL.md}\n{file:skills/documentation-patterns/SKILL.md}",
+      "prompt": "{file:agents/DOCUMENT_CREATOR_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/professional-report-design/SKILL.md}\n{file:skills/professional-pptx-design/SKILL.md}\n{file:skills/documentation-patterns/SKILL.md}",
       "tools": {
         "read": true,
         "write": true,
         "bash": true,
         "grep": true,
         "glob": true
+      }
+    },
+    "ai-engineer": {
+      "description": "AI/ML integration specialist for LLM, Vector DB, Prompt Engineering, and MLOps.",
+      "mode": "subagent",
+      "prompt": "{file:agents/AI_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/llm-integration/SKILL.md}\n{file:skills/vector-db-patterns/SKILL.md}\n{file:skills/prompt-engineering/SKILL.md}\n{file:skills/mlops-patterns/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true
+      }
+    },
+    "cloud-architect": {
+      "description": "Cloud platform specialist for AWS, GCP, and Azure architecture patterns.",
+      "mode": "subagent",
+      "prompt": "{file:agents/CLOUD_ARCHITECT.md}\n\n---\n## Loaded Skills\n{file:skills/aws-patterns/SKILL.md}\n{file:skills/gcp-patterns/SKILL.md}\n{file:skills/azure-patterns/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true
+      }
+    },
+    "blockchain-developer": {
+      "description": "Blockchain and smart contract specialist for Solidity, DeFi, and Web3.",
+      "mode": "subagent",
+      "prompt": "{file:agents/BLOCKCHAIN_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/solidity-patterns/SKILL.md}\n{file:skills/smart-contract-testing/SKILL.md}\n{file:skills/defi-patterns/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true
+      }
+    },
+    "data-engineer": {
+      "description": "Data engineering specialist for ETL pipelines, data warehousing, and streaming systems.",
+      "mode": "subagent",
+      "prompt": "{file:agents/DATA_ENGINEER.md}\n\n---\n## Loaded Skills\n{file:skills/etl-patterns/SKILL.md}\n{file:skills/data-pipeline-patterns/SKILL.md}\n{file:skills/streaming-patterns/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true
+      }
+    },
+    "security-expert": {
+      "description": "Advanced security specialist for network security, cryptography, and compliance (GDPR, SOC2).",
+      "mode": "subagent",
+      "prompt": "{file:agents/SECURITY_EXPERT.md}\n\n---\n## Loaded Skills\n{file:skills/network-security/SKILL.md}\n{file:skills/cryptography-patterns/SKILL.md}\n{file:skills/compliance-gdpr/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true
+      }
+    },
+    "platform-engineer": {
+      "description": "Internal platform and developer experience specialist for self-service infrastructure.",
+      "mode": "subagent",
+      "prompt": "{file:agents/PLATFORM_ENGINEER.md}\n\n---\n## Loaded Skills\n{file:skills/internal-platforms/SKILL.md}\n{file:skills/developer-experience/SKILL.md}\n{file:skills/chaos-engineering/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true
+      }
+    },
+    "swift-developer": {
+      "description": "Apple platform specialist for Swift, SwiftUI, iOS, watchOS, macOS, and Apple design guidelines.",
+      "mode": "subagent",
+      "prompt": "{file:agents/SWIFT_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/swiftui-patterns/SKILL.md}\n{file:skills/watchos-patterns/SKILL.md}\n{file:skills/apple-design-guidelines/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true
       }
     }
   },

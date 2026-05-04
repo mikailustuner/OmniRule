@@ -36,8 +36,12 @@ const SKILL_MAP = {
   '.html':   { skills: ['html-semantic', 'accessibility-basics'],                          agent: 'seo-agent' },
   '.md':     { skills: ['documentation-patterns'],                                         agent: 'docs-agent' },
   '.json':   { skills: ['api-design'],                                                     agent: 'architect' },
-  '.pptx':   { skills: ['pptx-generation'],                                                agent: 'document-creator' },
-  '.pdf':    { skills: ['html-to-pdf'],                                                     agent: 'document-creator' },
+  '.pptx':   { skills: ['professional-pptx-design'],                                        agent: 'document-creator' },
+  '.pdf':    { skills: ['professional-report-design'],                                      agent: 'document-creator' },
+  // New skills
+  '.sol':    { skills: ['solidity-patterns', 'smart-contract-testing', 'defi-patterns'],   agent: 'blockchain-developer' },
+  '.py':     { skills: ['llm-integration', 'etl-patterns', 'mlops-patterns'],              agent: 'ai-engineer' },
+  '.swift':  { skills: ['swiftui-patterns', 'watchos-patterns', 'apple-design-guidelines'], agent: 'swift-developer' },
 };
 
 // ─── Directory → additional skills (merged on top of ext skills) ─────────────
@@ -70,6 +74,52 @@ const DIR_MAP = {
   'utils/':        { skills: ['typescript-expert'],                                agent: 'architect' },
   'domain/':       { skills: ['ddd-patterns', 'clean-architecture'],               agent: 'architect' },
   'search/':       { skills: ['search-patterns'],                                  agent: 'infra-specialist' },
+  // New directories
+  'ai/':           { skills: ['llm-integration', 'mlops-patterns'],                 agent: 'ai-engineer' },
+  'llm/':          { skills: ['llm-integration', 'prompt-engineering'],             agent: 'ai-engineer' },
+  'models/':       { skills: ['mlops-patterns', 'llm-integration'],                 agent: 'ai-engineer' },
+  'embeddings/':   { skills: ['vector-db-patterns'],                                agent: 'ai-engineer' },
+  'rag/':          { skills: ['vector-db-patterns', 'llm-integration'],             agent: 'ai-engineer' },
+  'prompts/':      { skills: ['prompt-engineering'],                                agent: 'ai-engineer' },
+  'aws/':          { skills: ['aws-patterns'],                                       agent: 'cloud-architect' },
+  'gcp/':          { skills: ['gcp-patterns'],                                       agent: 'cloud-architect' },
+  'azure/':        { skills: ['azure-patterns'],                                     agent: 'cloud-architect' },
+  'cloud/':        { skills: ['aws-patterns', 'gcp-patterns', 'azure-patterns'],     agent: 'cloud-architect' },
+  'smart-contracts/': { skills: ['solidity-patterns', 'defi-patterns'],             agent: 'blockchain-developer' },
+  'blockchain/':   { skills: ['solidity-patterns', 'smart-contract-testing'],        agent: 'blockchain-developer' },
+  'defi/':         { skills: ['defi-patterns'],                                      agent: 'blockchain-developer' },
+  'etl/':          { skills: ['etl-patterns', 'data-pipeline-patterns'],            agent: 'data-engineer' },
+  'pipeline/':     { skills: ['etl-patterns', 'data-pipeline-patterns'],            agent: 'data-engineer' },
+  'streaming/':    { skills: ['streaming-patterns'],                                agent: 'data-engineer' },
+  'kafka/':        { skills: ['streaming-patterns'],                                agent: 'data-engineer' },
+  'data/':         { skills: ['etl-patterns', 'streaming-patterns'],                 agent: 'data-engineer' },
+  'network/':      { skills: ['network-security', 'cryptography-patterns'],        agent: 'security-expert' },
+  'security/':     { skills: ['network-security', 'compliance-gdpr', 'cryptography-patterns'], agent: 'security-expert' },
+  'crypto/':       { skills: ['cryptography-patterns'],                            agent: 'security-expert' },
+  'encryption/':   { skills: ['cryptography-patterns'],                            agent: 'security-expert' },
+  'compliance/':   { skills: ['compliance-gdpr'],                                   agent: 'security-expert' },
+  'platform/':     { skills: ['internal-platforms', 'developer-experience'],       agent: 'platform-engineer' },
+  'internal/':     { skills: ['internal-platforms', 'developer-experience'],       agent: 'platform-engineer' },
+  'dx/':           { skills: ['developer-experience'],                            agent: 'platform-engineer' },
+  'chaos/':        { skills: ['chaos-engineering'],                                agent: 'platform-engineer' },
+  'resilience/':   { skills: ['chaos-engineering'],                                agent: 'platform-engineer' },
+  // Swift/Apple platforms
+  'ios/':          { skills: ['swiftui-patterns', 'apple-design-guidelines'],          agent: 'swift-developer' },
+  'macos/':        { skills: ['swiftui-patterns', 'apple-design-guidelines'],          agent: 'swift-developer' },
+  'swift/':        { skills: ['swiftui-patterns', 'watchos-patterns'],                agent: 'swift-developer' },
+  'apple/':        { skills: ['swiftui-patterns', 'apple-design-guidelines'],          agent: 'swift-developer' },
+  'watchos/':      { skills: ['watchos-patterns', 'apple-design-guidelines'],         agent: 'swift-developer' },
+  'watch/':        { skills: ['watchos-patterns'],                                      agent: 'swift-developer' },
+  'applewatch/':   { skills: ['watchos-patterns'],                                      agent: 'swift-developer' },
+  // Web (MUST use Next.js 16)
+  'web/':          { skills: ['nextjs-expert', 'typescript-expert', 'react-expert'],  agent: 'frontend-ops' },
+  'frontend/':     { skills: ['nextjs-expert', 'react-expert', 'typescript-expert'],   agent: 'frontend-ops' },
+  'client/':       { skills: ['nextjs-expert', 'react-expert'],                        agent: 'frontend-ops' },
+  // Documents & Reports
+  'reports/':       { skills: ['professional-report-design', 'documentation-patterns'], agent: 'document-creator' },
+  'documents/':     { skills: ['professional-report-design', 'documentation-patterns'], agent: 'document-creator' },
+  'presentation/': { skills: ['professional-pptx-design', 'professional-report-design'], agent: 'document-creator' },
+  'pdf/':           { skills: ['professional-report-design'],                          agent: 'document-creator' },
 };
 
 // ─── Smart content extractor ──────────────────────────────────────────────────

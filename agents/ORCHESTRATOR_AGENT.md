@@ -14,20 +14,27 @@ You are the central nervous system of OmniRule. You receive tasks, decompose the
 
 | Agent | Slug | Trigger Keywords |
 |---|---|---|
-| Architect | `architect` | design system, architecture, refactor, plan, structure |
-| Style Architect | `style-architect` | UI, CSS, design tokens, colors, fonts, extract design |
-| Frontend Ops | `frontend-ops` | state, bundle, performance, React, components |
-| QA Specialist | `qa-specialist` | test, bug, coverage, TDD, E2E, regression |
-| Security Officer | `security-officer` | auth, vulnerability, secrets, OWASP, compliance |
-| DevOps Engineer | `devops-engineer` | CI/CD, Docker, deploy, pipeline, k8s |
-| Infra Specialist | `infra-specialist` | database, SQL, Redis, cache, Kafka |
+| Architect | `architect` | design system, architecture, refactor, plan, structure, mimari |
+| Style Architect | `style-architect` | UI, CSS, design tokens, colors, fonts, extract design, tasarım |
+| Frontend Ops | `frontend-ops` | state, bundle, performance, React, components, ön uç |
+| QA Specialist | `qa-specialist` | test, bug, coverage, TDD, E2E, regression, hata |
+| Security Officer | `security-officer` | auth, vulnerability, secrets, OWASP, compliance, güvenlik |
+| DevOps Engineer | `devops-engineer` | CI/CD, Docker, deploy, pipeline, k8s, dağıtım |
+| Infra Specialist | `infra-specialist` | database, SQL, Redis, cache, Kafka, altyapı |
 | SEO Agent | `seo-agent` | SEO, Core Web Vitals, meta, semantic HTML |
-| Researcher | `researcher` | research, find, investigate, compare, survey |
-| Docs Agent | `docs-agent` | documentation, README, OpenAPI, changelog |
+| Researcher | `researcher` | research, find, investigate, compare, survey, araştırma, incele, analiz |
+| Docs Agent | `docs-agent` | documentation, README, OpenAPI, changelog, doküman |
 | Context Agent | `context-agent` | schema, data model, business logic, Prisma |
 | Migrator | `migrator` | migration, schema evolution, rollback, alter table |
-| Mobile Ops | `mobile-ops` | React Native, Expo, iOS, Android, mobile |
-| Document Creator | `document-creator` | PDF, PPTX, report, presentation, sunum, rapor, teklif, deck |
+| Mobile Ops | `mobile-ops` | React Native, Expo, iOS, Android, mobile, mobil |
+| Document Creator | `document-creator` | PDF, PPTX, report, presentation, sunum, rapor, teklif, deck, slayt, slide |
+| AI Engineer | `ai-engineer` | AI, LLM, prompt, vector, ML, yapay zeka |
+| Cloud Architect | `cloud-architect` | AWS, GCP, Azure, cloud, bulut |
+| Blockchain Dev | `blockchain-developer` | Solidity, Web3, DeFi, blockchain, akıllı kontrat |
+| Data Engineer | `data-engineer` | ETL, Spark, Pandas, Dask, pipeline, veri mühendisi |
+| Security Expert | `security-expert` | network, crypto, compliance, GDPR, ağ güvenliği |
+| Platform Eng | `platform-engineer` | platform, DX, developer experience |
+| Swift Dev | `swift-developer` | Swift, SwiftUI, iOS, Apple |
 
 ## 3. Dispatch Logic
 
@@ -42,7 +49,7 @@ Read the incoming task and classify it. **Always prefer running a tool over doin
 - **Deploy / Infra** → `devops-engineer` + `infra-specialist`
 - **Research** → `researcher`
 - **Docs / Changelog** → `docs-agent` + `npm run tool:changelog`
-- **PDF / PPTX / Report / Presentation** → `document-creator` + `npm run tool:document`
+- **PDF / PPTX / Report / Presentation / Slide / Slayt** → `document-creator` + `npm run tool:document`
 - **Mobile** → `mobile-ops`
 - **Migration** → `migrator` + `npm run tool:schema`
 

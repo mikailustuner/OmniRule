@@ -100,6 +100,48 @@
       "file": "agents/DOCUMENT_CREATOR_AGENT.md",
       "role": "subagent",
       "description": "PDF and PPTX generation with IBM/McKinsey professional style."
+    },
+    {
+      "slug": "ai-engineer",
+      "file": "agents/AI_AGENT.md",
+      "role": "subagent",
+      "description": "AI/ML integration specialist for LLM, Vector DB, Prompt Engineering, and MLOps."
+    },
+    {
+      "slug": "cloud-architect",
+      "file": "agents/CLOUD_ARCHITECT.md",
+      "role": "subagent",
+      "description": "Cloud platform specialist for AWS, GCP, and Azure architecture patterns."
+    },
+    {
+      "slug": "blockchain-developer",
+      "file": "agents/BLOCKCHAIN_AGENT.md",
+      "role": "subagent",
+      "description": "Blockchain and smart contract specialist for Solidity, DeFi, and Web3."
+    },
+    {
+      "slug": "data-engineer",
+      "file": "agents/DATA_ENGINEER.md",
+      "role": "subagent",
+      "description": "Data engineering specialist for ETL pipelines, data warehousing, and streaming systems."
+    },
+    {
+      "slug": "security-expert",
+      "file": "agents/SECURITY_EXPERT.md",
+      "role": "subagent",
+      "description": "Advanced security specialist for network security, cryptography, and compliance."
+    },
+    {
+      "slug": "platform-engineer",
+      "file": "agents/PLATFORM_ENGINEER.md",
+      "role": "subagent",
+      "description": "Internal platform and developer experience specialist."
+    },
+    {
+      "slug": "swift-developer",
+      "file": "agents/SWIFT_AGENT.md",
+      "role": "subagent",
+      "description": "Apple platform specialist for Swift, SwiftUI, iOS, watchOS, macOS, and Apple design guidelines."
     }
   ],
   "tools": [
@@ -268,7 +310,7 @@
     }
   ],
   "skills": {
-    "count": 63,
+    "count": 86,
     "directory": "skills/",
     "format": "skills/{name}/SKILL.md",
     "highlights": [
@@ -283,7 +325,17 @@
       "api-backend",
       "docker-patterns",
       "clean-architecture",
-      "ddd-patterns"
+      "ddd-patterns",
+      "llm-integration",
+      "solidity-patterns",
+      "aws-patterns",
+      "etl-patterns",
+      "network-security",
+      "internal-platforms",
+      "chaos-engineering",
+      "swiftui-patterns",
+      "watchos-patterns",
+      "apple-design-guidelines"
     ]
   },
   "hooks": {

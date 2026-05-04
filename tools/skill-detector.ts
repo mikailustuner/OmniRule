@@ -110,6 +110,49 @@ const INDICATORS: Record<string, Indicator> = {
 
   // ── Always available (meta)
   'blueprint':          { files: ['package.json'] },
+
+  // ── Professional Documents
+  'professional-report-design': { dirs: ['reports/', 'documents/'], deps: ['playwright', 'puppeteer', 'pdfkit'] },
+  'professional-pptx-design':  { dirs: ['presentation/', 'slides/', 'deck/'], deps: ['pptxgenjs'] },
+
+  // ── AI/ML
+  'llm-integration':    { dirs: ['ai/', 'llm/', 'models/'], deps: ['openai', 'anthropic', 'langchain', 'llama-index'] },
+
+  // ── Swift/Apple Platforms
+  'swiftui-patterns':   { files: ['Package.swift'], dirs: ['ios/', 'macos/', 'swift/', 'apple/'], deps: ['swift'] },
+  'watchos-patterns':   { dirs: ['watchos/', 'watch/', 'applewatch/'], deps: ['watchkit'] },
+  'apple-design-guidelines': { dirs: ['ios/design/', 'apple/design/'], deps: ['accessibility'] },
+
+  // ── Next.js 16 (Web default)
+  'nextjs-expert':      { files: ['next.config.js','next.config.ts'], deps: ['next'], patterns: ['app/', 'next/'] },
+  'vector-db-patterns': { dirs: ['vector/', 'embeddings/', 'rag/'], deps: ['pinecone', 'chroma', 'weaviate', 'milvus', 'pgvector', 'qdrant'] },
+  'prompt-engineering': { dirs: ['prompts/', 'templates/'], deps: ['langchain', 'guidance', 'instructor'] },
+  'mlops-patterns':     { dirs: ['ml/', 'training/'], deps: ['mlflow', 'kubeflow', 'Weights-Biases', 'tensorboard'] },
+
+  // ── Cloud Platforms
+  'aws-patterns':       { dirs: ['aws/'], files: ['serverless.yml', 'sam.yaml'], deps: ['aws-sdk', 'serverless', 'cdk'] },
+  'gcp-patterns':       { dirs: ['gcp/'], files: ['cloudbuild.yaml'], deps: ['@google-cloud', 'gcp'] },
+  'azure-patterns':     { dirs: ['azure/'], files: ['bicep', 'azuredeploy'], deps: ['azure', '@azure'] },
+
+  // ── Blockchain
+  'solidity-patterns': { files: ['.sol'], dirs: ['contracts/', 'smart-contracts/'], deps: ['hardhat', 'foundry', 'waffle'] },
+  'smart-contract-testing': { dirs: ['test/'], deps: ['foundry', 'hardhat', 'forge'], files: ['.t.sol'] },
+  'defi-patterns':      { dirs: ['defi/', 'protocols/'], deps: ['uniswap-sdk', 'aave-v3', 'compound-js'] },
+
+  // ── Data Engineering
+  'etl-patterns':      { dirs: ['etl/', 'pipeline/'], deps: ['airflow', 'dbt', 'prefect', 'dagster'] },
+  'data-pipeline-patterns': { dirs: ['pipeline/', 'transform/'], deps: ['pandas', 'dask', 'spark'] },
+  'streaming-patterns': { dirs: ['streaming/', 'kafka/', 'flink/'], deps: ['kafka', 'kinesis', 'pubsub', 'flink'] },
+
+  // ── Security (Advanced)
+  'network-security':   { dirs: ['network/', 'security/'], deps: ['aws-security', 'gcp-security'] },
+  'cryptography-patterns': { dirs: ['crypto/', 'encryption/'], deps: ['node-forge', 'crypto-js', 'jsrsasign'] },
+  'compliance-gdpr':    { dirs: ['compliance/', 'audit/'], files: ['gdpr.yaml', 'soc2.yaml'] },
+
+  // ── Platform Engineering
+  'internal-platforms': { dirs: ['platform/', 'internal/'], deps: ['backstage', 'port'] },
+  'developer-experience': { dirs: ['dx/', 'scripts/'], deps: ['clack', 'chalk'] },
+  'chaos-engineering':  { dirs: ['chaos/', 'resilience/'], deps: ['chaos-mesh', 'litmus', 'gremlin'] },
 };
 
 // ─── Detection logic ──────────────────────────────────────────────────────────

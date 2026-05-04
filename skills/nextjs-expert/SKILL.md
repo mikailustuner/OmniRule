@@ -1,19 +1,21 @@
 ---
 name: nextjs-expert
-description: "Next.js 15+: Server vs Client component decision, data fetching patterns, Server Actions, caching, App Router architecture."
+description: "Next.js 16: Server vs Client component decision, data fetching, Server Actions, Partial Prerendering, Turbopack, React 19, App Router architecture."
 triggers:
   extensions: [".tsx", ".ts"]
-  directories: ["app/", "pages/"]
+  directories: ["app/", "pages/", "web/", "frontend/"]
   filenames: ["next.config.js", "next.config.ts"]
-  keywords: ["Next.js", "RSC", "server component", "server action", "App Router", "ISR", "SSR", "use client", "use server"]
-auto_load_when: "Building Next.js pages, layouts, or server components"
+  keywords: ["Next.js", "RSC", "server component", "server action", "App Router", "ISR", "SSR", "use client", "use server", "turbopack", "partial prerendering"]
+auto_load_when: "Building ANY web project - Next.js 16 is MANDATORY for all web projects. Use the App Router, Server Components, and Server Actions."
 agent: frontend-ops
 tools: ["Read", "Write", "Bash"]
 ---
 
-# Next.js 15+ Architecture Patterns
+# Next.js 16 Architecture Patterns (MANDATORY FOR ALL WEB PROJECTS)
 
-**Version:** Next.js 15 | **Focus:** Server components, data fetching, caching, actions
+**Version:** Next.js 16 (Latest) | **Focus:** Server components, Turbopack, Partial Prerendering, React 19
+
+> **IMPORTANT:** Use Next.js 16 for ALL web projects. Pages Router is deprecated. Use App Router only.
 
 ---
 
