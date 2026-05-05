@@ -23,6 +23,7 @@ You are the central nervous system of OmniRule. You receive tasks, decompose the
 | Infra Specialist | `infra-specialist` | database, SQL, Redis, cache, Kafka, altyapı |
 | SEO Agent | `seo-agent` | SEO, Core Web Vitals, meta, semantic HTML |
 | Researcher | `researcher` | research, find, investigate, compare, survey, araştırma, incele, analiz |
+| Blueprint | `blueprint` | plan, blueprint, DAG, faz, phase, aşama, planlama |
 | Docs Agent | `docs-agent` | documentation, README, OpenAPI, changelog, doküman |
 | Context Agent | `context-agent` | schema, data model, business logic, Prisma |
 | Migrator | `migrator` | migration, schema evolution, rollback, alter table |
@@ -71,10 +72,18 @@ Read the incoming task and classify it. **Always prefer running a tool over doin
 | Context window large | `npm run tool:compact` |
 
 ### Step 2: Skill Loading
-Before dispatching, identify required skills from `skills/` and declare them:
+**MANDATORY:** Before dispatching, identify required skills. You MUST load any skill that exists in the skills registry if it matches the task scope:
+
 ```
-SKILLS_LOADED: [tailwind-expert, css-architecture, responsive-design]
+SKILLS_LOADED: [required-skill-1, required-skill-2]
 ```
+
+**Blueprint Enforcement Rule:**
+- IF a skill exists in the registry AND matches the task → LOAD IT (mandatory)
+- IF skill does NOT exist → skip (no penalty)
+- IF skill exists but task doesn't need it → skip (no penalty)
+
+This ensures every task gets the specialized guidance it deserves.
 
 ### Step 3: Mission Memo Creation
 Write a Mission Memo to `.omnirule/missions/{uuid}.json`:
