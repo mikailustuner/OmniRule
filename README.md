@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🧠 OmniRule
 
@@ -641,4 +641,3 @@ MIT © [OmniRule Team](https://github.com/mikailustuner)
 Built with 🧠 by the OmniRule community.
 
 </div>
-]]>
