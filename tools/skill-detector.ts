@@ -154,6 +154,46 @@ const INDICATORS: Record<string, Indicator> = {
   'internal-platforms': { dirs: ['platform/', 'internal/'], deps: ['backstage', 'port'] },
   'developer-experience': { dirs: ['dx/', 'scripts/'], deps: ['clack', 'chalk'] },
   'chaos-engineering':  { dirs: ['chaos/', 'resilience/'], deps: ['chaos-mesh', 'litmus', 'gremlin'] },
+
+  // ── NEW: REST & API
+  'rest-api-patterns': { files: ['openapi.yml', 'openapi.json'], dirs: ['api/', 'rest/', 'endpoints/'], deps: ['express', 'fastify', 'hono', 'koa'] },
+  'hono-patterns':     { files: ['hono.config.ts', 'hono.config.js'], dirs: ['src/hono/'], deps: ['hono'] },
+
+  // ── NEW: Database
+  'sql-optimization':  { dirs: ['queries/', 'migrations/'], patterns: ['EXPLAIN', 'index', 'JOIN'] },
+
+  // ── NEW: Frontend Static
+  'astro-patterns':    { files: ['astro.config.mjs', 'astro.config.ts'], dirs: ['src/pages/', 'src/layouts/', 'src/components/'], deps: ['astro'] },
+
+  // ── NEW: Webhooks
+  'webhook-handling':  { dirs: ['webhooks/', 'hooks/', 'events/'], deps: ['stripe', 'webhook'] },
+
+  // ── NEW: Serverless
+  'serverless-patterns': { files: ['serverless.yml', 'serverless.yaml', 'sam-template.yaml'], dirs: ['functions/', 'lambda/', 'handlers/'], deps: ['serverless', '@aws-sdk'] },
+
+  // ── NEW: Mobile
+  'flutter-patterns':  { files: ['pubspec.yaml', 'main.dart'], dirs: ['lib/', 'flutter/'], deps: ['flutter'] },
+
+  // ── NEW: gRPC
+  'grpc-patterns':    { files: ['.proto'], dirs: ['protos/', 'grpc/'], deps: ['grpc', '@grpc', 'protobuf'] },
+
+  // ── NEW: Observability
+  'observability-patterns': { files: ['otel.config.ts', 'prometheus.yml'], dirs: ['monitoring/', 'telemetry/'], deps: ['@opentelemetry', 'prom-client', 'datadog'] },
+
+  // ── NEW: Incident Response
+  'incident-response': { dirs: ['runbooks/', 'incidents/'], files: ['incident.md', 'runbook.md'] },
+
+  // ── NEW: Frontend Frameworks
+  'svelte-expert':      { files: ['svelte.config.js', 'svelte.config.ts'], dirs: ['src/routes/', 'src/lib/'], deps: ['svelte', '@sveltejs/kit'] },
+  'storybook-patterns': { files: ['.storybook/main.ts', '.storybook/preview.ts'], dirs: ['stories/'], deps: ['@storybook/svelte'] },
+
+  // ── NEW: Platform Engineering
+  'feature-flags':     { files: ['feature-flags.json', 'flags.config.js'], dirs: ['flags/'], deps: ['launchdarkly', 'unleash-client'] },
+  'error-tracking':    { files: ['sentry.config.ts', 'bugsnag.config.js'], dirs: ['monitoring/', 'error-tracking/'], deps: ['@sentry/svelte', '@bugsnag/js'] },
+  'a-b-testing':        { files: ['ab-test.config.json', 'experiments.json'], dirs: ['experiments/', 'tests/'], deps: ['statsig', 'optimizely'] },
+
+  // ── NEW: Real-time Communication
+  'web-rtc-patterns':  { files: ['webrtc.config.ts'], dirs: ['webrtc/', 'signaling/', 'p2p/'], deps: ['simple-peer', 'peerjs'] },
 };
 
 // ─── Detection logic ──────────────────────────────────────────────────────────

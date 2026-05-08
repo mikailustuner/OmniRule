@@ -87,6 +87,42 @@ const DIR_MAP = {
   'cloud/':        { skills: ['aws-patterns', 'gcp-patterns', 'azure-patterns'],     agent: 'cloud-architect' },
   'smart-contracts/': { skills: ['solidity-patterns', 'defi-patterns'],             agent: 'blockchain-developer' },
   'blockchain/':   { skills: ['solidity-patterns', 'smart-contract-testing'],        agent: 'blockchain-developer' },
+
+  // NEW: REST & API
+  'rest/':         { skills: ['rest-api-patterns', 'api-backend'],                   agent: 'architect' },
+  'endpoints/':    { skills: ['rest-api-patterns', 'api-backend'],                   agent: 'architect' },
+  'hono/':         { skills: ['hono-patterns', 'nodejs-expert'],                      agent: 'architect' },
+
+  // NEW: SQL & Database
+  'queries/':      { skills: ['sql-optimization', 'postgres-patterns'],               agent: 'infra-specialist' },
+
+  // NEW: Astro
+  'layouts/':      { skills: ['astro-patterns', 'react-expert'],                    agent: 'frontend-ops' },
+  'content/':      { skills: ['astro-patterns', 'documentation-patterns'],          agent: 'frontend-ops' },
+
+  // NEW: Webhooks
+  'webhooks/':     { skills: ['webhook-handling', 'api-backend'],                    agent: 'architect' },
+  'events/':       { skills: ['webhook-handling', 'event-driven-patterns'],         agent: 'architect' },
+
+  // NEW: Serverless
+  'functions/':    { skills: ['serverless-patterns', 'nodejs-expert'],               agent: 'devops-engineer' },
+  'lambda/':       { skills: ['serverless-patterns', 'aws-patterns'],                agent: 'devops-engineer' },
+  'handlers/':     { skills: ['serverless-patterns', 'nodejs-expert'],               agent: 'devops-engineer' },
+
+  // NEW: Flutter
+  'flutter/':      { skills: ['flutter-patterns', 'mobile-patterns'],               agent: 'mobile-ops' },
+
+  // NEW: gRPC
+  'protos/':       { skills: ['grpc-patterns', 'api-design'],                       agent: 'architect' },
+  'grpc/':         { skills: ['grpc-patterns', 'api-backend'],                       agent: 'architect' },
+
+  // NEW: Observability
+  'monitoring/':   { skills: ['observability-patterns', 'monitoring-patterns'],      agent: 'devops-engineer' },
+  'telemetry/':    { skills: ['observability-patterns', 'monitoring-patterns'],      agent: 'devops-engineer' },
+
+  // NEW: Incident Response
+  'runbooks/':     { skills: ['incident-response', 'debugging-strategies'],         agent: 'devops-engineer' },
+  'incidents/':    { skills: ['incident-response', 'monitoring-patterns'],          agent: 'devops-engineer' },
   'defi/':         { skills: ['defi-patterns'],                                      agent: 'blockchain-developer' },
   'etl/':          { skills: ['etl-patterns', 'data-pipeline-patterns'],            agent: 'data-engineer' },
   'pipeline/':     { skills: ['etl-patterns', 'data-pipeline-patterns'],            agent: 'data-engineer' },

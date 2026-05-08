@@ -56,20 +56,36 @@ const SKILL_MAP: Record<string, SkillRule> = {
   '.yml': { skills: ['ci-cd-patterns', 'docker-patterns'], agent: 'devops-engineer', confidence: 0.8 },
   '.yaml': { skills: ['ci-cd-patterns', 'kubernetes-basics'], agent: 'devops-engineer', confidence: 0.8 },
   '.tf': { skills: ['terraform-basics', 'ci-cd-patterns'], agent: 'devops-engineer', confidence: 1.0 },
+  '.dart': { skills: ['flutter-patterns', 'mobile-patterns'], agent: 'mobile-ops', confidence: 1.0 },
+  '.proto': { skills: ['grpc-patterns', 'api-design'], agent: 'architect', confidence: 1.0 },
   // Directory-based
   'app/': { skills: ['nextjs-expert', 'nextjs-routing', 'react-expert'], agent: 'frontend-ops', confidence: 1.0 },
-  'api/': { skills: ['api-backend', 'api-design', 'security-review'], agent: 'architect', confidence: 1.0 },
+  'api/': { skills: ['api-backend', 'api-design', 'security-review', 'rest-api-patterns'], agent: 'architect', confidence: 1.0 },
   'components/': { skills: ['react-expert', 'component-design-patterns', 'css-architecture'], agent: 'frontend-ops', confidence: 1.0 },
   'styles/': { skills: ['css-architecture', 'css-variables', 'tailwind-expert'], agent: 'style-architect', confidence: 1.0 },
   '__tests__/': { skills: ['testing-patterns', 'debugging-strategies'], agent: 'qa-specialist', confidence: 1.0 },
   'e2e/': { skills: ['testing-patterns'], agent: 'qa-specialist', confidence: 1.0 },
   'infra/': { skills: ['terraform-basics', 'docker-patterns', 'kubernetes-basics'], agent: 'devops-engineer', confidence: 1.0 },
+  // NEW: REST & API
+  'rest/': { skills: ['rest-api-patterns', 'api-backend'], agent: 'architect', confidence: 1.0 },
+  'endpoints/': { skills: ['rest-api-patterns', 'api-backend'], agent: 'architect', confidence: 1.0 },
+  'webhooks/': { skills: ['webhook-handling', 'api-backend'], agent: 'architect', confidence: 1.0 },
+  // NEW: Serverless
+  'functions/': { skills: ['serverless-patterns', 'nodejs-expert'], agent: 'devops-engineer', confidence: 1.0 },
+  'lambda/': { skills: ['serverless-patterns', 'aws-patterns'], agent: 'devops-engineer', confidence: 1.0 },
+  // NEW: Observability
+  'monitoring/': { skills: ['observability-patterns', 'monitoring-patterns'], agent: 'devops-engineer', confidence: 1.0 },
+  'telemetry/': { skills: ['observability-patterns', 'monitoring-patterns'], agent: 'devops-engineer', confidence: 1.0 },
+  // NEW: Incident Response
+  'runbooks/': { skills: ['incident-response', 'debugging-strategies'], agent: 'devops-engineer', confidence: 1.0 },
   // Filename-based
   'tailwind.config': { skills: ['tailwind-expert', 'css-variables'], agent: 'style-architect', confidence: 1.0 },
   'next.config': { skills: ['nextjs-expert', 'bundle-optimization'], agent: 'frontend-ops', confidence: 1.0 },
   'docker-compose': { skills: ['docker-patterns', 'ci-cd-patterns'], agent: 'devops-engineer', confidence: 1.0 },
   'Dockerfile': { skills: ['docker-patterns'], agent: 'devops-engineer', confidence: 1.0 },
   'package.json': { skills: ['nodejs-expert', 'bundle-optimization'], agent: 'architect', confidence: 0.7 },
+  'serverless.yml': { skills: ['serverless-patterns', 'aws-patterns'], agent: 'devops-engineer', confidence: 1.0 },
+  'astro.config': { skills: ['astro-patterns', 'tailwind-expert'], agent: 'frontend-ops', confidence: 1.0 },
 };
 
 // ─── DesignVault ──────────────────────────────────────────────────────────────

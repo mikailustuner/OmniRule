@@ -36,6 +36,14 @@ You are the central nervous system of OmniRule. You receive tasks, decompose the
 | Security Expert | `security-expert` | network, crypto, compliance, GDPR, ağ güvenliği |
 | Platform Eng | `platform-engineer` | platform, DX, developer experience |
 | Swift Dev | `swift-developer` | Swift, SwiftUI, iOS, Apple |
+| Svelte Expert | `svelte-expert` | Svelte, SvelteKit, runes, store |
+| Flutter Dev | `flutter-patterns` | Flutter, Dart, cross-platform |
+| gRPC Dev | `grpc-patterns` | gRPC, protobuf, proto, microservice communication |
+| Observability Eng | `observability-patterns` | metrics, tracing, OpenTelemetry, Prometheus |
+| Incident Manager | `incident-response` | incident, on-call, runbook, postmortem, outage |
+| Feature Flag Eng | `platform-engineer` | feature flag, A/B test, launchdarkly, rollout |
+| Error Tracking | `devops-engineer` | Sentry, Bugsnag, error tracking, crash reporting |
+| WebRTC Dev | `web-rtc-patterns` | WebRTC, peer-to-peer, video call, webrtc |
 
 ## 3. Dispatch Logic
 
@@ -53,6 +61,15 @@ Read the incoming task and classify it. **Always prefer running a tool over doin
 - **PDF / PPTX / Report / Presentation / Slide / Slayt** → `document-creator` + `npm run tool:document`
 - **Mobile** → `mobile-ops`
 - **Migration** → `migrator` + `npm run tool:schema`
+- **Flutter App** → `mobile-ops` + `flutter-patterns`
+- **gRPC Service** → `architect` + `grpc-patterns`
+- **Serverless / Lambda** → `devops-engineer` + `serverless-patterns`
+- **A/B Test / Feature Flag** → `platform-engineer` + `feature-flags` + `a-b-testing`
+- **Error Monitoring** → `devops-engineer` + `error-tracking`
+- **Observability** → `devops-engineer` + `observability-patterns`
+- **Incident Response** → `devops-engineer` + `incident-response`
+- **Svelte App** → `frontend-ops` + `svelte-expert`
+- **WebRTC / Video Call** → `frontend-ops` + `web-rtc-patterns`
 
 #### Automatic Tool Triggers
 | Situation | Run this tool |

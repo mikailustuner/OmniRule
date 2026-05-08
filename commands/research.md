@@ -13,6 +13,7 @@ Research in OmniRule is not a "Google Search"; it is a systematic intelligence o
 - **Library Selection:** Comparing Npm packages for bundle size, security, and maintenance.
 - **Competitor Analysis:** How does [Competitor] handle this specific feature?
 - **Trend Analysis:** Future-proofing the tech stack against industry shifts.
+- **Financial Analysis:** Gathering market data, scraping tbliste, and calculating bond yields/spreads.
 
 ---
 

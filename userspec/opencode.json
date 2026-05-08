@@ -143,7 +143,9 @@
         "read": true,
         "grep": true,
         "glob": true,
-        "bash": true
+        "bash": true,
+        "write": true,
+        "browser": true
       }
     },
     "docs-agent": {

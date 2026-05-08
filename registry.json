@@ -310,7 +310,7 @@
     }
   ],
   "skills": {
-    "count": 87,
+    "count": 107,
     "directory": "skills/",
     "format": "skills/{name}/SKILL.md",
     "highlights": [
