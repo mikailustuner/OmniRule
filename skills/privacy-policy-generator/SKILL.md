@@ -270,3 +270,7 @@ VERİ İŞLEME DETAY MATRİSİ (Her veri kategorisi için ayrı satır)
 ---
 
 *Uyarı: Bu şablon KVKK ve GDPR uyumluluğu için genel rehberlik sağlar. Gerçek bir gizlilik politikası, işletmenizin spesifik veri işleme faaliyetlerine göre özelleştirilmelidir. Büyük ölçekli veya hassas veri işleme faaliyetleri için profesyonel gizlilik danışmanlığı alınmalıdır.*
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

@@ -326,3 +326,6 @@ function dövizFatura(tutar, paraBirimi, kur) {
 | %10 | Gıda, konut kiralama |
 | %8 | Temel gıda, kitap |
 | %0 | İhracat |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

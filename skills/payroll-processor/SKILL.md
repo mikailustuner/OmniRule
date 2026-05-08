@@ -302,3 +302,6 @@ function hesaplaNet(brüt) {
 | 6 ay-1.5 yıl | 4 hafta |
 | 1.5-3 yıl | 6 hafta |
 | 3 yıl+ | 8 hafta |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

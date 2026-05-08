@@ -228,3 +228,7 @@ FAZ 5: GÖZDEN GEÇİRME
 ---
 
 *Uyarı: Bu araştırma rehberi akademik ve profesyonel kullanım içindir. Hukuki danışmanlık yerine geçmez.*
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

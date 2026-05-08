@@ -365,3 +365,6 @@ Sleep Story Structure
 | **Uyku hikayesi** | Son 5 dk sessizliğe geçiş | Kelime → fısıltı → sessizlik |
 | **Giriş** | 2–3 dk hazırlık | Nefes, kas gevşetme, yargı bırakma |
 | **Çıkış** | 1–2 dk yumuşak dönüş | Parmak hareketi, göz açma |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

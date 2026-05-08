@@ -202,3 +202,7 @@ B. Output Alıştırmaları (Producing)
 | [l] vs [r] | Yüksek | Japon, Çin öğrenciler |
 | Word stress | Orta | İkili hece vurgusu |
 | Intonation | Yüksek | Soru/tanımlama tonu |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

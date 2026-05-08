@@ -317,3 +317,7 @@ Test Edilecek Öğeler:
 | Click rate | %2-5 | Düşükse CTA'ları optimize et |
 | Unsubscribe rate | <%0.5 | Düşükse frekansı azalt |
 | Conversion rate | %1-3 | Düşükse landing page'i test et |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

@@ -240,3 +240,6 @@ esneklik_önerileri
 | P50+ | %10-20 above | At median | %10 below |
 | Total comp | %25 above | At median | %15 below |
 | Benefits | Above market | At market | Below market |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

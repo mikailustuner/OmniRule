@@ -389,3 +389,6 @@ trace.get_tracer_provider().add_span_processor(
 | Dashboards | Grafana | Service-focused |
 | Correlation | Trace ID | Link all three pillars |
 | SLO | Error budget | Track allowed failures |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

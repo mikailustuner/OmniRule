@@ -162,3 +162,7 @@ Infrastructure Layer:
 | DI wiring | Composition root | Once, at startup |
 | Input validation | Application layer | Before reaching domain |
 | Error types | Domain layer | No HTTP status codes inside |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

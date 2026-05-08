@@ -195,3 +195,7 @@ How to handle:
 | Distributed | Redis | Session: 24h, API: 5-60s |
 | DB query | Prisma + Redis | Heavy aggregations |
 | Full-page | Next.js ISR | revalidate: 60 |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

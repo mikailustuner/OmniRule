@@ -192,3 +192,6 @@ Winner Decision:
 | Statistical Significance | p < 0.05 | 95% confidence |
 | Sample Size | n = 16σ²/δ² | Minimum visitors |
 | Z-score | (p1-p2)/SE | Test statistic |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

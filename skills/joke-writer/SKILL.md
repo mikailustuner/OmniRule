@@ -233,3 +233,6 @@ Rule of Three Application
 | **Overstatement** | Abartma | "Gözlerim faltaşı gibi açıldı" |
 | **Triple** | 3'lü kombinasyon | "Sevgilim, işim, internet bağlantım gitti" |
 | **Contradiction** | Çelişki | "Sigarayı bırakıyorum. Yarın. Mutlaka." |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

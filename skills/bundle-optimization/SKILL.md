@@ -186,3 +186,7 @@ When to exceed:
 | Compression | Brotli / gzip | Medium |
 | Preload | <link rel=preload> | Medium |
 | Bundle analysis | webpack-bundle-analyzer | Discovery |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

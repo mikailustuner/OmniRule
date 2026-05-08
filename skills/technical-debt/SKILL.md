@@ -171,3 +171,7 @@ Prevent debt:
 | Dependency debt | Outdated/vulnerable packages | Dependency sentinel |
 | Documentation debt | No README, stale docs | docs-agent |
 | Performance debt | CWV regressions | Perf audit + fix |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

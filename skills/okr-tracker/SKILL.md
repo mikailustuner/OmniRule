@@ -318,3 +318,6 @@ Lessons: Obj2 için daha fazla
 | Vertical | Üst-alttan aşağıya | Company → Team → Individual |
 | Horizontal | Ekipler arası | Engineering ↔ Product ↔ Sales |
 | Cross-functional | Çapraz fonksiyonel | Support + Product → Customer Success |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

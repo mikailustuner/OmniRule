@@ -281,3 +281,7 @@ Twitter vs LinkedIn:
 | Görsel eklemek | +40% engagement | LinkedIn, IG |
 | İlk yorumu kendin yap | +50% görünürlük | LinkedIn |
 | Story'ye mention | +20% reach | Instagram |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

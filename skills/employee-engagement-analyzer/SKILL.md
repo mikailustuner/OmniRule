@@ -193,3 +193,6 @@ action_plan
 | İş-Yaşam | Esnek çalışma | 1-3 ay |
 | Kompansasyon | Pazar araştırması | 3-6 ay |
 | Kültür | Events + iletişim | 1-3 ay |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

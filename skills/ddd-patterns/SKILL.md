@@ -196,3 +196,7 @@ Domain Service:
 | Repository | Persistence facade | Returns full aggregates |
 | Domain Service | Stateless logic | When logic doesn't fit entity |
 | Bounded Context | Linguistic boundary | Each team owns its context |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

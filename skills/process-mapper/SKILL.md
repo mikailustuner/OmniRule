@@ -356,3 +356,6 @@ Priority: Gap 1 > Gap 2 > Gap 3
 | Level 2 | 15-30 aktivite | Team understanding |
 | Level 3 | 30-100 adım | Detailed process |
 | Level 4 | Step-by-step | Training/onboarding |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

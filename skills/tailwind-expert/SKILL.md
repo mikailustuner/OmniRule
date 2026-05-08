@@ -204,3 +204,7 @@ Migration priority:
 | Animation | animate-* + @keyframes | Extend in config |
 | Arbitrary value | w-[37px] | Use sparingly |
 | Custom token | extend.colors.brand | In tailwind.config.ts |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

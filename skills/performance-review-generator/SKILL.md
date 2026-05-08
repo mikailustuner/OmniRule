@@ -197,3 +197,6 @@ gelişim_planı
 | Problem solving | Sorun bildirir | Analiz eder | Sistem yapar |
 | Communication | Bilgi paylaşır | Etkili sunar | İkna eder |
 | Leadership | Talimat alır | Ekip yönetir | Strategi belirler |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

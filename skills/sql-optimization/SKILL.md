@@ -314,3 +314,6 @@ SQL Server:
 | N+1 query | Use JOIN or batch | - |
 | Offset pagination | Use cursor/keyset | WHERE id > ? |
 | Too many indexes | Monitor, remove unused | pg_stat_user_indexes |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

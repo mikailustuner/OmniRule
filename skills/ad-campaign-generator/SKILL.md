@@ -301,3 +301,7 @@ Ad-to-Landing Page Uyumu:
 | Custom (remarketing) | Çok yüksek | Conversion |
 | Lookalike | Orta-yüksek | Yeni müşteri |
 | In-market | Orta | Consideration |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

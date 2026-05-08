@@ -187,3 +187,7 @@ Response on limit:
 | Versioning | URL prefix /v1/ | Never break existing clients |
 | Error format | RFC 7807 | application/problem+json |
 | Logging | Correlation ID | trace-id header |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

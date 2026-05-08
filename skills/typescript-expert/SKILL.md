@@ -209,3 +209,7 @@ How to type modules:
 | Mapped type | { [K in keyof T]: ... } | Transform types |
 | Infer | infer R in conditional | Extract inner type |
 | Satisfies | value satisfies Type | Validate without widen |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

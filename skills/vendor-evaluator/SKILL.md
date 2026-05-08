@@ -386,3 +386,6 @@ Decision: Vendor A (better long-term)
 | Operational | Site visits, audits | Bi-annual |
 | Compliance | Certification review | Annual |
 | Security | Penetration testing | Annual |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

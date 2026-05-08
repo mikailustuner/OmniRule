@@ -476,3 +476,6 @@ Content:
 | Valid period | 30 days | 45-60 days |
 | Payment | Net 30 | 50/50 or annual |
 | Support | Business hours | 24/7 for enterprise |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

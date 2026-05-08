@@ -195,3 +195,7 @@ function detectSlideType(body: string): SlideType {
 | Use `writeFile` without await | Always await `pptx.writeFile()` |
 | Hardcode content strings | Parse from structured input (MD, JSON) |
 | Mix font sizes randomly | Stick to: 36pt KPI, 22pt title, 11pt body, 8pt label |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

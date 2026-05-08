@@ -194,3 +194,7 @@ B. İyi Soru Kontrol Listesi
 | rpb (discrimination) | >0.20 | Ayrıt edicilik iyi |
 | Distractor popularity | >5% her biri | Çeldirici çalışıyor |
 | Top option % | <40% | Cevap dağılımı iyi |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

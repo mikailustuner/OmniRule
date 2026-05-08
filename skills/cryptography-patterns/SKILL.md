@@ -180,3 +180,6 @@ Application Cryptography:
 | Symmetric | AES-256-GCM | 256 bits |
 | RSA signing | RSA-PSS | 2048+ bits |
 | ECDSA | P-256, P-384 | 256, 384 bits |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

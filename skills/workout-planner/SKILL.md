@@ -213,3 +213,6 @@ EGZERSİZ PARAMETRELERİ
 ---
 
 *Workout Planner v1.0 — Güç seninle olsun!*
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

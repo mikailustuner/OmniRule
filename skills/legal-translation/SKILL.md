@@ -293,3 +293,7 @@ APOSTİL SÜRECİ – ADIM ADIM REHBER
 ---
 
 *Uyarı: Bu rehber hukuki çeviri süreçlerinde genel bilgilendirme amaçlıdır. Resmi işlemlerde her zaman yetkili kurumların güncel gerekliliklerini kontrol edin. Hukuki belgelerin çevirisi için her zaman profesyonel ve yeminli tercüman ile çalışılmalıdır.*
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

@@ -386,3 +386,6 @@ function piyasaDeğeri(coin) {
 | 25-50 | Korku | Belirsiz |
 | 50-75 | Açgözlülük | Yükseliş |
 | 75-100 | Aşırı Açgörlük | Tepe |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

@@ -214,3 +214,6 @@ işe_alım_pazarlaması
 | Mid | 2-5 yıl | Bağımsızlık, uzmanlık |
 | Senior | 5-8 yıl | Liderlik, strateji |
 | Lead/Director | 8+ yıl | Strategik, yönetim |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

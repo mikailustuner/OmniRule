@@ -207,3 +207,6 @@ test_hazırlama
 | Bilgi | %30 | Kavram anlama |
 | Beceri | %50 | Uygulama |
 | Tutum | %20 | Davranış değişikliği |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

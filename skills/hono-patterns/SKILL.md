@@ -443,3 +443,6 @@ export const app = createApp()
 | Context set | c.set(key, value) | Store values |
 | Stream | c.stream() | For large responses |
 | Cloudflare | c.env.KV, c.env.DB | Access Workers bindings |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

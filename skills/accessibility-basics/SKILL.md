@@ -196,3 +196,7 @@ Tools decision:
 | AA | Focus visible | Outline never display:none |
 | AA | Error identification | Describe error in text |
 | AAA | Enhanced contrast 7:1 | For critical text |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

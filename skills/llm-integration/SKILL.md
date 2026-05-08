@@ -155,3 +155,6 @@ Cost Components:
 | High volume | Response caching | Redis, semantic cache |
 | Low latency | Small model + caching | GPT-4o-mini |
 | Sensitive data | Self-hosted | Ollama, vLLM |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

@@ -194,3 +194,7 @@ Document - writing clarifies thinking
 | Memory snapshot | Leak investigation | DevTools Memory |
 | Performance flame | Slow renders | DevTools Performance |
 | Error boundary | React render errors | React DevTools |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

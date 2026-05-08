@@ -242,3 +242,7 @@ Where to put state:
 | Custom hook | Reusable logic only | No rendering |
 | Polymorphic `as` prop | Semantic element flex | Type complexity |
 | Slot pattern | Content projection | Like Vue slots in React |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

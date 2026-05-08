@@ -83,3 +83,7 @@ The report MUST include:
 - **NEVER** expose raw API keys or passwords in the final output.
 - **ALWAYS** validate the ISIN format before making API calls.
 - If the browser subagent fails to find the bond on tbliste, fallback to alternative public financial data sources if applicable, or inform the user immediately.
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

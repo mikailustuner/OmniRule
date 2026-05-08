@@ -192,3 +192,7 @@ Implementation approaches:
 | Cursor page | findMany + cursor | For large datasets |
 | Transaction | prisma.$transaction([]) | Atomic batch |
 | Relation | include: { rel: true } | With select for perf |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

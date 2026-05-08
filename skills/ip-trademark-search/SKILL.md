@@ -265,3 +265,7 @@ GENEL BENZERLİK SKORU = (Fonetik × 0.4) + (Görsel × 0.3) + (Kavramsal × 0.3
 ---
 
 *Uyarı: Bu araştırma rehberi Fikri Mülkiyet alanında genel bilgilendirme amaçlıdır. Marka tescili veya patent başvurusu için mutlaka kalifiye patent vekilinden (marka vekili) profesyonel destek alınmalıdır.*
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

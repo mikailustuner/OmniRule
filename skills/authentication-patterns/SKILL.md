@@ -193,3 +193,7 @@ Security:
 | JWT | jose | RS256, not HS256 |
 | MFA | speakeasy (TOTP) | Backup codes required |
 | Session | iron-session | Encrypted cookie |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

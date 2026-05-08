@@ -303,3 +303,6 @@ Stale-while-revalidate:
 | Errors | RFC 7807 | type, title, status, detail |
 | Caching | ETags + Cache-Control | ETag header |
 | Filtering | Query params | ?role=admin&status=active |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

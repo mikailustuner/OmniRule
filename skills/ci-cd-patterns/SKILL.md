@@ -176,3 +176,7 @@ Version strategy:
 | Artifact | Docker build + push | Image tagged |
 | Deploy staging | Helm/Terraform apply | Smoke tests pass |
 | Deploy prod | Same image, prod values | Manual approval |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

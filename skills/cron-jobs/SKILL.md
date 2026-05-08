@@ -226,3 +226,7 @@ How to handle time zones:
 | BullMQ repeat | Node.js | Queue-backed |
 | Inngest | Serverless | Managed |
 | GitHub Actions schedule | CI | Simple periodic |
+
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

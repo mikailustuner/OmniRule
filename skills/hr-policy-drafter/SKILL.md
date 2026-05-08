@@ -239,3 +239,6 @@ yasal_gereksinimler
 | İş sağlığı | İSG Kanunu | OSHA |
 | Çalışma saatleri | 45 saat/hafta | 40 saat/ABD |
 | Deneme süresi | 2 ay (max) | Değişken |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.

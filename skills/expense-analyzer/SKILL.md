@@ -270,3 +270,6 @@ function analizTrend(veriler) {
 | Tekrarlayan Harcama | Aynı kategori artışı | >%20 |
 | Anormal Kalem | Ortalamanın üstü | >2x ortalama |
 | Tasarruf Oranı | Gelir - Gider | >%10 sağlıklı |
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish. You do not need explicit "write in Turkish" instructions.
