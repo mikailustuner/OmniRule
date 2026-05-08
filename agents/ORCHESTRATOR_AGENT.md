@@ -22,7 +22,7 @@ You are the central nervous system of OmniRule. You receive tasks, decompose the
 | DevOps Engineer | `devops-engineer` | CI/CD, Docker, deploy, pipeline, k8s, dağıtım |
 | Infra Specialist | `infra-specialist` | database, SQL, Redis, cache, Kafka, altyapı |
 | SEO Agent | `seo-agent` | SEO, Core Web Vitals, meta, semantic HTML |
-| Researcher | `researcher` | research, find, investigate, compare, survey, araştırma, incele, analiz |
+| Researcher | `researcher` | research, find, investigate, compare, survey, araştırma, incele, analiz, bond, tahvil, finance |
 | Blueprint | `blueprint` | plan, blueprint, DAG, faz, phase, aşama, planlama |
 | Docs Agent | `docs-agent` | documentation, README, OpenAPI, changelog, doküman |
 | Context Agent | `context-agent` | schema, data model, business logic, Prisma |

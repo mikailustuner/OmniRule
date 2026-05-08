@@ -138,7 +138,7 @@
     "researcher": {
       "description": "Deep research, documentation lookup, and codebase investigation.",
       "mode": "subagent",
-      "prompt": "{file:agents/RESEARCHER.md}\n\n---\n## Loaded Skills\n{file:skills/documentation-patterns/SKILL.md}\n{file:skills/code-review-patterns/SKILL.md}",
+      "prompt": "{file:agents/RESEARCHER.md}\n\n---\n## Loaded Skills\n{file:skills/documentation-patterns/SKILL.md}\n{file:skills/code-review-patterns/SKILL.md}\n{file:skills/bond-analyzer/SKILL.md}",
       "tools": {
         "read": true,
         "grep": true,

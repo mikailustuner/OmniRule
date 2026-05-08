@@ -155,7 +155,7 @@ OmniRule ships with **23 specialist agents**, each with a distinct domain of aut
 | 7 | **DevOps Engineer** | `devops-engineer` | CI/CD, Docker, Kubernetes | docker-patterns, ci-cd-patterns, kubernetes-basics |
 | 8 | **Infra Specialist** | `infra-specialist` | Database, Redis, caching | postgres-patterns, redis-patterns, caching-patterns |
 | 9 | **SEO Agent** | `seo-agent` | SEO, Core Web Vitals | html-semantic, web-performance, accessibility-basics |
-| 10 | **Researcher** | `researcher` | Deep investigation, docs | documentation-patterns |
+| 10 | **Researcher** | `researcher` | Deep investigation, docs | documentation-patterns, bond-analyzer |
 | 11 | **Docs Agent** | `docs-agent` | Technical writing, OpenAPI | documentation-patterns, api-design |
 | 12 | **Context Agent** | `context-agent` | Schema mapping, Prisma | prisma-expert, postgres-patterns, ddd-patterns |
 | 13 | **Migrator** | `migrator` | Database migrations, rollback | — |
@@ -360,7 +360,7 @@ OmniRule includes **90+ modular skills** — curated knowledge packs loaded dyna
 </details>
 
 <details>
-<summary><strong>AI, Data & Blockchain (10 skills)</strong></summary>
+<summary><strong>AI, Data & Blockchain (11 skills)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -374,6 +374,7 @@ OmniRule includes **90+ modular skills** — curated knowledge packs loaded dyna
 | `solidity-patterns` | Gas optimization, upgradeable contracts |
 | `defi-patterns` | AMM, lending, staking, tokenomics |
 | `web3-patterns` | Wallet connections, IPFS, smart contracts |
+| `bond-analyzer` | Financial analysis, yield/spread calculation, API retrieval |
 
 </details>
 

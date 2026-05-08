@@ -99,6 +99,7 @@ const INDICATORS: Record<string, Indicator> = {
   'cron-jobs':          { deps: ['node-cron','cron','@nestjs/schedule'], dirs: ['cron/','jobs/','tasks/'] },
   'mobile-patterns':    { deps: ['react-native','expo','@react-native-community/cli'], dirs: ['android/','ios/'] },
   'web3-patterns':      { deps: ['ethers','viem','wagmi','web3','@solana/web3.js'], dirs: ['contracts/'] },
+  'bond-analyzer':      { dirs: ['bonds/', 'finance/', 'analysis/'], patterns: ['bond', 'tahvil', 'tbliste', 'yield'] },
   'video-audio-patterns':{ deps: ['react-player','video.js','hls.js','plyr','mux-player-react'] },
   'component-design-patterns': { dirs: ['components/','ui/','design-system/'] },
   'html-semantic':      { patterns: ['.html','.htm'] },
