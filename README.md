@@ -10,7 +10,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-green.svg)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg)](https://typescriptlang.org)
 [![Agents](https://img.shields.io/badge/agents-23-purple.svg)](#-agent-fleet)
-[![Skills](https://img.shields.io/badge/skills-90+-orange.svg)](#-skill-library)
+[![Skills](https://img.shields.io/badge/skills-190+-orange.svg)](#-skill-library)
 
 *Turn any AI coding assistant into a full engineering team.*
 
@@ -30,7 +30,7 @@
 - **🔌 Platform Agnostic** — Works with Claude Code, OpenCode, Codex/GitHub Copilot, Antigravity, Minimax, and any `AGENTS.md`-compatible runner.
 - **📦 Zero Config** — One install script, instant agent fleet.
 - **🛡️ Safety First** — Built-in security audit, quality gates, and human-in-the-loop approval for dangerous operations.
-- **🧩 Modular Skills** — 90+ pluggable skill modules covering every major engineering discipline.
+- **🧩 Modular Skills** — 190+ pluggable skill modules covering every major engineering discipline and business operation (HR, Legal, Marketing).
 
 ---
 
@@ -155,7 +155,7 @@ OmniRule ships with **23 specialist agents**, each with a distinct domain of aut
 | 7 | **DevOps Engineer** | `devops-engineer` | CI/CD, Docker, Kubernetes | docker-patterns, ci-cd-patterns, kubernetes-basics |
 | 8 | **Infra Specialist** | `infra-specialist` | Database, Redis, caching | postgres-patterns, redis-patterns, caching-patterns |
 | 9 | **SEO Agent** | `seo-agent` | SEO, Core Web Vitals | html-semantic, web-performance, accessibility-basics |
-| 10 | **Researcher** | `researcher` | Deep investigation, docs | documentation-patterns, bond-analyzer |
+| 10 | **Researcher** | `researcher` | Deep investigation, business ops | documentation-patterns, bond-analyzer, 100+ business skills |
 | 11 | **Docs Agent** | `docs-agent` | Technical writing, OpenAPI | documentation-patterns, api-design |
 | 12 | **Context Agent** | `context-agent` | Schema mapping, Prisma | prisma-expert, postgres-patterns, ddd-patterns |
 | 13 | **Migrator** | `migrator` | Database migrations, rollback | — |
@@ -240,7 +240,7 @@ Automated analysis tools that agents invoke during missions.
 
 ## 📚 Skill Library
 
-OmniRule includes **90+ modular skills** — curated knowledge packs loaded dynamically by agents based on task requirements. Each skill is a `SKILL.md` file containing decision trees, patterns, anti-patterns, and best practices.
+OmniRule includes **190+ modular skills** — curated knowledge packs loaded dynamically by agents based on task requirements. Each skill is a `SKILL.md` file containing decision trees, patterns, anti-patterns, and best practices.
 
 <details>
 <summary><strong>Frontend & UI (17 skills)</strong></summary>
@@ -399,6 +399,24 @@ OmniRule includes **90+ modular skills** — curated knowledge packs loaded dyna
 | `internal-platforms` | Self-service infra, golden paths |
 | `video-audio-patterns` | Media handling, WebRTC |
 | `accessibility-basics` | WCAG, keyboard nav, screen reader |
+
+</details>
+
+<details>
+<summary><strong>Business & Operational Intelligence (100 skills)</strong></summary>
+
+| Category | Description | Examples |
+|-------|-------------|----------|
+| **Finance** | Financial forecasting, invoicing, tax, crypto, portfolio tracking | `tax-calculator`, `expense-analyzer`, `budget-planner` |
+| **Marketing** | SEO, social media, copywriting, market research, campaigns | `copywriting-frameworks`, `seo-keyword-researcher` |
+| **HR** | Resume screening, interview prep, onboarding, policy drafting | `resume-screener`, `performance-review-generator` |
+| **Legal** | Contract analysis, compliance, GDPR, NDA, privacy policies | `contract-analyzer`, `gdpr-auditor`, `legal-translation` |
+| **Operations** | OKR tracking, process mapping, sprint planning, supply chain | `process-mapper`, `okr-tracker`, `workflow-optimizer` |
+| **Sales** | Cold emails, pitch decks, CRM cleanup, proposals | `cold-email-writer`, `sales-forecaster` |
+| **Customer Support** | Ticket categorization, FAQs, refund processing | `ticket-categorizer`, `churn-predictor` |
+| **Education** | Lesson planning, essay grading, literature reviews | `literature-reviewer`, `quiz-generator` |
+| **Lifestyle** | Travel planning, workouts, habit tracking, recipes | `travel-planner`, `workout-planner` |
+| **Misc** | Story generation, podcasts, real estate listings | `story-plot-generator`, `real-estate-listing-writer` |
 
 </details>
 

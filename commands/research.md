@@ -14,6 +14,7 @@ Research in OmniRule is not a "Google Search"; it is a systematic intelligence o
 - **Competitor Analysis:** How does [Competitor] handle this specific feature?
 - **Trend Analysis:** Future-proofing the tech stack against industry shifts.
 - **Financial Analysis:** Gathering market data, scraping tbliste, and calculating bond yields/spreads.
+- **Business Operations (HR, Legal, Marketing, Sales):** Drafting contracts, creating marketing copy, screening resumes, and tracking operations metrics.
 
 ---
 

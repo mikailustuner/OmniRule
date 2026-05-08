@@ -36,7 +36,7 @@ User Task → ORCHESTRATOR → [1-N specialist agents] → Synthesized output
 | 6 | **DevOps Engineer** | `agents/DEVOPS_AGENT.md` | docker-patterns, ci-cd-patterns, kubernetes-basics |
 | 7 | **Infra Specialist** | `agents/INFRA_AGENT.md` | postgres-patterns, redis-patterns, caching-patterns |
 | 8 | **SEO Agent** | `agents/SEO_AGENT.md` | html-semantic, web-performance, accessibility-basics |
-| 9 | **Researcher** | `agents/RESEARCHER.md` | documentation-patterns, bond-analyzer |
+| 9 | **Researcher** | `agents/RESEARCHER.md` | documentation-patterns, bond-analyzer, 100+ business skills |
 | 10 | **Docs Agent** | `agents/DOCS_AGENT.md` | documentation-patterns, api-design |
 | 11 | **Context Agent** | `agents/CONTEXT_AGENT.md` | prisma-expert, postgres-patterns, ddd-patterns |
 
