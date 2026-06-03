@@ -126,7 +126,7 @@ const INDICATORS: Record<string, Indicator> = {
   'resume-builder': { patterns: ['resume builder'] },
 
   // ── Frontend frameworks
-  'nextjs-expert':      { files: ['next.config.js','next.config.ts','next.config.mjs'], deps: ['next'] },
+  'claude-canvas-ui-designer': { dirs: ['template/'], patterns: ['design-canvas'] },
   'nextjs-routing':     { dirs: ['app/'], files: ['middleware.ts'], deps: ['next'] },
   'react-expert':       { deps: ['react','react-dom'], patterns: ['.tsx','.jsx'] },
   'typescript-expert':  { files: ['tsconfig.json'], deps: ['typescript'] },
@@ -295,6 +295,36 @@ const INDICATORS: Record<string, Indicator> = {
 
   // ── NEW: Real-time Communication
   'web-rtc-patterns':  { files: ['webrtc.config.ts'], dirs: ['webrtc/', 'signaling/', 'p2p/'], deps: ['simple-peer', 'peerjs'] },
+
+  // ── NEW: Supabase
+  'supabase-patterns': { dirs: ['supabase/'], deps: ['@supabase/supabase-js', '@supabase/ssr', '@supabase/auth-helpers-nextjs'] },
+
+  // ── NEW: tRPC
+  'trpc-patterns':     { dirs: ['server/trpc/', 'trpc/'], deps: ['@trpc/server', '@trpc/client', '@trpc/react-query', '@trpc/next'] },
+
+  // ── NEW: Drizzle ORM
+  'drizzle-orm':       { files: ['drizzle.config.ts', 'drizzle.config.js'], dirs: ['drizzle/', 'db/schema/'], deps: ['drizzle-orm', 'drizzle-kit'] },
+
+  // ── NEW: Stripe
+  'stripe-integration': { deps: ['stripe', '@stripe/stripe-js', '@stripe/react-stripe-js'], dirs: ['payments/', 'billing/'] },
+
+  // ── NEW: Clerk
+  'clerk-auth':        { deps: ['@clerk/nextjs', '@clerk/clerk-sdk-node', '@clerk/backend'], dirs: ['auth/'] },
+
+  // ── NEW: Turborepo
+  'turborepo-patterns': { files: ['turbo.json'], dirs: ['packages/', 'apps/'], deps: ['turbo'] },
+
+  // ── NEW: Bun
+  'bun-patterns':      { files: ['bun.lockb', 'bunfig.toml'], patterns: ['bun:sqlite', 'Bun.serve', 'bun:test'] },
+
+  // ── NEW: Remix
+  'remix-expert':      { files: ['remix.config.js', 'remix.config.ts'], deps: ['@remix-run/node', '@remix-run/react', '@remix-run/serve'] },
+
+  // ── NEW: Nuxt
+  'nuxt-expert':       { files: ['nuxt.config.ts', 'nuxt.config.js'], dirs: ['pages/', 'composables/'], deps: ['nuxt', '@nuxt/kit'] },
+
+  // ── NEW: Expo Router
+  'expo-router':       { files: ['app.json', 'expo-env.d.ts'], dirs: ['app/(tabs)/'], deps: ['expo-router'] },
 };
 
 // ─── Detection logic ──────────────────────────────────────────────────────────
@@ -309,7 +339,6 @@ export async function detectProjectSkills(root: string): Promise<SkillMatch[]> {
       .filter(f => !f.includes('node_modules') && !f.includes('.next') && !f.includes('.git'));
   } catch { /* ignore */ }
 
-  // All file contents for pattern matching (cheap: just filenames/paths)
   const filePathStr = allFiles.join('\n');
 
   // Deps from package.json
@@ -321,7 +350,20 @@ export async function detectProjectSkills(root: string): Promise<SkillMatch[]> {
       deps = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies });
     } catch { /* ignore */ }
   }
-  const depsStr = deps.join(' ');
+
+  // Build a content corpus for pattern matching: file paths + README + package.json description/scripts
+  // This ensures business skills (tax-calculator, budget-planner, etc.) get properly detected
+  // when they appear in project descriptions, READMEs, or script names.
+  let contentCorpus = filePathStr.toLowerCase();
+  const contentFiles = ['README.md', 'package.json', 'AGENTS.md', 'CLAUDE.md'];
+  for (const cf of contentFiles) {
+    const cfPath = path.join(root, cf);
+    if (fs.existsSync(cfPath)) {
+      try {
+        contentCorpus += '\n' + fs.readFileSync(cfPath, 'utf-8').toLowerCase();
+      } catch { /* ignore */ }
+    }
+  }
 
   for (const [skill, ind] of Object.entries(INDICATORS)) {
     let confidence = 0;
@@ -342,10 +384,10 @@ export async function detectProjectSkills(root: string): Promise<SkillMatch[]> {
       confidence = Math.max(confidence, 0.9);
       reasons.push('dependency');
     }
-    // Pattern match (extension or string in path list)
-    if (ind.patterns?.some(p => filePathStr.includes(p))) {
+    // Pattern match: search content corpus (file paths + README + package.json)
+    if (ind.patterns?.some(p => contentCorpus.includes(p.toLowerCase()))) {
       confidence = Math.max(confidence, 0.8);
-      reasons.push('file pattern');
+      reasons.push('content match');
     }
 
     if (confidence > 0) {

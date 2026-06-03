@@ -1,10 +1,10 @@
 ---
 name: llm-integration
-description: "LLM Integration: API patterns, self-hosted models, fallback strategies, cost optimization." 
+description: "LLM Integration: Anthropic Claude API, OpenAI, streaming, tool use, prompt caching, structured output, fallback strategies, cost optimization."
 triggers:
   extensions: [".py", ".ts"]
   directories: ["ai/", "llm/", "models/"]
-  keywords: ["openai", "anthropic", "llm", "gpt", "chatgpt", "claude", "gemini", "huggingface"]
+  keywords: ["openai", "anthropic", "llm", "gpt", "claude", "gemini", "huggingface", "createAnthropic", "anthropic.messages"]
 auto_load_when: "Integrating LLMs or building AI-powered features"
 agent: ai-engineer
 tools: ["Read", "Write", "Bash"]
@@ -12,7 +12,7 @@ tools: ["Read", "Write", "Bash"]
 
 # LLM Integration Patterns
 
-**Focus:** API patterns, self-hosted models, reliability, cost optimization
+**Focus:** Anthropic Claude API, OpenAI, streaming, tool use, prompt caching, reliability, cost
 
 ## 1. LLM Selection Decision
 
@@ -145,15 +145,92 @@ Cost Components:
 
 ---
 
+---
+
+## 5. Anthropic Claude API (TypeScript)
+
+```ts
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+// Basic message
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Explain quantum entanglement simply.' }],
+});
+console.log(message.content[0].text);
+
+// Streaming
+const stream = await client.messages.stream({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: prompt }],
+});
+for await (const chunk of stream) {
+  if (chunk.type === 'content_block_delta') process.stdout.write(chunk.delta.text);
+}
+
+// Prompt caching (reduces cost 90% for repeated system prompts)
+const cachedMessage = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  system: [{
+    type: 'text',
+    text: longSystemPrompt,
+    cache_control: { type: 'ephemeral' }, // cache for 5 minutes
+  }],
+  messages: [{ role: 'user', content: userQuestion }],
+});
+
+// Tool use (function calling)
+const toolResult = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  tools: [{
+    name: 'get_weather',
+    description: 'Get current weather for a city',
+    input_schema: {
+      type: 'object',
+      properties: { city: { type: 'string' } },
+      required: ['city'],
+    },
+  }],
+  messages: [{ role: 'user', content: 'What is the weather in Istanbul?' }],
+});
+// Check for tool use in response
+if (toolResult.stop_reason === 'tool_use') {
+  const toolUse = toolResult.content.find(b => b.type === 'tool_use');
+  // Call your actual function with toolUse.input
+}
+```
+
+---
+
+## 6. Model Selection Guide
+
+| Model | Best For | Cost |
+|-------|----------|------|
+| `claude-opus-4-8` | Complex reasoning, analysis, coding | Highest |
+| `claude-sonnet-4-6` | Balanced — production default | Medium |
+| `claude-haiku-4-5` | Fast responses, classification, summaries | Lowest |
+| `gpt-4o` | OpenAI ecosystem, vision | Medium |
+| `gpt-4o-mini` | Simple tasks, high volume | Low |
+
+---
+
 ## Quick Reference
 
 | Scenario | Solution | Tool/Pattern |
 |---|---|---|
-| Chat interface | Streaming response | SSE, WebSocket |
+| Chat interface | Streaming response | `client.messages.stream()` |
+| Repeated system prompts | Prompt caching | `cache_control: { type: 'ephemeral' }` |
+| Function calling | Tool use | `tools` parameter + stop_reason check |
 | Document Q&A | RAG pipeline | LangChain, LlamaIndex |
-| Data extraction | Structured output | JSON schema validation |
-| High volume | Response caching | Redis, semantic cache |
-| Low latency | Small model + caching | GPT-4o-mini |
+| Data extraction | Structured output | JSON schema + `tool_choice: required` |
+| High volume | Prompt caching + batching | Anthropic Batch API |
+| Low latency | Haiku + caching | claude-haiku-4-5 |
 | Sensitive data | Self-hosted | Ollama, vLLM |
 
 ## 🌍 Universal Language Support

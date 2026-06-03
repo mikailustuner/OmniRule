@@ -37,6 +37,19 @@
         "id": "pre:bash:security"
       }
     ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/hooks/skill-injector.js"
+          }
+        ],
+        "description": "Inject relevant skills based on file context after each read/write",
+        "id": "post:file:skill-injector"
+      }
+    ],
     "Stop": [
       {
         "matcher": "*",
@@ -48,6 +61,17 @@
         ],
         "description": "Batch quality checks (lint, typecheck) at the end of response",
         "id": "stop:quality-gate"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/hooks/mission-cleanup.js"
+          }
+        ],
+        "description": "Remove stale completed/failed mission memos to prevent accumulation",
+        "id": "stop:mission-cleanup"
       }
     ]
   }

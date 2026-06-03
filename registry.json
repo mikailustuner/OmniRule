@@ -142,6 +142,24 @@
       "file": "agents/SWIFT_AGENT.md",
       "role": "subagent",
       "description": "Apple platform specialist for Swift, SwiftUI, iOS, watchOS, macOS, and Apple design guidelines."
+    },
+    {
+      "slug": "computer-operator",
+      "file": "agents/COMPUTER_OPERATOR_AGENT.md",
+      "role": "subagent",
+      "description": "Masaüstü bilgisayar kontrolü. Tarayıcı açma, YouTube/web navigasyonu, dosya işlemleri, uygulama başlatma/kapama, medya kontrolü ve genel sistem otomasyonu."
+    },
+    {
+      "slug": "performance-engineer",
+      "file": "agents/PERFORMANCE_AGENT.md",
+      "role": "subagent",
+      "description": "Web and app performance specialist. Core Web Vitals, bundle analysis, profiling, rendering optimization, database query tuning."
+    },
+    {
+      "slug": "analytics-engineer",
+      "file": "agents/ANALYTICS_AGENT.md",
+      "role": "subagent",
+      "description": "Analytics engineering specialist. Event tracking strategy, PostHog/Mixpanel/Amplitude patterns, data layer design, funnel analysis, A/B test measurement."
     }
   ],
   "tools": [
@@ -276,8 +294,8 @@
     {
       "slug": "perf",
       "file": "commands/perf.md",
-      "agent": "frontend-ops",
-      "description": "Performance audit — Core Web Vitals."
+      "agent": "performance-engineer",
+      "description": "Performance audit — Core Web Vitals, bundle, profiling."
     },
     {
       "slug": "api",
@@ -310,7 +328,7 @@
     }
   ],
   "skills": {
-    "count": 207,
+    "count": 222,
     "directory": "skills/",
     "format": "skills/{name}/SKILL.md",
     "highlights": [
@@ -336,7 +354,8 @@
       "swiftui-patterns",
       "watchos-patterns",
       "apple-design-guidelines",
-      "bond-analyzer"
+      "bond-analyzer",
+      "flutter-game-expert"
     ]
   },
   "hooks": {

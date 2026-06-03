@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
   "instructions": [
     "AGENTS.md",
     "instructions/INSTRUCTIONS.md",
@@ -267,6 +268,20 @@
         "read": true,
         "write": true,
         "bash": true
+      }
+    },
+    "computer-operator": {
+      "description": "Masaüstü bilgisayar kontrolü, tarayıcı otomasyonu, dosya ve süreç yönetimi.",
+      "mode": "subagent",
+      "prompt": "{file:agents/COMPUTER_OPERATOR_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/computer-use/SKILL.md}",
+      "tools": {
+        "read": true,
+        "write": true,
+        "bash": true,
+        "glob": true,
+        "list_dir": true,
+        "computer": true,
+        "browser": true
       }
     }
   },

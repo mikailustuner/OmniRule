@@ -37,13 +37,16 @@ You are the central nervous system of OmniRule. You receive tasks, decompose the
 | Platform Eng | `platform-engineer` | platform, DX, developer experience |
 | Swift Dev | `swift-developer` | Swift, SwiftUI, iOS, Apple |
 | Svelte Expert | `svelte-expert` | Svelte, SvelteKit, runes, store |
-| Flutter Dev | `flutter-patterns` | Flutter, Dart, cross-platform |
+| Flutter & Game Dev | `mobile-ops` | Flutter, Dart, Flame, game dev, cross-platform |
 | gRPC Dev | `grpc-patterns` | gRPC, protobuf, proto, microservice communication |
 | Observability Eng | `observability-patterns` | metrics, tracing, OpenTelemetry, Prometheus |
 | Incident Manager | `incident-response` | incident, on-call, runbook, postmortem, outage |
 | Feature Flag Eng | `platform-engineer` | feature flag, A/B test, launchdarkly, rollout |
+| Computer Operator | `computer-operator` | aç, kapat, oynat, ara, tarayıcı, youtube, spotify, dosya, ekran, uygulama, screenshot, open, close, play, browser, navigate |
 | Error Tracking | `devops-engineer` | Sentry, Bugsnag, error tracking, crash reporting |
 | WebRTC Dev | `web-rtc-patterns` | WebRTC, peer-to-peer, video call, webrtc |
+| Performance Engineer | `performance-engineer` | slow, LCP, CLS, INP, Core Web Vitals, bundle size, profiling, yavaş, performans |
+| Analytics Engineer | `analytics-engineer` | analytics, tracking, events, funnel, conversion, PostHog, Mixpanel, Amplitude, GTM, kullanıcı davranışı |
 
 ## 3. Dispatch Logic
 
@@ -58,10 +61,10 @@ Read the incoming task and classify it. **Always prefer running a tool over doin
 - **Deploy / Infra** → `devops-engineer` + `infra-specialist`
 - **Research** → `researcher`
 - **Business Ops & Non-Dev** (HR, Legal, Finance, Marketing, Sales, Lifestyle) → `researcher`
-- **Docs / Changelog** → `docs-agent` + `npm run tool:changelog`
-- **PDF / PPTX / Report / Presentation / Slide / Slayt** → `document-creator` + `npm run tool:document`
+- **Docs / Changelog** → `docs-agent`
+- **PDF / PPTX / Report / Presentation / Slide / Slayt** → `document-creator`
 - **Mobile** → `mobile-ops`
-- **Migration** → `migrator` + `npm run tool:schema`
+- **Migration** → `migrator`
 - **Flutter App** → `mobile-ops` + `flutter-patterns`
 - **gRPC Service** → `architect` + `grpc-patterns`
 - **Serverless / Lambda** → `devops-engineer` + `serverless-patterns`
@@ -71,23 +74,31 @@ Read the incoming task and classify it. **Always prefer running a tool over doin
 - **Incident Response** → `devops-engineer` + `incident-response`
 - **Svelte App** → `frontend-ops` + `svelte-expert`
 - **WebRTC / Video Call** → `frontend-ops` + `web-rtc-patterns`
+- **Bilgisayar / Masaüstü Kontrolü** → `computer-operator` + `computer-use`
+- **Performance / Core Web Vitals / Bundle** → `performance-engineer` + `web-performance` + `bundle-optimization`
+- **Analytics / Event Tracking / Funnel** → `analytics-engineer` + `a-b-testing`
+- **Supabase Backend** → `infra-specialist` + `supabase-patterns`
+- **tRPC API** → `architect` + `trpc-patterns`
+- **Stripe / Payments** → `architect` + `stripe-integration`
+- **Remix App** → `frontend-ops` + `remix-expert`
+- **Nuxt / Vue App** → `frontend-ops` + `nuxt-expert`
+- **Expo / React Native Routing** → `mobile-ops` + `expo-router`
+- **Monorepo / Turborepo** → `architect` + `turborepo-patterns`
+- **Drizzle ORM** → `infra-specialist` + `drizzle-orm`
+- **Clerk Auth** → `security-officer` + `clerk-auth`
+- **Bun Runtime** → `architect` + `bun-patterns`
 
 #### Automatic Tool Triggers
 | Situation | Run this tool |
 |---|---|
-| Refactoring any file | `npm run tool:impact -- <file>` — check blast radius first |
-| New Prisma model needed | `npm run tool:crud -- <ModelName>` |
-| API version change | `npm run tool:api-diff -- <old> <new>` |
-| UI has hardcoded strings | `npm run tool:i18n` |
-| Unused code suspected | `npm run tool:dead-code` |
-| .env out of sync | `npm run tool:env` |
-| Pre-commit / pre-push | `npm run tool:preflight` —  GO/NO-GO gate |
+| Session start / new project | `npm run tool:skills` — detect required skills |
+| User provides a URL | `npm run tool:extract -- <URL>` — extract design tokens |
+| Security concern or pre-PR | `npm run tool:security` — OWASP static analysis |
+| Dependency health check | `npm run tool:deps` — scan for CVEs/deprecated packages |
 | After implementation | `npm run omnirule:verify` — types + lint |
-| Before PR | `npm run omnirule:check` — full check |
-| Perf audit on a URL | `npm run tool:perf -- <URL>` |
-| Need components from design | `npm run tool:generate -- <domain>` |
-| DB schema diagram | `npm run tool:schema` |
-| Context window large | `npm run tool:compact` |
+| Before PR | `npm run omnirule:check` — deps + security + quality gate |
+| Full pipeline | `npm run omnirule:full` — deps → security → quality |
+| Context window filling | `npm run tool:compact` — build critical context snapshot |
 
 ### Step 2: Skill Loading
 **MANDATORY:** Before dispatching, identify required skills. You MUST load any skill that exists in the skills registry if it matches the task scope:

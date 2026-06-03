@@ -19,7 +19,7 @@ User Task → ORCHESTRATOR → [1-N specialist agents] → Synthesized output
 ### ORCHESTRATOR (Primary — always start here)
 - **File:** `agents/ORCHESTRATOR_AGENT.md`
 - **Role:** Task classification, agent dispatch, skill loading, result synthesis
-- **Can call:** All 10 specialist agents as subagents
+- **Can call:** All 25 specialist agents as subagents
 - **Skills:** Dynamic (loads based on task)
 
 ---
@@ -28,17 +28,31 @@ User Task → ORCHESTRATOR → [1-N specialist agents] → Synthesized output
 
 | # | Agent | File | Skills Loaded |
 |---|---|---|---|
-| 1 | **Architect** | `agents/ARCHITECT_AGENT.md` | clean-architecture, ddd-patterns, microservices |
+| 1 | **Architect** | `agents/ARCHITECT_AGENT.md` | clean-architecture, ddd-patterns, microservices, trpc-patterns, turborepo-patterns |
 | 2 | **Style Architect** | `agents/STYLE_AGENT.md` | tailwind-expert, css-architecture, css-variables |
-| 3 | **Frontend Ops** | `agents/FRONTEND_OPS_AGENT.md` | react-expert, state-management, bundle-optimization |
+| 3 | **Frontend Ops** | `agents/FRONTEND_OPS_AGENT.md` | react-expert, state-management, bundle-optimization, remix-expert, nuxt-expert |
 | 4 | **QA Specialist** | `agents/QA_AGENT.md` | testing-patterns, debugging-strategies |
-| 5 | **Security Officer** | `agents/SECURITY_AGENT.md` | security-review, authentication-patterns |
+| 5 | **Security Officer** | `agents/SECURITY_AGENT.md` | security-review, authentication-patterns, clerk-auth |
 | 6 | **DevOps Engineer** | `agents/DEVOPS_AGENT.md` | docker-patterns, ci-cd-patterns, kubernetes-basics |
-| 7 | **Infra Specialist** | `agents/INFRA_AGENT.md` | postgres-patterns, redis-patterns, caching-patterns |
+| 7 | **Infra Specialist** | `agents/INFRA_AGENT.md` | postgres-patterns, redis-patterns, caching-patterns, supabase-patterns, drizzle-orm |
 | 8 | **SEO Agent** | `agents/SEO_AGENT.md` | html-semantic, web-performance, accessibility-basics |
 | 9 | **Researcher** | `agents/RESEARCHER.md` | documentation-patterns, bond-analyzer, 100+ business skills |
 | 10 | **Docs Agent** | `agents/DOCS_AGENT.md` | documentation-patterns, api-design |
-| 11 | **Context Agent** | `agents/CONTEXT_AGENT.md` | prisma-expert, postgres-patterns, ddd-patterns |
+| 11 | **Context Agent** | `agents/CONTEXT_AGENT.md` | prisma-expert, postgres-patterns, ddd-patterns, drizzle-orm |
+| 12 | **Migrator** | `agents/MIGRATOR_AGENT.md` | postgres-patterns, prisma-expert |
+| 13 | **Mobile Ops** | `agents/MOBILE_AGENT.md` | mobile-patterns, flutter-patterns, expo-router |
+| 14 | **Document Creator** | `agents/DOCUMENT_CREATOR_AGENT.md` | professional-pptx-design, professional-report-design |
+| 15 | **AI Engineer** | `agents/AI_AGENT.md` | llm-integration, vector-db-patterns, prompt-engineering, mlops-patterns |
+| 16 | **Cloud Architect** | `agents/CLOUD_ARCHITECT.md` | aws-patterns, gcp-patterns, azure-patterns |
+| 17 | **Blockchain Developer** | `agents/BLOCKCHAIN_AGENT.md` | solidity-patterns, defi-patterns, web3-patterns |
+| 18 | **Data Engineer** | `agents/DATA_ENGINEER.md` | etl-patterns, data-pipeline-patterns, streaming-patterns |
+| 19 | **Security Expert** | `agents/SECURITY_EXPERT.md` | network-security, cryptography-patterns, compliance-gdpr |
+| 20 | **Platform Engineer** | `agents/PLATFORM_ENGINEER.md` | internal-platforms, developer-experience, feature-flags |
+| 21 | **Swift Developer** | `agents/SWIFT_AGENT.md` | swiftui-patterns, watchos-patterns, apple-design-guidelines |
+| 22 | **Computer Operator** | `agents/COMPUTER_OPERATOR_AGENT.md` | computer-use |
+| 23 | **Planner** | `agents/PLANNER_AGENT.md` | blueprint |
+| 24 | **Performance Engineer** | `agents/PERFORMANCE_AGENT.md` | web-performance, bundle-optimization, caching-patterns |
+| 25 | **Analytics Engineer** | `agents/ANALYTICS_AGENT.md` | a-b-testing, feature-flags, monitoring-patterns |
 
 ---
 
@@ -109,4 +123,4 @@ Agents communicate via Mission Memos in `.omnirule/missions/`:
 
 ---
 
-*OmniRule v1.11.0 — Operational Authority: rules/ORCHESTRATION.md*
+*OmniRule v1.15.0 — Operational Authority: rules/ORCHESTRATION.md*

@@ -9,7 +9,7 @@
 
 'use strict';
 
-const fs   = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
@@ -19,146 +19,168 @@ const SKILLS_DIR = path.join(root, 'skills');
 // ─── Extension → skills + agent ──────────────────────────────────────────────
 
 const SKILL_MAP = {
-  '.tsx':    { skills: ['react-expert', 'typescript-expert', 'component-design-patterns'], agent: 'frontend-ops' },
-  '.jsx':    { skills: ['react-expert', 'component-design-patterns'],                      agent: 'frontend-ops' },
-  '.ts':     { skills: ['typescript-expert'],                                               agent: 'architect' },
-  '.js':     { skills: ['nodejs-expert'],                                                   agent: 'architect' },
-  '.css':    { skills: ['css-architecture', 'css-variables'],                               agent: 'style-architect' },
-  '.scss':   { skills: ['css-architecture', 'tailwind-expert'],                             agent: 'style-architect' },
-  '.sass':   { skills: ['css-architecture'],                                                agent: 'style-architect' },
-  '.prisma': { skills: ['prisma-expert', 'postgres-patterns'],                              agent: 'context-agent' },
-  '.sql':    { skills: ['postgres-patterns'],                                               agent: 'context-agent' },
-  '.graphql':{ skills: ['graphql-patterns', 'api-design'],                                 agent: 'architect' },
-  '.gql':    { skills: ['graphql-patterns', 'api-design'],                                 agent: 'architect' },
-  '.yml':    { skills: ['ci-cd-patterns', 'docker-patterns'],                              agent: 'devops-engineer' },
-  '.yaml':   { skills: ['ci-cd-patterns'],                                                 agent: 'devops-engineer' },
-  '.tf':     { skills: ['terraform-basics', 'kubernetes-basics'],                          agent: 'devops-engineer' },
-  '.html':   { skills: ['html-semantic', 'accessibility-basics'],                          agent: 'seo-agent' },
-  '.md':     { skills: ['documentation-patterns'],                                         agent: 'docs-agent' },
-  '.json':   { skills: ['api-design'],                                                     agent: 'architect' },
-  '.pptx':   { skills: ['professional-pptx-design'],                                        agent: 'document-creator' },
-  '.pdf':    { skills: ['professional-report-design'],                                      agent: 'document-creator' },
+  '.tsx': { skills: ['react-expert', 'typescript-expert', 'component-design-patterns'], agent: 'frontend-ops' },
+  '.jsx': { skills: ['react-expert', 'component-design-patterns'], agent: 'frontend-ops' },
+  '.ts': { skills: ['typescript-expert'], agent: 'architect' },
+  '.js': { skills: ['nodejs-expert'], agent: 'architect' },
+  '.css': { skills: ['css-architecture', 'css-variables'], agent: 'style-architect' },
+  '.scss': { skills: ['css-architecture', 'tailwind-expert'], agent: 'style-architect' },
+  '.sass': { skills: ['css-architecture'], agent: 'style-architect' },
+  '.prisma': { skills: ['prisma-expert', 'postgres-patterns'], agent: 'context-agent' },
+  '.sql': { skills: ['postgres-patterns'], agent: 'context-agent' },
+  '.graphql': { skills: ['graphql-patterns', 'api-design'], agent: 'architect' },
+  '.gql': { skills: ['graphql-patterns', 'api-design'], agent: 'architect' },
+  '.yml': { skills: ['ci-cd-patterns', 'docker-patterns'], agent: 'devops-engineer' },
+  '.yaml': { skills: ['ci-cd-patterns'], agent: 'devops-engineer' },
+  '.tf': { skills: ['terraform-basics', 'kubernetes-basics'], agent: 'devops-engineer' },
+  '.html': { skills: ['html-semantic', 'accessibility-basics'], agent: 'seo-agent' },
+  '.md': { skills: ['documentation-patterns'], agent: 'docs-agent' },
+  '.json': { skills: ['api-design'], agent: 'architect' },
+  '.pptx': { skills: ['professional-pptx-design'], agent: 'document-creator' },
+  '.pdf': { skills: ['professional-report-design'], agent: 'document-creator' },
   // New skills
-  '.sol':    { skills: ['solidity-patterns', 'smart-contract-testing', 'defi-patterns'],   agent: 'blockchain-developer' },
-  '.py':     { skills: ['llm-integration', 'etl-patterns', 'mlops-patterns'],              agent: 'ai-engineer' },
-  '.swift':  { skills: ['swiftui-patterns', 'watchos-patterns', 'apple-design-guidelines'], agent: 'swift-developer' },
+  '.sol': { skills: ['solidity-patterns', 'smart-contract-testing', 'defi-patterns'], agent: 'blockchain-developer' },
+  '.py': { skills: ['llm-integration', 'etl-patterns', 'mlops-patterns'], agent: 'ai-engineer' },
+  '.swift': { skills: ['swiftui-patterns', 'watchos-patterns', 'apple-design-guidelines'], agent: 'swift-developer' },
+  '.dart': { skills: ['flutter-patterns', 'flutter-game-expert', 'mobile-patterns'], agent: 'mobile-ops' },
 };
 
 // ─── Directory → additional skills (merged on top of ext skills) ─────────────
 
 const DIR_MAP = {
-  'components/':   { skills: ['react-expert', 'component-design-patterns'],        agent: 'frontend-ops' },
-  'app/':          { skills: ['nextjs-expert', 'nextjs-routing'],                  agent: 'frontend-ops' },
-  'pages/':        { skills: ['nextjs-expert', 'nextjs-routing'],                  agent: 'frontend-ops' },
-  'hooks/':        { skills: ['react-expert', 'state-management'],                 agent: 'frontend-ops' },
-  'stores/':       { skills: ['state-management'],                                 agent: 'frontend-ops' },
-  'api/':          { skills: ['api-backend', 'security-review'],                   agent: 'architect' },
-  'server/':       { skills: ['api-backend', 'nodejs-expert'],                     agent: 'architect' },
-  'routes/':       { skills: ['api-backend', 'api-design'],                        agent: 'architect' },
-  'auth/':         { skills: ['authentication-patterns', 'security-review'],       agent: 'security-officer' },
-  'middleware/':   { skills: ['security-review', 'edge-computing'],                agent: 'security-officer' },
-  'styles/':       { skills: ['css-architecture', 'tailwind-expert'],              agent: 'style-architect' },
-  'prisma/':       { skills: ['prisma-expert', 'postgres-patterns'],               agent: 'context-agent' },
-  'migrations/':   { skills: ['postgres-patterns', 'prisma-expert'],               agent: 'migrator' },
-  '__tests__/':    { skills: ['testing-patterns', 'debugging-strategies'],         agent: 'qa-specialist' },
-  'e2e/':          { skills: ['testing-patterns'],                                 agent: 'qa-specialist' },
-  'emails/':       { skills: ['email-patterns'],                                   agent: 'frontend-ops' },
-  'workers/':      { skills: ['message-queues', 'event-driven-patterns'],          agent: 'infra-specialist' },
-  'queues/':       { skills: ['message-queues'],                                   agent: 'infra-specialist' },
-  'k8s/':          { skills: ['kubernetes-basics', 'docker-patterns'],             agent: 'devops-engineer' },
-  'docker/':       { skills: ['docker-patterns', 'ci-cd-patterns'],               agent: 'devops-engineer' },
-  'android/':      { skills: ['mobile-patterns'],                                  agent: 'mobile-ops' },
-  'ios/':          { skills: ['mobile-patterns'],                                  agent: 'mobile-ops' },
-  'contracts/':    { skills: ['web3-patterns'],                                    agent: 'architect' },
-  'lib/':          { skills: ['typescript-expert'],                                agent: 'architect' },
-  'utils/':        { skills: ['typescript-expert'],                                agent: 'architect' },
-  'domain/':       { skills: ['ddd-patterns', 'clean-architecture'],               agent: 'architect' },
-  'search/':       { skills: ['search-patterns'],                                  agent: 'infra-specialist' },
+  'components/': { skills: ['react-expert', 'component-design-patterns'], agent: 'frontend-ops' },
+  'app/': { skills: ['nextjs-expert', 'nextjs-routing'], agent: 'frontend-ops' },
+  'pages/': { skills: ['nextjs-expert', 'nextjs-routing'], agent: 'frontend-ops' },
+  'hooks/': { skills: ['react-expert', 'state-management'], agent: 'frontend-ops' },
+  'stores/': { skills: ['state-management'], agent: 'frontend-ops' },
+  'api/': { skills: ['api-backend', 'security-review'], agent: 'architect' },
+  'server/': { skills: ['api-backend', 'nodejs-expert'], agent: 'architect' },
+  'routes/': { skills: ['api-backend', 'api-design'], agent: 'architect' },
+  'auth/': { skills: ['authentication-patterns', 'security-review'], agent: 'security-officer' },
+  'middleware/': { skills: ['security-review', 'edge-computing'], agent: 'security-officer' },
+  'styles/': { skills: ['css-architecture', 'tailwind-expert'], agent: 'style-architect' },
+  'prisma/': { skills: ['prisma-expert', 'postgres-patterns'], agent: 'context-agent' },
+  'migrations/': { skills: ['postgres-patterns', 'prisma-expert'], agent: 'migrator' },
+  '__tests__/': { skills: ['testing-patterns', 'debugging-strategies'], agent: 'qa-specialist' },
+  'e2e/': { skills: ['testing-patterns'], agent: 'qa-specialist' },
+  'emails/': { skills: ['email-patterns'], agent: 'frontend-ops' },
+  'workers/': { skills: ['message-queues', 'event-driven-patterns'], agent: 'infra-specialist' },
+  'queues/': { skills: ['message-queues'], agent: 'infra-specialist' },
+  'k8s/': { skills: ['kubernetes-basics', 'docker-patterns'], agent: 'devops-engineer' },
+  'docker/': { skills: ['docker-patterns', 'ci-cd-patterns'], agent: 'devops-engineer' },
+  'android/': { skills: ['mobile-patterns'], agent: 'mobile-ops' },
+  'ios/': { skills: ['mobile-patterns', 'swiftui-patterns', 'apple-design-guidelines'], agent: 'mobile-ops' },
+  'contracts/': { skills: ['web3-patterns'], agent: 'architect' },
+  'lib/': { skills: ['typescript-expert'], agent: 'architect' },
+  'utils/': { skills: ['typescript-expert'], agent: 'architect' },
+  'domain/': { skills: ['ddd-patterns', 'clean-architecture'], agent: 'architect' },
+  'search/': { skills: ['search-patterns'], agent: 'infra-specialist' },
   // New directories
-  'ai/':           { skills: ['llm-integration', 'mlops-patterns'],                 agent: 'ai-engineer' },
-  'llm/':          { skills: ['llm-integration', 'prompt-engineering'],             agent: 'ai-engineer' },
-  'models/':       { skills: ['mlops-patterns', 'llm-integration'],                 agent: 'ai-engineer' },
-  'embeddings/':   { skills: ['vector-db-patterns'],                                agent: 'ai-engineer' },
-  'rag/':          { skills: ['vector-db-patterns', 'llm-integration'],             agent: 'ai-engineer' },
-  'prompts/':      { skills: ['prompt-engineering'],                                agent: 'ai-engineer' },
-  'aws/':          { skills: ['aws-patterns'],                                       agent: 'cloud-architect' },
-  'gcp/':          { skills: ['gcp-patterns'],                                       agent: 'cloud-architect' },
-  'azure/':        { skills: ['azure-patterns'],                                     agent: 'cloud-architect' },
-  'cloud/':        { skills: ['aws-patterns', 'gcp-patterns', 'azure-patterns'],     agent: 'cloud-architect' },
-  'smart-contracts/': { skills: ['solidity-patterns', 'defi-patterns'],             agent: 'blockchain-developer' },
-  'blockchain/':   { skills: ['solidity-patterns', 'smart-contract-testing'],        agent: 'blockchain-developer' },
+  'ai/': { skills: ['llm-integration', 'mlops-patterns'], agent: 'ai-engineer' },
+  'llm/': { skills: ['llm-integration', 'prompt-engineering'], agent: 'ai-engineer' },
+  'models/': { skills: ['mlops-patterns', 'llm-integration'], agent: 'ai-engineer' },
+  'embeddings/': { skills: ['vector-db-patterns'], agent: 'ai-engineer' },
+  'rag/': { skills: ['vector-db-patterns', 'llm-integration'], agent: 'ai-engineer' },
+  'prompts/': { skills: ['prompt-engineering'], agent: 'ai-engineer' },
+  'aws/': { skills: ['aws-patterns'], agent: 'cloud-architect' },
+  'gcp/': { skills: ['gcp-patterns'], agent: 'cloud-architect' },
+  'azure/': { skills: ['azure-patterns'], agent: 'cloud-architect' },
+  'cloud/': { skills: ['aws-patterns', 'gcp-patterns', 'azure-patterns'], agent: 'cloud-architect' },
+  'smart-contracts/': { skills: ['solidity-patterns', 'defi-patterns'], agent: 'blockchain-developer' },
+  'blockchain/': { skills: ['solidity-patterns', 'smart-contract-testing'], agent: 'blockchain-developer' },
 
   // NEW: REST & API
-  'rest/':         { skills: ['rest-api-patterns', 'api-backend'],                   agent: 'architect' },
-  'endpoints/':    { skills: ['rest-api-patterns', 'api-backend'],                   agent: 'architect' },
-  'hono/':         { skills: ['hono-patterns', 'nodejs-expert'],                      agent: 'architect' },
+  'rest/': { skills: ['rest-api-patterns', 'api-backend'], agent: 'architect' },
+  'endpoints/': { skills: ['rest-api-patterns', 'api-backend'], agent: 'architect' },
+  'hono/': { skills: ['hono-patterns', 'nodejs-expert'], agent: 'architect' },
 
   // NEW: SQL & Database
-  'queries/':      { skills: ['sql-optimization', 'postgres-patterns'],               agent: 'infra-specialist' },
+  'queries/': { skills: ['sql-optimization', 'postgres-patterns'], agent: 'infra-specialist' },
 
   // NEW: Astro
-  'layouts/':      { skills: ['astro-patterns', 'react-expert'],                    agent: 'frontend-ops' },
-  'content/':      { skills: ['astro-patterns', 'documentation-patterns'],          agent: 'frontend-ops' },
+  'layouts/': { skills: ['astro-patterns', 'react-expert'], agent: 'frontend-ops' },
+  'content/': { skills: ['astro-patterns', 'documentation-patterns'], agent: 'frontend-ops' },
 
   // NEW: Webhooks
-  'webhooks/':     { skills: ['webhook-handling', 'api-backend'],                    agent: 'architect' },
-  'events/':       { skills: ['webhook-handling', 'event-driven-patterns'],         agent: 'architect' },
+  'webhooks/': { skills: ['webhook-handling', 'api-backend'], agent: 'architect' },
+  'events/': { skills: ['webhook-handling', 'event-driven-patterns'], agent: 'architect' },
 
   // NEW: Serverless
-  'functions/':    { skills: ['serverless-patterns', 'nodejs-expert'],               agent: 'devops-engineer' },
-  'lambda/':       { skills: ['serverless-patterns', 'aws-patterns'],                agent: 'devops-engineer' },
-  'handlers/':     { skills: ['serverless-patterns', 'nodejs-expert'],               agent: 'devops-engineer' },
+  'functions/': { skills: ['serverless-patterns', 'nodejs-expert'], agent: 'devops-engineer' },
+  'lambda/': { skills: ['serverless-patterns', 'aws-patterns'], agent: 'devops-engineer' },
+  'handlers/': { skills: ['serverless-patterns', 'nodejs-expert'], agent: 'devops-engineer' },
 
   // NEW: Flutter
-  'flutter/':      { skills: ['flutter-patterns', 'mobile-patterns'],               agent: 'mobile-ops' },
+  'flutter/': { skills: ['flutter-patterns', 'mobile-patterns'], agent: 'mobile-ops' },
+  'flame/': { skills: ['flutter-game-expert', 'flutter-patterns'], agent: 'mobile-ops' },
+  'game/': { skills: ['flutter-game-expert', 'flutter-patterns'], agent: 'mobile-ops' },
 
   // NEW: gRPC
-  'protos/':       { skills: ['grpc-patterns', 'api-design'],                       agent: 'architect' },
-  'grpc/':         { skills: ['grpc-patterns', 'api-backend'],                       agent: 'architect' },
+  'protos/': { skills: ['grpc-patterns', 'api-design'], agent: 'architect' },
+  'grpc/': { skills: ['grpc-patterns', 'api-backend'], agent: 'architect' },
 
   // NEW: Observability
-  'monitoring/':   { skills: ['observability-patterns', 'monitoring-patterns'],      agent: 'devops-engineer' },
-  'telemetry/':    { skills: ['observability-patterns', 'monitoring-patterns'],      agent: 'devops-engineer' },
+  'monitoring/': { skills: ['observability-patterns', 'monitoring-patterns'], agent: 'devops-engineer' },
+  'telemetry/': { skills: ['observability-patterns', 'monitoring-patterns'], agent: 'devops-engineer' },
 
   // NEW: Incident Response
-  'runbooks/':     { skills: ['incident-response', 'debugging-strategies'],         agent: 'devops-engineer' },
-  'incidents/':    { skills: ['incident-response', 'monitoring-patterns'],          agent: 'devops-engineer' },
-  'defi/':         { skills: ['defi-patterns'],                                      agent: 'blockchain-developer' },
-  'etl/':          { skills: ['etl-patterns', 'data-pipeline-patterns'],            agent: 'data-engineer' },
-  'pipeline/':     { skills: ['etl-patterns', 'data-pipeline-patterns'],            agent: 'data-engineer' },
-  'streaming/':    { skills: ['streaming-patterns'],                                agent: 'data-engineer' },
-  'kafka/':        { skills: ['streaming-patterns'],                                agent: 'data-engineer' },
-  'data/':         { skills: ['etl-patterns', 'streaming-patterns'],                 agent: 'data-engineer' },
-  'bonds/':        { skills: ['bond-analyzer'],                                      agent: 'researcher' },
-  'finance/':      { skills: ['bond-analyzer'],                                      agent: 'researcher' },
-  'analysis/':     { skills: ['bond-analyzer'],                                      agent: 'researcher' },
-  'network/':      { skills: ['network-security', 'cryptography-patterns'],        agent: 'security-expert' },
-  'security/':     { skills: ['network-security', 'compliance-gdpr', 'cryptography-patterns'], agent: 'security-expert' },
-  'crypto/':       { skills: ['cryptography-patterns'],                            agent: 'security-expert' },
-  'encryption/':   { skills: ['cryptography-patterns'],                            agent: 'security-expert' },
-  'compliance/':   { skills: ['compliance-gdpr'],                                   agent: 'security-expert' },
-  'platform/':     { skills: ['internal-platforms', 'developer-experience'],       agent: 'platform-engineer' },
-  'internal/':     { skills: ['internal-platforms', 'developer-experience'],       agent: 'platform-engineer' },
-  'dx/':           { skills: ['developer-experience'],                            agent: 'platform-engineer' },
-  'chaos/':        { skills: ['chaos-engineering'],                                agent: 'platform-engineer' },
-  'resilience/':   { skills: ['chaos-engineering'],                                agent: 'platform-engineer' },
-  // Swift/Apple platforms
-  'ios/':          { skills: ['swiftui-patterns', 'apple-design-guidelines'],          agent: 'swift-developer' },
-  'macos/':        { skills: ['swiftui-patterns', 'apple-design-guidelines'],          agent: 'swift-developer' },
-  'swift/':        { skills: ['swiftui-patterns', 'watchos-patterns'],                agent: 'swift-developer' },
-  'apple/':        { skills: ['swiftui-patterns', 'apple-design-guidelines'],          agent: 'swift-developer' },
-  'watchos/':      { skills: ['watchos-patterns', 'apple-design-guidelines'],         agent: 'swift-developer' },
-  'watch/':        { skills: ['watchos-patterns'],                                      agent: 'swift-developer' },
-  'applewatch/':   { skills: ['watchos-patterns'],                                      agent: 'swift-developer' },
+  'runbooks/': { skills: ['incident-response', 'debugging-strategies'], agent: 'devops-engineer' },
+  'incidents/': { skills: ['incident-response', 'monitoring-patterns'], agent: 'devops-engineer' },
+  'defi/': { skills: ['defi-patterns'], agent: 'blockchain-developer' },
+  'etl/': { skills: ['etl-patterns', 'data-pipeline-patterns'], agent: 'data-engineer' },
+  'pipeline/': { skills: ['etl-patterns', 'data-pipeline-patterns'], agent: 'data-engineer' },
+  'streaming/': { skills: ['streaming-patterns'], agent: 'data-engineer' },
+  'kafka/': { skills: ['streaming-patterns'], agent: 'data-engineer' },
+  'data/': { skills: ['etl-patterns', 'streaming-patterns'], agent: 'data-engineer' },
+  'bonds/': { skills: ['bond-analyzer'], agent: 'researcher' },
+  'finance/': { skills: ['bond-analyzer'], agent: 'researcher' },
+  'analysis/': { skills: ['bond-analyzer'], agent: 'researcher' },
+  'network/': { skills: ['network-security', 'cryptography-patterns'], agent: 'security-expert' },
+  'security/': { skills: ['network-security', 'compliance-gdpr', 'cryptography-patterns'], agent: 'security-expert' },
+  'crypto/': { skills: ['cryptography-patterns'], agent: 'security-expert' },
+  'encryption/': { skills: ['cryptography-patterns'], agent: 'security-expert' },
+  'compliance/': { skills: ['compliance-gdpr'], agent: 'security-expert' },
+  'platform/': { skills: ['internal-platforms', 'developer-experience'], agent: 'platform-engineer' },
+  'internal/': { skills: ['internal-platforms', 'developer-experience'], agent: 'platform-engineer' },
+  'dx/': { skills: ['developer-experience'], agent: 'platform-engineer' },
+  'chaos/': { skills: ['chaos-engineering'], agent: 'platform-engineer' },
+  'resilience/': { skills: ['chaos-engineering'], agent: 'platform-engineer' },
+  // Swift/Apple platforms (ios/ is already defined above for React Native — macos/ onward are Swift-only)
+  'macos/': { skills: ['swiftui-patterns', 'apple-design-guidelines'], agent: 'swift-developer' },
+  'swift/': { skills: ['swiftui-patterns', 'watchos-patterns'], agent: 'swift-developer' },
+  'apple/': { skills: ['swiftui-patterns', 'apple-design-guidelines'], agent: 'swift-developer' },
+  'watchos/': { skills: ['watchos-patterns', 'apple-design-guidelines'], agent: 'swift-developer' },
+  'watch/': { skills: ['watchos-patterns'], agent: 'swift-developer' },
+  'applewatch/': { skills: ['watchos-patterns'], agent: 'swift-developer' },
   // Web (MUST use Next.js 16)
-  'web/':          { skills: ['nextjs-expert', 'typescript-expert', 'react-expert'],  agent: 'frontend-ops' },
-  'frontend/':     { skills: ['nextjs-expert', 'react-expert', 'typescript-expert'],   agent: 'frontend-ops' },
-  'client/':       { skills: ['nextjs-expert', 'react-expert'],                        agent: 'frontend-ops' },
+  'web/': { skills: ['nextjs-expert', 'typescript-expert', 'react-expert'], agent: 'frontend-ops' },
+  'frontend/': { skills: ['nextjs-expert', 'react-expert', 'typescript-expert'], agent: 'frontend-ops' },
+  'client/': { skills: ['nextjs-expert', 'react-expert'], agent: 'frontend-ops' },
+  // NEW: Supabase
+  'supabase/': { skills: ['supabase-patterns', 'postgres-patterns'], agent: 'infra-specialist' },
+  'lib/supabase/': { skills: ['supabase-patterns'], agent: 'infra-specialist' },
+
+  // NEW: tRPC
+  'server/trpc/': { skills: ['trpc-patterns', 'api-design', 'typescript-expert'], agent: 'architect' },
+  'trpc/': { skills: ['trpc-patterns', 'api-design'], agent: 'architect' },
+
+  // NEW: Drizzle
+  'drizzle/': { skills: ['drizzle-orm', 'postgres-patterns'], agent: 'infra-specialist' },
+  'db/schema/': { skills: ['drizzle-orm', 'postgres-patterns'], agent: 'infra-specialist' },
+
+  // NEW: Payments
+  'payments/': { skills: ['stripe-integration'], agent: 'architect' },
+  'billing/': { skills: ['stripe-integration'], agent: 'architect' },
+
+  // NEW: Analytics
+  'analytics/': { skills: ['a-b-testing', 'monitoring-patterns'], agent: 'devops-engineer' },
+  'experiments/': { skills: ['a-b-testing', 'feature-flags'], agent: 'platform-engineer' },
+
   // Documents & Reports
-  'reports/':       { skills: ['professional-report-design', 'documentation-patterns'], agent: 'document-creator' },
-  'documents/':     { skills: ['professional-report-design', 'documentation-patterns'], agent: 'document-creator' },
+  'reports/': { skills: ['professional-report-design', 'documentation-patterns'], agent: 'document-creator' },
+  'documents/': { skills: ['professional-report-design', 'documentation-patterns'], agent: 'document-creator' },
   'presentation/': { skills: ['professional-pptx-design', 'professional-report-design'], agent: 'document-creator' },
-  'pdf/':           { skills: ['professional-report-design'],                          agent: 'document-creator' },
+  'pdf/': { skills: ['professional-report-design'], agent: 'document-creator' },
 };
 
 // ─── Smart content extractor ──────────────────────────────────────────────────
@@ -207,21 +229,21 @@ function truncateAtNewline(text, maxChars) {
 // ─── Skill detection ──────────────────────────────────────────────────────────
 
 function detectSkills(filePath) {
-  const ext        = path.extname(filePath).toLowerCase();
+  const ext = path.extname(filePath).toLowerCase();
   const normalized = filePath.replace(/\\/g, '/');
 
   let skills = [];
-  let agent  = 'orchestrator';
+  let agent = 'orchestrator';
 
   if (SKILL_MAP[ext]) {
     skills = [...SKILL_MAP[ext].skills];
-    agent  = SKILL_MAP[ext].agent;
+    agent = SKILL_MAP[ext].agent;
   }
 
   for (const [dir, rule] of Object.entries(DIR_MAP)) {
     if (normalized.includes(dir)) {
       skills = [...new Set([...skills, ...rule.skills])];
-      agent  = rule.agent; // more specific dir overrides ext agent
+      agent = rule.agent; // more specific dir overrides ext agent
     }
   }
 
@@ -280,10 +302,10 @@ function markInjected(filePath) {
 
 function main() {
   let input = '';
-  try { input = fs.readFileSync('/dev/stdin', 'utf-8'); } catch {}
+  try { input = fs.readFileSync('/dev/stdin', 'utf-8'); } catch { }
 
   let toolInput = {};
-  try { toolInput = JSON.parse(input); } catch {}
+  try { toolInput = JSON.parse(input); } catch { }
 
   const filePath = toolInput?.path || toolInput?.file_path || '';
 

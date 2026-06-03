@@ -1,0 +1,205 @@
+---
+name: bun-patterns
+description: "Bun runtime: HTTP server, file I/O, SQLite, test runner, package manager, bundler — all-in-one JS toolchain."
+triggers:
+  extensions: [".ts", ".tsx"]
+  filenames: ["bun.lockb", "bunfig.toml"]
+  keywords: ["bun", "Bun.serve", "Bun.file", "bun:sqlite", "bun test", "bun build"]
+auto_load_when: "Using Bun as runtime, package manager, or test runner"
+agent: architect
+tools: ["Read", "Write", "Bash"]
+---
+
+# Bun Patterns
+
+**Version:** Bun v1.2+ | **Focus:** HTTP server, SQLite, test runner, bundler, APIs
+
+---
+
+## 1. HTTP Server
+
+```ts
+// server.ts
+const server = Bun.serve({
+  port: 3000,
+  fetch(req) {
+    const url = new URL(req.url);
+
+    if (url.pathname === '/') return new Response('Hello Bun!');
+    if (url.pathname === '/health') return Response.json({ ok: true });
+
+    return new Response('Not found', { status: 404 });
+  },
+  error(err) {
+    return new Response(`Error: ${err.message}`, { status: 500 });
+  },
+});
+
+console.log(`Listening on http://localhost:${server.port}`);
+```
+
+---
+
+## 2. File I/O (Faster Than Node.js)
+
+```ts
+// Read file
+const file = Bun.file('./data.json');
+const data = await file.json<MyType>();
+const text = await file.text();
+const buffer = await file.arrayBuffer();
+
+// Write file
+await Bun.write('./output.txt', 'Hello World');
+await Bun.write('./output.json', JSON.stringify(data));
+
+// Stream large file
+const input = Bun.file('./large.csv');
+const output = Bun.file('./output.csv');
+await Bun.write(output, input); // efficient piping
+
+// Check exists
+const exists = await Bun.file('./data.json').exists();
+```
+
+---
+
+## 3. SQLite (Built-in, No Dependencies)
+
+```ts
+import { Database } from 'bun:sqlite';
+
+const db = new Database('./mydb.sqlite');
+
+// Create table
+db.run(`CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT UNIQUE NOT NULL,
+  name TEXT
+)`);
+
+// Prepared statements (fast, safe from injection)
+const insert = db.prepare('INSERT INTO users (email, name) VALUES ($email, $name)');
+insert.run({ $email: 'user@example.com', $name: 'Alice' });
+
+// Query
+const getUser = db.prepare('SELECT * FROM users WHERE email = $email');
+const user = getUser.get({ $email: 'user@example.com' });
+
+// Transaction
+const insertMany = db.transaction((users) => {
+  for (const user of users) insert.run(user);
+});
+insertMany([{ $email: 'a@b.com', $name: 'A' }, { $email: 'c@d.com', $name: 'C' }]);
+```
+
+---
+
+## 4. Test Runner
+
+```ts
+// mytest.test.ts
+import { describe, test, expect, beforeAll, mock } from 'bun:test';
+
+describe('User service', () => {
+  beforeAll(() => { /* setup */ });
+
+  test('creates a user', () => {
+    const user = createUser('test@example.com');
+    expect(user.email).toBe('test@example.com');
+  });
+
+  test('throws on duplicate email', () => {
+    expect(() => createUser('duplicate@example.com')).toThrow();
+  });
+
+  test('mocks fetch', async () => {
+    const mockFetch = mock(() => Promise.resolve(new Response('{"ok":true}')));
+    globalThis.fetch = mockFetch;
+    const result = await fetchUser('123');
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+});
+```
+
+```bash
+bun test                    # run all tests
+bun test --watch            # watch mode
+bun test --coverage         # with coverage
+bun test src/user.test.ts   # specific file
+```
+
+---
+
+## 5. Bundler
+
+```ts
+// bundle.ts
+const result = await Bun.build({
+  entrypoints: ['./src/index.ts'],
+  outdir: './dist',
+  target: 'browser',        // 'node' | 'bun' | 'browser'
+  format: 'esm',
+  minify: true,
+  splitting: true,           // code splitting
+  sourcemap: 'external',
+});
+
+if (!result.success) {
+  console.error(result.logs);
+}
+```
+
+---
+
+## 6. Environment & Package Manager
+
+```bash
+# Install dependencies (much faster than npm/pnpm)
+bun install
+bun add express
+bun add -d @types/express
+
+# Run scripts
+bun run dev
+bun run build
+
+# Execute TypeScript directly (no tsc needed)
+bun run src/server.ts
+
+# Workspace support
+bun install --filter './apps/*'
+```
+
+---
+
+## Quick Reference
+
+| Feature | Bun API |
+|---------|---------|
+| HTTP server | `Bun.serve({ fetch(req) {} })` |
+| Read file | `await Bun.file(path).text()` |
+| Write file | `await Bun.write(path, data)` |
+| SQLite | `import { Database } from 'bun:sqlite'` |
+| Test | `import { test, expect } from 'bun:test'` |
+| Hash | `Bun.password.hash(pwd)` / `verify()` |
+| Env vars | `Bun.env.MY_VAR` (auto-loads .env) |
+
+## Anti-Patterns
+
+```
+❌ Using Node.js fs module in Bun
+✅ Use Bun.file() / Bun.write() — much faster
+
+❌ Installing sqlite3 npm package
+✅ Use built-in bun:sqlite — no native compilation needed
+
+❌ ts-node or tsx for TypeScript
+✅ Bun natively runs TypeScript — just bun run file.ts
+
+❌ Separate jest/vitest setup
+✅ bun test is built-in — no config needed for basic use
+```
+
+## 🌍 Universal Language Support
+- **Turkish Native:** This skill natively supports Turkish. If the user prompt is in Turkish, all analysis, formatting, and output MUST be entirely in Turkish.

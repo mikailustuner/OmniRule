@@ -9,8 +9,8 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-green.svg)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg)](https://typescriptlang.org)
-[![Agents](https://img.shields.io/badge/agents-23-purple.svg)](#-agent-fleet)
-[![Skills](https://img.shields.io/badge/skills-190+-orange.svg)](#-skill-library)
+[![Agents](https://img.shields.io/badge/agents-25-purple.svg)](#-agent-fleet)
+[![Skills](https://img.shields.io/badge/skills-222+-orange.svg)](#-skill-library)
 
 *Turn any AI coding assistant into a full engineering team.*
 

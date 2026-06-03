@@ -199,7 +199,7 @@ export class DesignVault {
             if (memo.status !== 'completed') {
               sections.push(`- **${memo.target}**: ${memo.task} [${memo.status}]`);
             }
-          } catch {}
+          } catch { }
         });
         sections.push('');
       }
@@ -289,7 +289,7 @@ export function onPermissionAsk(payload: PermissionPayload): HookResult {
 
 export const OmniRulePlugin = {
   name: 'omnirule-core',
-  version: '1.11.0',
+  version: '1.15.0',
   vault,
   hooks: {
     'file.edited': onFileEdited,

@@ -102,6 +102,8 @@ function main() {
 
   // Output JSON for OpenCode/Claude to parse as hook result
   const result = {
+    continue: true,
+    suppressOutput: true,
     status: 'ready',
     skills,
     designSystems,

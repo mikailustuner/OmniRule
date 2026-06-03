@@ -69,13 +69,23 @@ function main() {
     return;
   }
 
+  const tsFailed = failed.filter(r => r.label === 'TypeScript');
+  const lintFailed = failed.filter(r => r.label === 'ESLint');
+
+  const errorDetails = failed
+    .map(r => `\n[${r.label}]\n${r.output}`)
+    .join('\n');
+
   const output = {
-    status: failed.length === 0 ? 'passed' : 'warnings',
+    status: tsFailed.length > 0 ? 'failed' : lintFailed.length > 0 ? 'warnings' : 'passed',
     passed: passed.map(r => r.label),
-    warnings: failed.map(r => ({ check: r.label, output: r.output })),
+    errors: tsFailed.map(r => ({ check: r.label, output: r.output })),
+    warnings: lintFailed.map(r => ({ check: r.label, output: r.output })),
     message: failed.length === 0
       ? `Quality gate passed (${passed.map(r => r.label).join(', ')})`
-      : `Quality warnings: ${failed.map(r => r.label).join(', ')} — review before committing`,
+      : tsFailed.length > 0
+        ? `QUALITY GATE FAILED — TypeScript errors must be fixed before committing:${errorDetails}`
+        : `Quality warnings (ESLint): review before committing:${errorDetails}`,
   };
 
   process.stdout.write(JSON.stringify(output));
