@@ -1,7 +1,7 @@
 {
   "$schema": "https://omnirule.dev/registry.schema.json",
   "name": "omnirule",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "Universal AI agent toolkit — agents, skills, tools, commands, hooks",
   "entrypoint": "agents/ORCHESTRATOR_AGENT.md",
   "agents": [
@@ -16,6 +16,12 @@
       "file": "agents/PLANNER_AGENT.md",
       "role": "subagent",
       "description": "Task decomposition and DAG planning specialist."
+    },
+    {
+      "slug": "deep-thinker",
+      "file": "agents/THINKER_AGENT.md",
+      "role": "subagent",
+      "description": "Deep reasoning and decision analysis: first-principles decomposition, trade-off matrices, pre-mortems, confidence-calibrated verdicts. Use before high-stakes or irreversible decisions."
     },
     {
       "slug": "architect",
@@ -69,7 +75,7 @@
       "slug": "researcher",
       "file": "agents/RESEARCHER.md",
       "role": "subagent",
-      "description": "Deep research, documentation, investigation."
+      "description": "Deep research with evidence grading, triangulation, and confidence-scored findings. Documentation, investigation, and business ops intelligence."
     },
     {
       "slug": "docs-agent",

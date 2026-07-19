@@ -28,6 +28,7 @@
       },
       "capabilities": {
         "subAgents": [
+          "deep-thinker",
           "architect",
           "style-architect",
           "frontend-ops",
@@ -51,6 +52,19 @@
           "swift-developer"
         ],
         "maxParallel": 4
+      }
+    },
+    "deep-thinker": {
+      "description": "Deep reasoning and decision analysis. First-principles decomposition, trade-off matrices, pre-mortems, confidence-calibrated verdicts. Use before high-stakes or irreversible decisions.",
+      "mode": "subagent",
+      "prompt": "{file:agents/THINKER_AGENT.md}\n\n---\n## Loaded Skills\n{file:skills/clean-architecture/SKILL.md}\n{file:skills/ddd-patterns/SKILL.md}",
+      "tools": {
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "write": true,
+        "bash": false,
+        "delete": false
       }
     },
     "architect": {
@@ -411,7 +425,7 @@
     "check": {
       "description": "Run all checks: deps + security + quality. Use before PR or major task completion.",
       "template": "npm run omnirule:check 2>&1"
-    },
+    }
   },
   "permission": {
     "write_to_file": "ask",
